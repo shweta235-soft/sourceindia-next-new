@@ -14,3 +14,14 @@ Contains the previous foundation plus converted authentication/site-settings pro
 - Sourcing Interest modal trigger exists but modal content is not yet migrated.
 - Live API availability and build/runtime checks have not been verified in this environment.
 - No database or original React files were modified.
+
+
+## Homepage increment (Step 3)
+The home page now has live API-backed banner, product search suggestions, latest products,
+categories, featured companies, and settings-driven popup. The original React
+`CommonSection` and the full `CategoryMain` subcategory/product cards have NOT
+yet been converted. This is a functional first pass, not a pixel-perfect copy.
+Requires NEXT_PUBLIC_API_BASE_URL and NEXT_PUBLIC_ASSET_BASE_URL in .env.local.
+API availability, CORS and build have not been verified here.
+To install: back up existing folder; extract into project preserving .env.local,
+then npm install and npm run dev.
