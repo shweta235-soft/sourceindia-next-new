@@ -1,0 +1,1 @@
+export function assetUrl(file?:string|null,fallback="/default.png"){if(!file)return fallback;if(/^https?:\/\//i.test(file))return file;const base=process.env.NEXT_PUBLIC_ASSET_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/v[0-9]+\/api\/?$|\/api\/?$/,"/") || "";return base?`${base.replace(/\/$/,"")}/${file.replace(/^\//,"")}`:fallback}
