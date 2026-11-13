@@ -1,0 +1,1 @@
+Step 5 patch: Copy only src/ files into existing project. Preserve .env.local, .git, package.json. Hero now follows original React Banner.jsx: background from first API banner, sliding left card, static right search card, popular searches. No fake stock background. Live build not verified. Product images still depend on valid remote file paths. Run npm run dev and inspect.
