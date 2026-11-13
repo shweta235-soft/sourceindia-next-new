@@ -1,1 +1,0 @@
-"use client";import type {ReactNode} from "react";import {Suspense} from "react";import FrontHeader from "./FrontHeader";import FrontFooter from "./FrontFooter";export default function PublicShell({children}:{children:ReactNode}){return <><Suspense fallback={null}><FrontHeader/></Suspense><main>{children}</main><FrontFooter/></>}

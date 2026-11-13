@@ -1,6 +1,0 @@
-@import "../legacy-assets/css/style.css";
-@import "../legacy-assets/css/home.css";
-/* Foundation only. React's original styles are preserved in src/legacy-assets/css/.
-   They require component-by-component compatibility review before global import. */
-:root { color-scheme: light; }
-body { margin: 0; font-family: Arial, Helvetica, sans-serif; }
