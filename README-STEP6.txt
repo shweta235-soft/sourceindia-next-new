@@ -1,0 +1,1 @@
+Step 6 targeted patch: restored missing HomeCategoryShowcase hierarchy and right promotional banners using original React endpoints. Updated homepage image URL to use existing src/lib/asset.ts helper. Copy src folder only. Keep .env.local unchanged. Does not claim full pixel parity; verify npm run dev, image URLs, and actual API responses.
