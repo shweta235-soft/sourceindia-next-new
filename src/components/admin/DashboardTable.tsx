@@ -7,18 +7,19 @@ import styles from "./dashboard-sections.module.css";
 export type DashboardColumn = {
   key: string;
   sortable?: boolean;
-  label: string;
+  label: ReactNode;
   render: (row: LeadRecord) => ReactNode;
 };
 
 export default function DashboardTable({
-  id, title, columns, load, headerAction, hideHeading,
+  id, title, columns, load, headerAction, hideHeading, leadingColumn,
 }: {
   id?: string;
   headerAction?: ReactNode;
   hideHeading?: boolean;
   title: string;
   columns: DashboardColumn[];
+  leadingColumn?: DashboardColumn;
   load: (query: URLSearchParams, signal: AbortSignal) => Promise<LeadListResult>;
 }) {
   const heading = useId();
@@ -62,7 +63,7 @@ export default function DashboardTable({
   const firstPage = Math.max(1, Math.min(page - 2, pages - 4));
   const pageNumbers = Array.from({ length: Math.min(5, pages) }, (_, index) => firstPage + index);
   const serialStart = (page - 1) * limit;
-  const tableColumns = [{ key: "id", label: "S.No.", sortable: true }, ...columns];
+  const tableColumns = [...(leadingColumn ? [leadingColumn] : []), { key: "id", label: "S.No.", sortable: true }, ...columns];
 
   return (
     <section className={styles.tableSection} id={id} aria-labelledby={heading} tabIndex={id ? -1 : undefined}>
@@ -105,6 +106,7 @@ export default function DashboardTable({
               ))}</tr></thead>
               <tbody>{rows.length ? rows.map((row, index) => (
                 <tr key={String(row.id ?? index)}>
+                  {leadingColumn && <td>{leadingColumn.render(row)}</td>}
                   <td>{serialStart + index + 1}</td>
                   {columns.map(({ key, render }) => <td key={key}>{render(row)}</td>)}
                 </tr>

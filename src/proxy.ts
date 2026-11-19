@@ -3,7 +3,7 @@ import { adminDashboardPath, adminSessionCookie, readAdminSession, safeAdminDest
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
-  if (pathname === "/admin/enquiry-data" || pathname === "/admin/member-data") return NextResponse.next();
+  if (pathname === "/admin/enquiry-data" || pathname === "/admin/member-data" || pathname === "/admin/support-data") return NextResponse.next();
   const session = readAdminSession(request.cookies.get(adminSessionCookie)?.value);
   const destination = request.nextUrl.clone();
   destination.search = "";

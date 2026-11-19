@@ -10,7 +10,9 @@ import styles from "./catalog-master.module.css";
 type Dates = { startDate: string; endDate: string };
 const emptyDates: Dates = { startDate: "", endDate: "" };
 
-export default function CatalogDateFilter({ dates, apply }: { dates: Dates; apply: (dates: Dates) => void }) {
+export default function CatalogDateFilter({ dates, apply, onDraftChange }: {
+  dates: Dates; apply?: (dates: Dates) => void; onDraftChange?: (dates: Dates) => void;
+}) {
   const id = useId();
   const [draft, setDraft] = useState(dates);
   const [open, setOpen] = useState(false);
@@ -18,7 +20,7 @@ export default function CatalogDateFilter({ dates, apply }: { dates: Dates; appl
   const startDate = draft.startDate ? parseISO(draft.startDate) : today;
   const endDate = draft.endDate ? parseISO(draft.endDate) : today;
 
-  return <div className="d-flex align-items-center flex-wrap gap-2">
+  return <div className={apply ? "d-flex align-items-center flex-wrap gap-2" : undefined}>
     <label className="form-label mb-0" htmlFor={id}>Date Filter:</label>
     <div className="position-relative">
       <button className="form-control text-start" id={id} type="button" aria-expanded={open} onClick={() => setOpen(!open)}>
@@ -34,11 +36,16 @@ export default function CatalogDateFilter({ dates, apply }: { dates: Dates; appl
         <DateRangePicker ranges={[{ key: "selection", startDate, endDate }]} showSelectionPreview moveRangeOnFirstSelection={false} editableDateInputs
           onChange={({ selection }) => {
             if (!selection?.startDate || !selection.endDate) return;
-            setDraft({ startDate: format(selection.startDate, "yyyy-MM-dd"), endDate: format(selection.endDate, "yyyy-MM-dd") });
+            const selected = { startDate: format(selection.startDate, "yyyy-MM-dd"), endDate: format(selection.endDate, "yyyy-MM-dd") };
+            setDraft(selected);
+            onDraftChange?.(selected);
           }} />
+        {!apply && <div className="text-end mt-2">
+          <button type="button" className="btn btn-sm btn-secondary" onClick={() => setOpen(false)}>Close</button>
+        </div>}
       </div>}
     </div>
-    <button className="btn btn-primary" type="button" onClick={() => {
+    {apply && <><button className="btn btn-primary" type="button" onClick={() => {
       setOpen(false);
       apply({ startDate: format(startDate, "yyyy-MM-dd"), endDate: format(endDate, "yyyy-MM-dd") });
     }}>Apply</button>
@@ -46,6 +53,6 @@ export default function CatalogDateFilter({ dates, apply }: { dates: Dates; appl
       setOpen(false);
       setDraft(emptyDates);
       apply(emptyDates);
-    }}>Clear</button>
+    }}>Clear</button></>}
   </div>;
 }

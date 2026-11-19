@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import styles from "./admin-legal-page.module.css";
 
-export default function LegalDescriptionEditor({ description }: { description: string }) {
+export default function LegalDescriptionEditor({ description, label = "Description" }: { description: string; label?: string }) {
+  const labelId = useId();
   const host = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "failed">("loading");
   const [attempt, setAttempt] = useState(0);
@@ -19,7 +20,7 @@ export default function LegalDescriptionEditor({ description }: { description: s
 
     void import("@ckeditor/ckeditor5-build-classic").then(async ({ default: ClassicEditor }) => {
       if (cancelled) return;
-      const editor = await ClassicEditor.create(source, { initialData: description, label: "Description" });
+      const editor = await ClassicEditor.create(source, { initialData: description, label });
       dispose = () => { void editor.destroy().catch(() => {}).finally(() => container.remove()); };
       if (cancelled) dispose();
       else setStatus("ready");
@@ -33,15 +34,15 @@ export default function LegalDescriptionEditor({ description }: { description: s
       if (dispose) dispose();
       else container.remove();
     };
-  }, [attempt, description]);
+  }, [attempt, description, label]);
 
   return <>
-    <div className="form-label" id="legal-description-label">Description</div>
-    <div className={styles.editor} role="group" aria-labelledby="legal-description-label" aria-busy={status === "loading"}>
+    <div className="form-label" id={labelId}>{label}</div>
+    <div className={styles.editor} role="group" aria-labelledby={labelId} aria-busy={status === "loading"}>
       <div ref={host} />
       {status === "loading" && <p role="status" className="small mt-2 mb-0">Loading editor...</p>}
       {status === "failed" && <p role="alert" className="mb-0">
-        Description editor could not be loaded. <button type="button" className="btn btn-sm btn-link" onClick={() => {
+        {label} editor could not be loaded. <button type="button" className="btn btn-sm btn-link" onClick={() => {
           setStatus("loading");
           setAttempt((previous) => previous + 1);
         }}>Retry</button>
