@@ -12,7 +12,7 @@ export type DashboardColumn = {
 };
 
 export default function DashboardTable({
-  id, title, columns, load, headerAction, hideHeading, leadingColumn,
+  id, title, columns, load, headerAction, hideHeading, leadingColumn, renderSerial,
 }: {
   id?: string;
   headerAction?: ReactNode;
@@ -20,6 +20,7 @@ export default function DashboardTable({
   title: string;
   columns: DashboardColumn[];
   leadingColumn?: DashboardColumn;
+  renderSerial?: (row: LeadRecord, serial: number) => ReactNode;
   load: (query: URLSearchParams, signal: AbortSignal) => Promise<LeadListResult>;
 }) {
   const heading = useId();
@@ -107,7 +108,7 @@ export default function DashboardTable({
               <tbody>{rows.length ? rows.map((row, index) => (
                 <tr key={String(row.id ?? index)}>
                   {leadingColumn && <td>{leadingColumn.render(row)}</td>}
-                  <td>{serialStart + index + 1}</td>
+                  <td>{renderSerial ? renderSerial(row, serialStart + index + 1) : serialStart + index + 1}</td>
                   {columns.map(({ key, render }) => <td key={key}>{render(row)}</td>)}
                 </tr>
               )) : <tr><td className="text-center" colSpan={tableColumns.length}>
