@@ -5,6 +5,8 @@ import { registrationCategories } from "@/lib/adminSubmissions";
 
 const contactFields = ["id", "full_name", "fname", "lname", "email", "subject", "created_at", "updated_at"];
 const registrationFields = ["id", "category", "name", "email", "mobile", "state_name", "city_name", "designation", "organization", "created_at", "updated_at"];
+const emailFields = ["id", "title", "email_for", "subject", "status", "getStatus", "created_at", "updated_at"];
+const emailDetailFields = [...emailFields, "description", "message", "is_seller_direct"];
 const membershipFields = ["id", "name", "sub_title", "user", "category", "product", "price", "status", "getStatus", "created_at", "updated_at"];
 const membershipDetailFields = ["expire_days", "is_default", "free", "elcina_plan"];
 const locationID = /^\d{1,12}$/;
@@ -48,13 +50,14 @@ export async function GET(request: NextRequest) {
         return { id: leadText(row.id), name: leadText(row.name) };
       }).filter(({ id, name }) => locationID.test(id) && name));
     }
-    if (kind !== "contacts" && kind !== "registrations" && kind !== "membership_plan") {
+    if (kind !== "contacts" && kind !== "registrations" && kind !== "membership_plan" && kind !== "emails") {
       return json({ message: "Unknown records list." }, 400);
     }
 
     const contacts = kind === "contacts";
     const membership = kind === "membership_plan";
-    const fields = contacts ? contactFields : membership ? membershipFields : registrationFields;
+    const emails = kind === "emails";
+    const fields = contacts ? contactFields : membership ? membershipFields : emails ? emailFields : registrationFields;
     const toRow = (value: unknown, keys = fields) => {
       const row = record(value);
       return Object.fromEntries(keys.map((field) => [field, leadText(row[field])]));
@@ -62,6 +65,14 @@ export async function GET(request: NextRequest) {
 
     if (action === "detail") {
       const id = params.get("id") ?? "";
+      if (emails) {
+        if (!locationID.test(id)) return json({ message: "Invalid email template." }, 400);
+        const email = record(await read(`emails/${id}`));
+        if ((email.id != null && leadText(email.id) !== id) || !Object.hasOwn(email, "title")) {
+          return json({ message: "Email template could not be loaded." }, 404);
+        }
+        return json(toRow(email, emailDetailFields));
+      }
       if (!membership || !locationID.test(id)) return json({ message: "Invalid membership plan." }, 400);
       const plan = record(await read(`membership_plan/${id}`));
       if ((plan.id != null && leadText(plan.id) !== id) || !membershipDetailFields.some((key) => Object.hasOwn(plan, key))) {
@@ -73,6 +84,7 @@ export async function GET(request: NextRequest) {
     if (action === "export") {
       const rows = await read(kind);
       if (!Array.isArray(rows)) throw new Error("Unexpected export.");
+      if (emails) return json(rows.map((row) => toRow(row)));
       const expected = deleted ? "1" : "0";
       return json(rows.filter((row) => leadText(record(row).is_delete) === expected).map((row) => toRow(row)));
     }
@@ -81,6 +93,7 @@ export async function GET(request: NextRequest) {
     const limit = params.get("limit") ?? "";
     const sortBy = params.get("sortBy") ?? "";
     const sortFields = contacts ? ["id", "full_name", "email", "subject", "created_at", "updated_at"] :
+      emails ? ["id", "title", "email_for", "subject", "status", "created_at", "updated_at"] :
       membership ? ["id", "name", "user", "category", "product", "price", "created_at", "updated_at"] :
         ["id", "category", "name", "state_name", "designation", "organization", "created_at", "updated_at"];
     const upstream = new URLSearchParams({
@@ -89,11 +102,13 @@ export async function GET(request: NextRequest) {
       search: (params.get("search") ?? "").slice(0, 100),
       sortBy: sortFields.includes(sortBy) ? sortBy : "id",
       sort: params.get("sort") === "ASC" ? "ASC" : "DESC",
-      getDeleted: String(deleted),
+
     });
+    if (emails) upstream.set("emailFor", (params.get("emailFor") ?? "").slice(0, 100));
+    else upstream.set("getDeleted", String(deleted));
     const from = params.get("startDate") ?? "";
     const to = params.get("endDate") ?? "";
-    if (deleted && [from, to].every((date) => /^\d{4}-\d{2}-\d{2}$/.test(date)) && from <= to) {
+    if (!emails && deleted && [from, to].every((date) => /^\d{4}-\d{2}-\d{2}$/.test(date)) && from <= to) {
       upstream.set("dateRange", "customrange");
       upstream.set("startDate", from);
       upstream.set("endDate", to);

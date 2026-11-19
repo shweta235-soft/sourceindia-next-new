@@ -1,10 +1,16 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import type ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import EmailSourceDialog from "./EmailSourceDialog";
 import styles from "./admin-legal-page.module.css";
 
-export default function LegalDescriptionEditor({ description, label = "Description" }: { description: string; label?: string }) {
+export default function LegalDescriptionEditor({ description, label = "Description", showSource = false }: {
+  description: string; label?: string; showSource?: boolean;
+}) {
   const labelId = useId();
+  const [html, setHTML] = useState<string>();
+  const activeEditor = useRef<ClassicEditor | null>(null);
   const host = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "failed">("loading");
   const [attempt, setAttempt] = useState(0);
@@ -22,8 +28,20 @@ export default function LegalDescriptionEditor({ description, label = "Descripti
       if (cancelled) return;
       const editor = await ClassicEditor.create(source, { initialData: description, label });
       dispose = () => { void editor.destroy().catch(() => {}).finally(() => container.remove()); };
-      if (cancelled) dispose();
-      else setStatus("ready");
+      if (cancelled) {
+        dispose();
+        return;
+      }
+      activeEditor.current = editor;
+      if (showSource && editor.ui.view.toolbar.element) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "ck-button ck-source-btn btn btn-sm btn-light ms-1";
+        button.textContent = "Source";
+        button.onclick = () => setHTML(editor.getData());
+        editor.ui.view.toolbar.element.appendChild(button);
+      }
+      setStatus("ready");
     }).catch(() => {
       container.remove();
       if (!cancelled) setStatus("failed");
@@ -31,10 +49,11 @@ export default function LegalDescriptionEditor({ description, label = "Descripti
 
     return () => {
       cancelled = true;
+      activeEditor.current = null;
       if (dispose) dispose();
       else container.remove();
     };
-  }, [attempt, description, label]);
+  }, [attempt, description, label, showSource]);
 
   return <>
     <div className="form-label" id={labelId}>{label}</div>
@@ -48,5 +67,7 @@ export default function LegalDescriptionEditor({ description, label = "Descripti
         }}>Retry</button>
       </p>}
     </div>
+    {html !== undefined && <EmailSourceDialog html={html} apply={(value) => activeEditor.current?.setData(value)}
+      close={() => setHTML(undefined)} />}
   </>;
 }
