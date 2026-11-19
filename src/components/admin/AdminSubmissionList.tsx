@@ -7,6 +7,7 @@ import { getAdminSubmissions, registrationCategories, type LocationOption, type 
 import AdminRowActions from "./AdminRowActions";
 import CatalogDateFilter from "./CatalogDateFilter";
 import DashboardTable, { type DashboardColumn } from "./DashboardTable";
+import MembershipPlanForm from "./MembershipPlanForm";
 import ReportsBreadcrumb from "./ReportsBreadcrumb";
 import { downloadAdminWorkbook } from "./exportCategoryMaster";
 import styles from "./catalog-master.module.css";
@@ -28,21 +29,31 @@ const pages = {
     noun: "registration", filename: "Event_2023_registration.xlsx",
     exportColumns: [["Name", "name"], ["Email", "email"], ["Phone", "mobile"], ["State Name", "state_name"], ["City Name", "city_name"]],
   },
+  membership_plan: {
+    heading: "Membership Plan", section: "Membership Plan", activeTitle: "Membership Plan List",
+    deletedTitle: "Recently Deleted Membership Plan", activePath: "/admin/membership_plan",
+    deletedPath: "/admin/membership-plan-remove-list", deletedLabel: "Recently Deleted Membership Plan",
+    noun: "membership plan", filename: "Member Ship Plan Export.xlsx",
+    exportColumns: [["Name", "name"], ["No. of users", "user"], ["No. of categories", "category"],
+      ["No. of products", "product"], ["Price", "price"], ["Status", "getStatus"]],
+  },
 } satisfies Record<SubmissionKind, {
   heading: string; section: string; activeTitle: string; deletedTitle: string; activePath: string;
   deletedPath: string; deletedLabel: string; noun: string; filename: string; exportColumns: [string, string][];
 }>;
 
-type Confirmation = "Remove" | "Restore" | "Delete" | "Delete Selected";
+type Confirmation = "Remove" | "Restore" | "Delete" | "Delete Selected" | "Activate" | "Deactivate";
 
 function SubmissionConfirmation({ action, noun, close }: { action: Confirmation; noun: string; close: () => void }) {
   const titleID = useId();
   const dialog = useRef<HTMLDialogElement>(null);
   const bulk = action === "Delete Selected";
   const deleting = action === "Delete" || bulk;
-  const title = bulk ? "Bulk Deletion" : deleting ? "Deletion" : action;
+  const changingStatus = action === "Activate" || action === "Deactivate";
+  const title = bulk ? "Bulk Deletion" : deleting ? "Deletion" : changingStatus || noun === "membership plan" ? "Status Change" : action;
   const message = deleting ? `delete ${bulk ? `the selected ${noun}s` : `this ${noun}`}` :
-    action === "Restore" ? `restore this deleted ${noun}` : `remove this ${noun} from the list`;
+    action === "Restore" ? `restore this deleted ${noun}` : changingStatus ? `${action.toLowerCase()} this ${noun}` :
+      `remove this ${noun} from the list`;
 
   useEffect(() => {
     const element = dialog.current;
@@ -59,7 +70,7 @@ function SubmissionConfirmation({ action, noun, close }: { action: Confirmation;
       <div className="modal-body">Are you sure you want to {message}?</div>
       <div className="modal-footer justify-content-between">
         <button type="button" className="btn btn-secondary btn-sm" onClick={() => dialog.current?.close()}>Cancel</button>
-        <button type="button" className={`btn ${deleting ? "btn-danger" : "btn-warning"}`} disabled>{action}</button>
+        <button type="button" className={`btn ${deleting ? "btn-danger" : "btn-warning"}`} disabled>{changingStatus ? "Yes, Change" : action}</button>
       </div>
     </div></div>
   </dialog>;
@@ -128,6 +139,10 @@ function textColumn(key: string, label: string, format = leadText): DashboardCol
 }
 
 const contactColumns = [textColumn("full_name", "User"), textColumn("email", "Email"), textColumn("subject", "Subject")];
+const membershipColumns = [
+  textColumn("name", "Name"), textColumn("user", "No. of users"), textColumn("category", "No. of category"),
+  textColumn("product", "No. of product"), textColumn("price", "Price"),
+];
 const registrationColumns: DashboardColumn[] = [
   textColumn("category", "Category"),
   { key: "name", label: "Info", render: (row) => <>
@@ -145,11 +160,13 @@ const registrationColumns: DashboardColumn[] = [
 export default function AdminSubmissionList({ kind, deleted = false }: { kind: SubmissionKind; deleted?: boolean }) {
   const config = pages[kind];
   const registrations = kind === "registrations";
+  const membership = kind === "membership_plan";
   const title = deleted ? config.deletedTitle : config.activeTitle;
   const [filters, setFilters] = useState("");
   const [list, setList] = useState<LeadListResult>();
   const [selected, setSelected] = useState<string[]>([]);
   const [action, setAction] = useState<Confirmation>();
+  const [planForm, setPlanForm] = useState<{ row?: LeadRecord }>();
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState("");
 
@@ -163,15 +180,30 @@ export default function AdminSubmissionList({ kind, deleted = false }: { kind: S
   }, [filters, kind, deleted]);
 
   const columns: DashboardColumn[] = [
-    ...(registrations ? registrationColumns : contactColumns),
+    ...(membership ? membershipColumns : registrations ? registrationColumns : contactColumns),
     textColumn("created_at", "Created At", leadDate), textColumn("updated_at", "Updated At", leadDate),
-    { key: "action", label: "Action", sortable: false, render: (row) => <AdminRowActions
-      name={leadText(row[registrations ? "name" : "full_name"]) || `${config.noun} ${leadText(row.id)}`}
-      actions={deleted ? [
-        { label: "Restore", icon: "bx-windows", onClick: () => setAction("Restore") },
-        { label: "Delete", icon: "bx-trash", onClick: () => setAction("Delete") },
-      ] : [{ label: "Delete", icon: "bx-trash", onClick: () => setAction("Remove") }]} /> },
   ];
+  if (membership) {
+    columns.push({ key: "status", label: "Status", sortable: false, render: (row) => {
+      const active = leadText(row.status) === "1";
+      return deleted ? <span className={`badge ${active ? "bg-success" : "bg-danger"}`}>{active ? "Active" : "InActive"}</span> :
+        <div className="form-check form-switch">
+          <input type="checkbox" role="switch" className="form-check-input" checked={active}
+            aria-label={`Status of ${leadText(row.name)}`} onChange={() => setAction(active ? "Deactivate" : "Activate")} />
+        </div>;
+    } });
+  }
+  columns.push({ key: "action", label: "Action", sortable: false, render: (row) => {
+    const id = leadText(row.id);
+    const name = leadText(row[kind === "contacts" ? "full_name" : "name"]) || `${config.noun} ${id}`;
+    return <AdminRowActions name={name} actions={deleted ? [
+      { label: "Restore", icon: "bx-windows", onClick: () => setAction("Restore") },
+      { label: "Delete", icon: "bx-trash", danger: membership, onClick: () => setAction("Delete") },
+    ] : [
+      ...(membership && id ? [{ label: "Edit", icon: "bx-edit", onClick: () => setPlanForm({ row }) }] : []),
+      { label: "Delete", icon: "bx-trash", danger: membership, onClick: () => setAction("Remove") },
+    ]} />;
+  } });
 
   const pageIDs = list?.data.map((row) => leadText(row.id)).filter(Boolean) ?? [];
   const allSelected = pageIDs.length > 0 && pageIDs.every((id) => selected.includes(id));
@@ -191,8 +223,12 @@ export default function AdminSubmissionList({ kind, deleted = false }: { kind: S
     setExportError("");
     try {
       const rows = await getAdminSubmissions<LeadRecord[]>(new URLSearchParams({ kind, deleted: String(deleted), action: "export" }));
-      downloadAdminWorkbook(rows.map((row) => ({ ...row, created_at: leadDate(row.created_at), updated_at: leadDate(row.updated_at) })),
-        [...config.exportColumns, ["Created", "created_at"], ["Last Update", "updated_at"]], config.filename);
+      downloadAdminWorkbook(rows.map((row) => ({
+        ...row,
+        ...(membership ? { getStatus: leadText(row.getStatus) || (leadText(row.status) === "1" ? "Active" : "Inactive") } : {}),
+        created_at: leadDate(row.created_at), updated_at: leadDate(row.updated_at),
+      })),
+        [...config.exportColumns, ["Created", "created_at"], ["Last Update", "updated_at"]], membership && deleted ? "Member Ship Plan Remove Export.xlsx" : config.filename);
     } catch (error) {
       setExportError(error instanceof Error ? error.message : "Export could not be loaded.");
     } finally {
@@ -205,13 +241,16 @@ export default function AdminSubmissionList({ kind, deleted = false }: { kind: S
     <div className={`d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3 ${styles.heading}`}>
       <h5 className="mb-0">{config.heading}{list && <span className="badge bg-primary ms-2">{list.totalRecords}</span>}</h5>
       <div className="d-flex flex-wrap gap-2">
-        <button type="button" className="btn btn-primary" disabled={exporting} onClick={exportRows}>
+        {membership && !deleted && <button type="button" className="btn btn-sm btn-primary" onClick={() => setPlanForm({})}>
+          <i className="bx bxs-plus-square me-1" aria-hidden="true" />Add Membership Plan
+        </button>}
+        <button type="button" className={`btn btn-primary${membership ? " btn-sm" : ""}`} disabled={exporting} onClick={exportRows}>
           <i className="bx bx-download me-1" aria-hidden="true" />{exporting ? "Exporting…" : "Excel"}
         </button>
         {!deleted && <button className="btn btn-sm btn-danger" type="button" disabled={!selected.length} onClick={() => setAction("Delete Selected")}>
           <i className="bx bx-trash me-1" aria-hidden="true" />Delete Selected
         </button>}
-        <Link className="btn btn-primary" href={deleted ? config.activePath : config.deletedPath}>{deleted ? "Back" : config.deletedLabel}</Link>
+        <Link className={`btn btn-primary${membership ? " btn-sm" : ""}`} href={deleted ? config.activePath : config.deletedPath}>{deleted ? "Back" : config.deletedLabel}</Link>
       </div>
     </div>
     {exportError && <p role="alert" className="text-danger">{exportError}</p>}
@@ -220,6 +259,7 @@ export default function AdminSubmissionList({ kind, deleted = false }: { kind: S
     </div></div> : registrations && <RegistrationFilters apply={setFilters} />}
     <DashboardTable key={filters} title={title} hideHeading load={load} columns={columns}
       leadingColumn={deleted ? undefined : leadingColumn} />
+    {planForm && <MembershipPlanForm row={planForm.row} close={() => setPlanForm(undefined)} />}
     {action && <SubmissionConfirmation action={action} noun={config.noun} close={() => setAction(undefined)} />}
   </>;
 }

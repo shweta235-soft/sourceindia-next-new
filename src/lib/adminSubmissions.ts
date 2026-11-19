@@ -1,4 +1,4 @@
-export type SubmissionKind = "contacts" | "registrations";
+export type SubmissionKind = "contacts" | "registrations" | "membership_plan";
 export type LocationOption = { id: string; name: string };
 
 export const registrationCategories = ["Exhibitor", "Buyer", "Delegate", "Sponsor", "Speaker", "Visitor"];

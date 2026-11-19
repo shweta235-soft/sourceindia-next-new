@@ -5,6 +5,8 @@ import { registrationCategories } from "@/lib/adminSubmissions";
 
 const contactFields = ["id", "full_name", "fname", "lname", "email", "subject", "created_at", "updated_at"];
 const registrationFields = ["id", "category", "name", "email", "mobile", "state_name", "city_name", "designation", "organization", "created_at", "updated_at"];
+const membershipFields = ["id", "name", "sub_title", "user", "category", "product", "price", "status", "getStatus", "created_at", "updated_at"];
+const membershipDetailFields = ["expire_days", "is_default", "free", "elcina_plan"];
 const locationID = /^\d{1,12}$/;
 
 function record(value: unknown): LeadRecord {
@@ -46,27 +48,41 @@ export async function GET(request: NextRequest) {
         return { id: leadText(row.id), name: leadText(row.name) };
       }).filter(({ id, name }) => locationID.test(id) && name));
     }
-    if (kind !== "contacts" && kind !== "registrations") return json({ message: "Unknown records list." }, 400);
+    if (kind !== "contacts" && kind !== "registrations" && kind !== "membership_plan") {
+      return json({ message: "Unknown records list." }, 400);
+    }
 
     const contacts = kind === "contacts";
-    const fields = contacts ? contactFields : registrationFields;
-    const toRow = (value: unknown) => {
+    const membership = kind === "membership_plan";
+    const fields = contacts ? contactFields : membership ? membershipFields : registrationFields;
+    const toRow = (value: unknown, keys = fields) => {
       const row = record(value);
-      return Object.fromEntries(fields.map((field) => [field, leadText(row[field])]));
+      return Object.fromEntries(keys.map((field) => [field, leadText(row[field])]));
     };
+
+    if (action === "detail") {
+      const id = params.get("id") ?? "";
+      if (!membership || !locationID.test(id)) return json({ message: "Invalid membership plan." }, 400);
+      const plan = record(await read(`membership_plan/${id}`));
+      if ((plan.id != null && leadText(plan.id) !== id) || !membershipDetailFields.some((key) => Object.hasOwn(plan, key))) {
+        return json({ message: "Membership plan could not be loaded." }, 404);
+      }
+      return json(toRow(plan, membershipDetailFields));
+    }
 
     if (action === "export") {
       const rows = await read(kind);
       if (!Array.isArray(rows)) throw new Error("Unexpected export.");
       const expected = deleted ? "1" : "0";
-      return json(rows.filter((row) => leadText(record(row).is_delete) === expected).map(toRow));
+      return json(rows.filter((row) => leadText(record(row).is_delete) === expected).map((row) => toRow(row)));
     }
 
     const page = params.get("page") ?? "";
     const limit = params.get("limit") ?? "";
     const sortBy = params.get("sortBy") ?? "";
     const sortFields = contacts ? ["id", "full_name", "email", "subject", "created_at", "updated_at"] :
-      ["id", "category", "name", "state_name", "designation", "organization", "created_at", "updated_at"];
+      membership ? ["id", "name", "user", "category", "product", "price", "created_at", "updated_at"] :
+        ["id", "category", "name", "state_name", "designation", "organization", "created_at", "updated_at"];
     const upstream = new URLSearchParams({
       page: /^\d{1,8}$/.test(page) && Number(page) > 0 ? page : "1",
       limit: ["25", "50", "100"].includes(limit) ? limit : "25",
@@ -82,7 +98,7 @@ export async function GET(request: NextRequest) {
       upstream.set("startDate", from);
       upstream.set("endDate", to);
     }
-    if (!contacts && !deleted) {
+    if (kind === "registrations" && !deleted) {
       for (const field of ["registrationName", "registrationEmail", "registrationMobile"]) {
         upstream.set(field, (params.get(field) ?? "").slice(0, 100));
       }
@@ -98,7 +114,7 @@ export async function GET(request: NextRequest) {
     if (!Array.isArray(result.data) || ![totalRecords, filteredRecords].every((count) => Number.isSafeInteger(count) && count >= 0)) {
       throw new Error("Unexpected list.");
     }
-    return json({ data: result.data.map(toRow), totalRecords, filteredRecords });
+    return json({ data: result.data.map((row) => toRow(row)), totalRecords, filteredRecords });
   } catch {
     return json({ message: "Unable to load records from the upstream service." }, 502);
   }
