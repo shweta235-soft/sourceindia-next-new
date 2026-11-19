@@ -1,0 +1,78 @@
+.master {
+  padding: 12px 16px;
+}
+
+.heading {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.count {
+  color: #00449c;
+  background: #dbe9fb;
+  border-bottom: 1px solid #00449c;
+}
+
+.master :global(.card) {
+  border: 0;
+  box-shadow: 0 4px 4px #dbdbdb40;
+}
+
+.master :global(.btn-primary) {
+  --bs-btn-bg: #00449c;
+  --bs-btn-border-color: #00449c;
+  --bs-btn-hover-bg: #003a85;
+  --bs-btn-hover-border-color: #003a85;
+  --bs-btn-active-bg: #003a85;
+  --bs-btn-active-border-color: #003a85;
+}
+
+.master :global(.required)::after {
+  margin-left: 3px;
+  color: #dc3545;
+  content: "*";
+}
+
+.search {
+  width: min(200px, 45vw);
+}
+
+.sort {
+  display: flex;
+  gap: .5rem;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.sort span {
+  color: #6c757d;
+}
+
+.image {
+  object-fit: contain;
+}
+
+.datePopover {
+  top: 100%;
+  left: 0;
+  max-width: min(90vw, 620px);
+  overflow-x: auto;
+}
+
+.editDialog {
+  width: min(100% - 2rem, 520px);
+  max-height: 90vh;
+  border: 0;
+  border-radius: .375rem;
+  padding: 0;
+}
+
+.editDialog::backdrop {
+  background: #0008;
+}

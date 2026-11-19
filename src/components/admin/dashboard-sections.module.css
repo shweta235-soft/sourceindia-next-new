@@ -1,0 +1,189 @@
+.heading {
+  color: #1f2020;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.primaryButton {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #00449c;
+  --bs-btn-border-color: #00449c;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #003a85;
+  --bs-btn-hover-border-color: #003a85;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #003a85;
+  --bs-btn-active-border-color: #003a85;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #00449c;
+  --bs-btn-disabled-border-color: #00449c;
+}
+
+.statCard {
+  border: 1px solid #e8e8e8;
+  border-radius: .5rem;
+}
+
+.statLabel {
+  color: #707070;
+  font-size: 14px;
+}
+
+.statValue {
+  color: #1f2020;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.statIcon {
+  display: inline-flex;
+  flex: 0 0 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+.statIcon[data-tone="0"] { color: #e41f07; background-color: #e41f0726; }
+.statIcon[data-tone="1"] { color: #1abe17; background-color: #1abe1726; }
+.statIcon[data-tone="2"] { color: #a907e4; background-color: #a907e440; }
+.statIcon[data-tone="3"] { color: #ffc107; background-color: #e4bb071c; }
+
+.statDecoration {
+  pointer-events: none;
+}
+
+.statLink {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: .5rem;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  font: inherit;
+}
+
+.statLink:focus-visible {
+  outline: 2px solid #00449c;
+  outline-offset: 2px;
+}
+
+.tableSection {
+  margin-bottom: 1.5rem;
+  scroll-margin-top: 5rem;
+}
+
+.table {
+  min-width: 540px;
+}
+
+.table thead th {
+  padding: 8px 10px;
+  background-color: #f7f8f9;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.table tbody td {
+  padding: 5px 10px;
+  color: #111827;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.sortButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+}
+
+.sortButton span {
+  color: #6c757d;
+}
+
+.search {
+  width: min(200px, 48vw);
+}
+
+.pagination {
+  --bs-pagination-color: #00449c;
+  --bs-pagination-hover-color: #00449c;
+  --bs-pagination-active-bg: #00449c;
+  --bs-pagination-active-border-color: #00449c;
+}
+
+.stockSection {
+  margin-bottom: 1.5rem;
+}
+
+.stockCard {
+  min-width: 0;
+  border: 0;
+  box-shadow: 0 4px 4px #dbdbdb40;
+}
+
+.stockChart {
+  width: 100%;
+  height: 600px;
+}
+
+.stockFrom {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.stockFrom span {
+  color: #007bff;
+}
+
+.stockChart :global(.amcharts-compare-div) {
+  height: 100px !important;
+}
+
+.stockChart :global(.amcharts-compare-item-div) {
+  height: 25px !important;
+}
+
+.stockChart :global(.amcharts-data-set-select),
+.stockChart :global(.amcharts-start-date-input),
+.stockChart :global(.amcharts-end-date-input) {
+  display: block;
+  padding: .375rem .75rem;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: .375rem;
+}
+
+.stockChart :global(.amcharts-period-input),
+.stockChart :global(.amcharts-period-input-selected) {
+  margin-bottom: .25rem;
+  padding: .375rem .75rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: #00449c;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.stockChart :global(.amcharts-period-input-selected),
+.stockChart[data-overall="true"] input[value="Overall"] {
+  background: #157347;
+}
+

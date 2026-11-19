@@ -1,0 +1,17 @@
+.chartPanel {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.chartTitle {
+  margin-bottom: 20px;
+}
+
+.chartFilter {
+  margin-bottom: 30px;
+}
+
+.chartCanvas {
+  width: 100%;
+  height: 600px;
+}

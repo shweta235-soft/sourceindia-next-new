@@ -1,0 +1,66 @@
+/* Admin Sellers UI alignment with React SellerList.jsx structure. */
+.admin-sellers-parity .react-admin-filter-grid {grid-template-columns:repeat(4,minmax(0,1fr)) !important; background:#fff !important; padding:12px 0 !important; gap:14px 18px !important;}
+.admin-sellers-parity .react-admin-filter-grid label {font-size:12px !important; font-weight:500; color:#343a40;}
+.admin-sellers-parity .react-admin-filter-grid input,.admin-sellers-parity .react-admin-filter-grid select {height:34px; font-size:12px; background-color:#fff; border:1px solid #ced4da !important; border-radius:4px;}
+.admin-sellers-parity .admin-member-listing-card {box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.admin-sellers-parity .react-admin-table-scroll table {font-size:11px; min-width:1160px;}
+.admin-sellers-parity .react-admin-table-scroll th {background:#f8f9fa; color:#343a40; font-weight:600; white-space:normal;}
+.admin-sellers-parity .react-admin-table-scroll td {vertical-align:top;}
+@media(max-width:1100px){.admin-sellers-parity .react-admin-filter-grid {grid-template-columns:repeat(2,minmax(0,1fr)) !important;}}
+@media(max-width:620px){.admin-sellers-parity .react-admin-filter-grid {grid-template-columns:1fr !important;}}
+
+/* Batch 12: remove screenshot-derived zoom-out overrides and negative-positioned toolbar. */
+.admin-sellers-parity {font-size:14px;color:#242c36}
+.admin-sellers-parity .seller-page-heading {margin-bottom:12px}
+.admin-sellers-parity .react-seller-actions {position:static;margin:0 0 12px;pointer-events:auto}
+.admin-sellers-parity .admin-member-listing-card {background:#fff;border:1px solid #e5e9ef;border-radius:4px;padding:12px}
+.admin-sellers-parity .react-admin-filter-grid {border:1px solid #eceff2;border-radius:4px;padding:12px;margin-bottom:15px}
+.admin-sellers-parity .react-admin-table-scroll {background:#fff;border:1px solid #edf0f3;overflow-x:auto}
+.admin-sellers-parity .react-admin-table-scroll table {min-width:1160px}
+.admin-sellers-parity .react-admin-table-scroll th,.admin-sellers-parity .react-admin-table-scroll td {padding:9px 7px;border-bottom:1px solid #e7e7e7}
+.admin-sellers-parity .seller-type-badge,.admin-sellers-parity .seller-product-badge {display:inline-block;background:#0752ae;color:#fff;font-size:11px;padding:1px 5px;border-radius:3px;font-weight:600}
+.admin-sellers-parity .seller-products {margin-top:4px}
+.admin-sellers-parity .seller-status-toggle {display:inline-block;position:relative;width:30px;height:16px;background:#9ba7b4;border-radius:12px;vertical-align:middle}
+.admin-sellers-parity .seller-status-toggle.is-on {background:#0752ae}
+.admin-sellers-parity .seller-status-toggle:after {content:"";position:absolute;left:3px;top:3px;width:10px;height:10px;border-radius:50%;background:#fff}
+.admin-sellers-parity .seller-status-toggle.is-on:after {left:17px}
+.admin-sellers-parity .seller-row-action {display:inline-flex;justify-content:center;align-items:center;width:25px;height:27px;border:1px solid #e7ebf0;border-radius:3px;color:#555;font-size:17px}
+/* Batch 09: remove artificial zoom-out effect from seller/buyer screens. */
+.admin-sellers-parity{font-family:"Golos Text",Arial,sans-serif;font-size:14px!important}
+.admin-sellers-parity h1{font-size:22px!important}
+.admin-sellers-parity .seller-actions button,.admin-sellers-parity .react-seller-actions button{font-size:13px!important;padding:8px 12px!important}
+.admin-sellers-parity .seller-filter-grid label,.admin-sellers-parity .react-admin-filter-grid label{font-size:13px!important}
+.admin-sellers-parity .seller-filter-grid input,.admin-sellers-parity .react-admin-filter-grid input,.admin-sellers-parity .react-admin-filter-grid select{font-size:13px!important;height:34px!important}
+.admin-sellers-parity .seller-table-scroll table,.admin-sellers-parity .react-admin-table-scroll table{font-size:13px!important}
+.admin-sellers-parity .seller-table-scroll th,.admin-sellers-parity .seller-table-scroll td,.admin-sellers-parity .react-admin-table-scroll th,.admin-sellers-parity .react-admin-table-scroll td{font-size:13px!important}
+.admin-sellers-parity .seller-type-badge,.admin-sellers-parity .seller-product-badge{font-size:11px}
+.admin-sellers-parity button{font-family:inherit}
+
+/* Batch 10: pagination matches the numbered DataTables navigation pattern. */
+.admin-list-pagination{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+.admin-list-pagination button{background:#fff;border:1px solid #dee2e6;color:#00449c;padding:7px 11px;font-size:13px;cursor:pointer;margin-left:-1px}
+.admin-list-pagination button:first-child{border-radius:4px 0 0 4px;margin-left:0}
+.admin-list-pagination button:last-child{border-radius:0 4px 4px 0}
+.admin-list-pagination button[aria-current="page"]{background:#00449c;color:#fff;border-color:#00449c;position:relative}
+.admin-list-pagination button:disabled{opacity:.55;cursor:not-allowed}
+.admin-list-pagination button:not(:disabled):hover{background:#edf3fc}
+.admin-list-pagination button[aria-current="page"]:hover{background:#00449c}
+
+/* Batch 11: React app.css uses a 14px base; avoid the previous zoomed-out 10px overrides. */
+.admin-sellers-parity .react-admin-filter-grid label,
+.admin-sellers-parity .react-admin-filter-grid input,
+.admin-sellers-parity .react-admin-filter-grid select,
+.admin-sellers-parity .react-admin-filter-grid button { font-size: 14px !important; }
+.admin-sellers-parity .react-admin-table-scroll table { font-size: 13px !important; }
+.admin-sellers-parity .react-admin-table-scroll th,
+.admin-sellers-parity .react-admin-table-scroll td { font-size: 13px !important; line-height: 1.45; }
+.admin-sellers-parity .react-seller-actions button { font-size: 13px !important; }
+
+/* Batch 15: React-style compact action dropdown, scoped to member tables. */
+.member-row-menu { position:relative; display:inline-block; }
+.member-row-menu > summary { list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:center; width:30px; height:28px; background:#f8f9fa; color:#495057; border:1px solid #e9ecef; border-radius:4px; font-size:19px; line-height:1; }
+.member-row-menu > summary::-webkit-details-marker { display:none; }
+.member-row-menu[open] > summary { background:#e9ecef; }
+.member-row-menu-items { position:absolute; right:0; top:calc(100% + 3px); z-index:30; min-width:148px; padding:5px 0; background:#fff; border:1px solid #dee2e6; border-radius:5px; box-shadow:0 5px 14px rgba(0,0,0,.12); }
+.member-row-menu-items > a, .member-row-menu-items > button { display:block; width:100%; padding:8px 12px; text-align:left; background:transparent; border:0; color:#343a40; text-decoration:none; font:inherit; font-size:13px; cursor:pointer; }
+.member-row-menu-items > a:hover, .member-row-menu-items > button:hover { background:#f3f6fa; color:#00449c; }

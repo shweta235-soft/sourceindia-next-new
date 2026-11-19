@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap");
+
+.background {
+  min-height: 100vh;
+  padding: 1.5rem 0;
+  background: #f7f8f9;
+  color: #4c5258;
+  font-family: "Golos Text", sans-serif;
+  font-size: 14px;
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 4px 4px #dbdbdb40;
+}
+
+.required::after {
+  content: " *";
+  color: #dc3545;
+}
+
+.signIn {
+  --bs-btn-bg: #00449c;
+  --bs-btn-border-color: #00449c;
+  --bs-btn-hover-bg: #003a85;
+  --bs-btn-hover-border-color: #003a85;
+  --bs-btn-active-bg: #003a85;
+  --bs-btn-active-border-color: #003a85;
+}
+
+@media (max-width: 991px) {
+  .background {
+    min-height: 0;
+    padding: 3rem 0 2rem;
+  }
+}

@@ -1373,3 +1373,18 @@
   object-fit: contain !important;
   display: block;
 }
+/* Step 85: responsive company product carousel */
+.company-products-viewport{overflow:hidden}.company-products-track{display:flex;gap:20px;transition:transform .3s ease;--company-visible:4}.company-products-slide{flex:0 0 calc((100% - 60px)/4);min-width:0}.company-products-slide .title-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}@media(max-width:1199px){.company-products-track{--company-visible:3}.company-products-slide{flex-basis:calc((100% - 40px)/3)}}@media(max-width:767px){.company-products-track{--company-visible:2}.company-products-slide{flex-basis:calc((100% - 20px)/2)}}@media(max-width:575px){.company-products-track{--company-visible:1}.company-products-slide{flex-basis:100%}}
+
+/* Recommended companies responsive carousel parity */
+.recommended-companies-viewport{overflow:hidden;padding:20px 0}.recommended-companies-track{--recommended-visible:5;display:flex;transition:transform .3s ease}.recommended-companies-slide{flex:0 0 calc(100% / var(--recommended-visible));min-width:0}.recommended-companies-slide .productContainer{height:100%;display:flex;flex-direction:column}.recommended-companies-slide .recFooter{margin-top:auto}.recommended-companies-slide .recLogoWrap img{width:180px;max-width:100%;height:180px;object-fit:contain}@media(max-width:1199px){.recommended-companies-track{--recommended-visible:4}}@media(max-width:991px){.recommended-companies-track{--recommended-visible:3}}@media(max-width:767px){.recommended-companies-track{--recommended-visible:2}}@media(max-width:575px){.recommended-companies-track{--recommended-visible:1}}
+
+/* Company carousel parity: React Swiper uses 20px gaps and 1/2/3/4/5 visible slides. */
+.recommended-companies-track{gap:20px}
+.recommended-companies-slide{flex-basis:calc((100% - (var(--recommended-visible) - 1) * 20px) / var(--recommended-visible))}
+@media(min-width:768px) and (max-width:991px){.recommended-companies-track{--recommended-visible:3}}
+@media(min-width:576px) and (max-width:767px){.recommended-companies-track{--recommended-visible:2}}
+@media(max-width:575px){.recommended-companies-track{--recommended-visible:1}}
+
+/* React Swiper visual spacing: 20px top and bottom inside both carousels. */
+.company-products-viewport,.recommended-companies-viewport{padding-top:20px;padding-bottom:20px}

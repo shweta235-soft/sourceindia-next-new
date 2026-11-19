@@ -1,3 +1,4 @@
+@import "../legacy-assets/css/boxicons-only.css";
 @import "../legacy-assets/css/style.css";
 @import "../legacy-assets/css/home.css";
 /* Foundation only. React's original styles are preserved in src/legacy-assets/css/.
@@ -34,3 +35,130 @@ body { margin: 0; } /* Preserve original React typography; do not force Arial. *
 .react-latest-company{font-size:12px;line-height:13px;color:#777;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .react-latest-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid #ddd;background:#fff;color:#777;font-size:30px;line-height:30px;z-index:2;box-shadow:0 2px 8px #0002;cursor:pointer}
 .react-latest-arrow:hover{background:#315374;color:#fff}.react-latest-prev{left:-15px}.react-latest-next{right:-15px}
+
+/* Step 27: Match original React LatestProductSlider seller and price detail */
+.react-latest-info{display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.react-latest-name{font-size:11.5px;line-height:14px;color:#182235;margin:0 0 4px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;max-height:28px;min-height:28px;width:100%}
+.react-latest-separator{margin-bottom:8px}
+.react-latest-sold-label{font-size:12px;line-height:13px;color:#777;margin-bottom:4px}
+.react-latest-company{font-size:12px;line-height:14px;font-weight:600;color:#1683d8;max-width:150px;margin-bottom:4px}
+.react-latest-price{font-size:12px;line-height:15px;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* Step 69: React public design tokens. Keep Bootstrap's public system font;
+   Golos Text belongs to the separate React admin app.css. */
+:root {
+  --si-primary: #00449c;
+  --si-orange: #ff6600;
+  --si-orange-hover: #ff8534;
+  --si-page-background: #f8f9fb;
+  --si-dark: #1f2020;
+  --si-secondary: #707070;
+  --si-border: #e8e8e8;
+  --si-surface: #ffffff;
+}
+
+/* Step 70: keep the Trending Categories loading shell in the same layout width
+   as the loaded React-style showcase; prevent horizontal layout shift. */
+.homeCategoryShowcase > .si-trending-loading-layout {
+  width: 100%;
+  min-width: 0;
+}
+.homeCategoryShowcase > .si-trending-loading-layout .browseCategories {
+  width: 100%;
+}
+@media (max-width: 767.98px) {
+  .homeCategoryShowcase .tren_iteam img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* Step 72: explicit stable body hook. React public body rules are inherited
+   from legacy style.css; do not apply admin Golos Text globally. */
+body.si-site-body {
+  min-width: 0;
+  overflow-x: clip;
+  background-color: var(--si-page-background);
+}
+/* Do not override font-family: public pages inherit Bootstrap/system font. */
+@supports not (overflow: clip) {
+  body.si-site-body { overflow-x: hidden; }
+}
+
+
+/* Step 75: Contact Us submit button — match React app.css primary color.
+   Scoped to this button so Bootstrap buttons elsewhere are unaffected. */
+.si-site-body .si-contact-submit,
+.si-site-body .si-contact-submit:hover,
+.si-site-body .si-contact-submit:focus-visible {
+  background-color: #00449c;
+  border-color: #00449c;
+  color: #fff;
+}
+.si-site-body .si-contact-submit:disabled {
+  background-color: #00449c;
+  border-color: #00449c;
+  color: #fff;
+  opacity: .65;
+}
+
+/* Company listing View Details: match React app.css primary button. */
+.si-company-view-details.btn-primary { background-color: #00449c; border-color: #00449c; }
+.si-company-view-details.btn-primary:hover, .si-company-view-details.btn-primary:focus-visible { background-color: #00377e; border-color: #00377e; }
+
+
+/* Enquiry page: React app.css primary button palette, scoped to avoid affecting other pages. */
+.enquirySection .enquirybtns.btn-primary,
+.enquirySection .enquirylistitem .btn-primary {
+  background-color: #00449c;
+  border-color: #00449c;
+  color: #fff;
+}
+.enquirySection .enquirybtns.btn-outline-primary {
+  color: #00449c;
+  border-color: #00449c;
+}
+.enquirySection .enquirybtns.btn-outline-primary:hover,
+.enquirySection .enquirybtns.btn-outline-primary:focus-visible,
+.enquirySection .enquirybtns.btn-primary:hover,
+.enquirySection .enquirybtns.btn-primary:focus-visible {
+  background-color: #00377e;
+  border-color: #00377e;
+  color: #fff;
+}
+.enquirySection .enquirylistitem .orange-hoverbtn:hover,
+.enquirySection .enquirylistitem .orange-hoverbtn:focus-visible {
+  background-color: var(--color-white, #fff);
+  border-color: var(--color-orange, #f58220);
+  color: var(--color-orange, #f58220) !important;
+}
+
+/* Admin sellers visual parity refinement: scoped to sellers only */
+.admin-sellers-parity{font-family:Arial,Helvetica,sans-serif;color:#343b45;background:#f7f8fa;font-size:11px!important}
+.admin-sellers-parity h1{font-size:17px!important;font-weight:700!important}
+.admin-sellers-parity>div:nth-of-type(2){border:0!important;padding:0!important;background:transparent!important}
+.admin-sellers-parity .seller-actions button{font-size:10px!important;padding:7px 10px!important;border-radius:2px!important}
+.admin-sellers-parity .seller-filter-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px 12px!important;background:#fff!important;padding:12px!important;margin-bottom:12px!important;border:1px solid #e6e8ed;border-radius:0!important}
+.admin-sellers-parity .seller-filter-grid label{font-size:10px!important;font-weight:600!important;gap:3px!important}
+.admin-sellers-parity .seller-filter-grid input{font-size:11px!important;padding:5px 7px!important;height:28px!important;border:1px solid #e0e3e8!important}
+.admin-sellers-parity .seller-table-scroll{background:#fff;border:1px solid #e9e9e9}
+.admin-sellers-parity .seller-table-scroll table{font-size:10px!important;table-layout:auto}
+.admin-sellers-parity .seller-table-scroll th{font-size:10px!important;color:#323943!important;background:#f4f5f7!important;vertical-align:middle!important}
+.admin-sellers-parity .seller-table-scroll td{font-size:10px!important;line-height:1.45!important;color:#333!important}
+.admin-sellers-parity .seller-table-scroll tbody tr:nth-child(even){background:#fafafa}
+.admin-sellers-parity .seller-table-scroll tbody tr:hover{background:#eef2f6}
+@media(max-width:1050px){.admin-sellers-parity .seller-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:600px){.admin-sellers-parity .seller-filter-grid{grid-template-columns:1fr!important}}
+
+/* Batch 09: remove artificial zoom-out effect from seller/buyer screens. */
+.admin-sellers-parity{font-family:"Golos Text",Arial,sans-serif;font-size:14px!important}
+.admin-sellers-parity h1{font-size:22px!important}
+.admin-sellers-parity .seller-actions button,.admin-sellers-parity .react-seller-actions button{font-size:13px!important;padding:8px 12px!important}
+.admin-sellers-parity .seller-filter-grid label,.admin-sellers-parity .react-admin-filter-grid label{font-size:13px!important}
+.admin-sellers-parity .seller-filter-grid input,.admin-sellers-parity .react-admin-filter-grid input,.admin-sellers-parity .react-admin-filter-grid select{font-size:13px!important;height:34px!important}
+.admin-sellers-parity .seller-table-scroll table,.admin-sellers-parity .react-admin-table-scroll table{font-size:13px!important}
+.admin-sellers-parity .seller-table-scroll th,.admin-sellers-parity .seller-table-scroll td,.admin-sellers-parity .react-admin-table-scroll th,.admin-sellers-parity .react-admin-table-scroll td{font-size:13px!important}
+.admin-sellers-parity .seller-type-badge,.admin-sellers-parity .seller-product-badge{font-size:11px}
+.admin-sellers-parity button{font-family:inherit}
+

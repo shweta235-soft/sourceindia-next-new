@@ -1,0 +1,94 @@
+.calendar {
+  top: 100%;
+  left: 0;
+  max-width: min(90vw, 620px);
+  overflow-x: auto;
+}
+
+.memberTable th:first-child {
+  width: 1%;
+}
+
+.company {
+  min-width: 175px;
+  overflow-wrap: anywhere;
+}
+
+.memberTable tbody td {
+  vertical-align: middle;
+}
+
+.status :global(.form-check-input:disabled) {
+  opacity: 1;
+}
+
+.menu {
+  position: fixed;
+  display: block;
+  z-index: 1050;
+}
+
+.dialog {
+  width: min(500px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--bs-border-radius-lg);
+  color: inherit;
+}
+
+.dialog::backdrop {
+  background: #0008;
+}
+
+.profileBanner {
+  color: white;
+  background: linear-gradient(90deg, #cc6e14, #db8932);
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+}
+
+.memberTable thead th {
+  background: #f7f8f9;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.memberTable tbody td {
+  padding: 5px 10px;
+  color: #111827;
+  font-size: 13px;
+  white-space: pre-line;
+}
+
+.memberTable :global(.bg-primary) {
+  --bs-bg-opacity: .9;
+}
+
+.actionButton {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: .75rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 4px #dbdbdb40;
+}
+
+.profileTabs :global(.nav-link) {
+  padding: 8px 10px;
+  color: #343a40;
+  font-weight: 500;
+}
+
+.profileTabs :global(.nav-link.active) {
+  background: #dbe9fb;
+  color: #00449c;
+  border-left: 1px solid #00449c;
+}

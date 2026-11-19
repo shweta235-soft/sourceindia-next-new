@@ -1091,3 +1091,159 @@ strong {
 .modal .btn-close:hover {
     opacity: 1;
 }
+/* Step 44: React-style responsive similar-products carousel (native scroll). */
+.pd-similar-carousel{position:relative;margin:0 28px}
+.pd-similar-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:20px 0;overscroll-behavior-x:contain}
+.pd-similar-track::-webkit-scrollbar{display:none}
+.pd-similar-slide{flex:0 0 calc((100% - 60px)/4);min-width:0;scroll-snap-align:start}
+.pd-similar-slide .productBox{height:100%;border:1px solid #eee;border-radius:8px}
+.pd-similar-slide .middlepro{height:100%;display:flex;flex-direction:column}
+.pd-similar-slide .ProImg{display:flex;align-items:center;justify-content:center;min-height:180px}
+.pd-similar-slide .productlink{margin-top:auto}
+.pd-similar-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;border:1px solid #ddd;background:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:25px;line-height:1;box-shadow:0 2px 8px #0002;cursor:pointer}
+.pd-similar-prev{left:-36px}.pd-similar-next{right:-36px}
+@media(max-width:1199px){.pd-similar-slide{flex-basis:calc((100% - 40px)/3)}}
+@media(max-width:767px){.pd-similar-slide{flex-basis:calc((100% - 20px)/2)}}
+@media(max-width:575px){.pd-similar-slide{flex-basis:100%}.pd-similar-carousel{margin:0 24px}.pd-similar-prev{left:-26px}.pd-similar-next{right:-26px}}
+
+/* Step 45: responsive alignment with React product detail layout */
+.productDetail .pd-spec-table .spec-key{width:40%;font-weight:600}
+.productDetail .pd-spec-table .spec-val{overflow-wrap:anywhere}
+.productDetail .sidebar-company-head{display:flex;align-items:flex-start;gap:12px}
+.productDetail .sidebar-logo{flex-shrink:0}
+.productDetail .pd-description{overflow-wrap:anywhere}
+.productDetail .pd-description img,.productDetail .pd-description iframe{max-width:100%;height:auto}
+.productDetail .pd-description table{display:block;max-width:100%;overflow-x:auto}
+@media(max-width:991px){.productDetail .pd-img-sticky,.productDetail .pd-sidebar-sticky{position:static!important;top:auto!important}.productDetail .pd-main-row{row-gap:24px}}
+@media(max-width:575px){.productDetail .pd-interested-banner{display:flex;flex-direction:column;align-items:stretch;gap:12px}.productDetail .pd-interested-banner .btn{width:100%}.productDetail .pd-qty-row{display:flex;flex-wrap:wrap}.productDetail .pd-qty-row input{min-width:0;flex:1 1 110px}.productDetail .sidebar-company-head{align-items:flex-start}}
+
+/* Step 48: keep API-provided rich descriptions within the product column. */
+.pd-description-responsive { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.pd-description-responsive img, .pd-description-responsive video, .pd-description-responsive iframe { max-width: 100%; height: auto; }
+.pd-description-responsive table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.pd-description-responsive pre { max-width: 100%; overflow-x: auto; }
+@media (max-width: 575.98px) {
+  .pd-interested-banner { padding: 16px; align-items: stretch; }
+  .pd-interested-banner .btn-primary { width: 100%; }
+}
+
+/* Step 55: consistent seller and similar product carousel card alignment */
+.productDetail .pd-seller-products .pd-similar-slide .ProImg,
+.productDetail .companyProducts .pd-similar-slide .ProImg {
+  height: 190px;
+  min-height: 190px;
+}
+.productDetail .pd-similar-slide .ProImg img {
+  display: block;
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+}
+.productDetail .pd-similar-slide .productlink {
+  min-width: 0;
+}
+.productDetail .pd-similar-arrow:focus-visible {
+  outline: 3px solid #1465c0;
+  outline-offset: 2px;
+}
+@media (max-width: 575px) {
+  .productDetail .pd-similar-carousel { margin-inline: 28px; }
+  .productDetail .pd-similar-slide .productBox { min-height: 270px; }
+}
+
+/* Step 56: keyboard-visible focus for both product carousels */
+.pd-similar-track:focus-visible {
+  outline: 2px solid #1465c0;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Step 60: match React's four-across, 80px thumbnail Swiper layout. */
+.pd-gallery-thumbnails {
+ display: grid;
+ grid-auto-flow: column;
+ grid-auto-columns: calc((100% - 30px) / 4);
+ gap: 10px;
+ overflow-x: auto;
+ scroll-snap-type: x mandatory;
+ scrollbar-width: thin;
+ padding-bottom: 4px;
+}
+.pd-gallery-thumb {
+ width: 100%;
+ height: 80px;
+ padding: 0;
+ background: #fff;
+ border: 1px solid #ddd;
+ border-radius: 5px;
+ overflow: hidden;
+ cursor: pointer;
+ scroll-snap-align: start;
+}
+.pd-gallery-thumb img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+}
+.pd-gallery-thumb-active { border: 2px solid #e56b2f; }
+.pd-gallery-thumb:focus-visible { outline: 2px solid #1465c0; outline-offset: 2px; }
+
+/* Step 61: uniform card dimensions and readable product titles across both carousels. */
+.pd-similar-slide .productBox { min-height: 285px; }
+.pd-similar-slide .productlink .title-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.45;
+  min-height: 2.9em;
+  overflow-wrap: anywhere;
+}
+.pd-similar-slide .productlink a { max-width: 100%; }
+
+/* Step 62: responsive seller sidebar and specification overflow safeguards. */
+@media (min-width: 992px) {
+  .productDetail .pd-sidebar-sticky { position: sticky; top: 16px; }
+}
+@media (max-width: 991.98px) {
+  .productDetail .pd-sidebar-sticky { position: static; top: auto; }
+  .productDetail .sidebar-company-card,
+  .productDetail .pd-quote-widget,
+  .productDetail .pdboost-card { width: 100%; max-width: 100%; }
+}
+.productDetail .sidebar-company-name,
+.productDetail .meta-value,
+.productDetail .pd-qw-title { overflow-wrap: anywhere; }
+.productDetail .pd-description-responsive,
+.productDetail .pd-description-responsive table { max-width: 100%; }
+.productDetail .pd-description-responsive { overflow-x: auto; }
+@media (max-width: 575.98px) {
+  .productDetail .pd-qty-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .productDetail .pd-qty-row .form-control { min-width: 0; flex: 1 1 110px; }
+  .productDetail .btn-get-quote { width: 100%; }
+  .productDetail .sidebar-company-head { min-width: 0; }
+}
+
+/* Step 80: screenshot-driven sidebar alignment (scoped to Product Detail). */
+.productDetail .sidebar-company-card .card-body{padding:24px}
+.productDetail .sidebar-company-head{display:flex;align-items:flex-start;gap:16px}
+.productDetail .sidebar-logo{width:100px;height:100px;flex:0 0 100px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid #e8e8e8;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.035)}
+.productDetail .sidebar-logo img{display:block;max-width:100%;max-height:100%}
+.productDetail .sidebar-company-name{font-size:22px;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+.productDetail .sidebar-company-location{display:flex;align-items:flex-start;gap:5px;color:#707780}
+.productDetail .sidebar-company-location i{font-size:16px;line-height:1.2;margin-top:1px}
+.productDetail .sidebar-company-card hr{margin:24px 0}
+.productDetail .sidebar-company-card .meta-list{padding-top:0}
+.productDetail .sidebar-company-card .meta-list>.d-flex{margin-bottom:26px!important}
+.productDetail .sidebar-company-card .view-company-link{display:inline-block;margin-top:8px;margin-bottom:10px;font-weight:700}
+.productDetail .pd-quote-widget{margin-top:20px!important;padding:18px;border-radius:14px}
+.productDetail .pd-quote-widget .form-control{min-height:50px}
+.productDetail .pd-quote-widget .btn-get-quote{min-height:50px}
+@media(max-width:575.98px){.productDetail .sidebar-company-card .card-body{padding:18px}.productDetail .sidebar-logo{width:88px;height:88px;flex-basis:88px}.productDetail .sidebar-company-name{font-size:20px}}
+
+/* Step 81: React screenshot-derived Similar Products sidebar artwork. */
+.productDetail .pd-similar-banner-link{display:block;margin-top:20px;border-radius:15px;overflow:hidden;line-height:0}
+.productDetail .pd-similar-banner-image{display:block;width:100%;height:auto}
+.productDetail .pd-similar-banner-link:focus-visible{outline:3px solid #ff6600;outline-offset:3px}

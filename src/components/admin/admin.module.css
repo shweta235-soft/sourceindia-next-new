@@ -1,0 +1,115 @@
+
+.shell{display:flex;min-height:100vh;background:#f7f8fa;color:#202d40;font-size:12px}
+.sidebar{width:190px;flex-shrink:0;background:#fff;color:#263342;height:100vh;position:sticky;top:0;overflow-y:auto;border-right:1px solid #e6e9ee}
+.brand{display:block;padding:13px 12px;color:#087c9c;text-decoration:none;font-size:17px;font-weight:800;border-bottom:1px solid #eee}.brand small{font-size:10px;color:#e58d25;font-weight:600}
+.sidebar details{border-bottom:1px solid #f0f1f4}.sidebar summary{cursor:pointer;padding:8px 12px;font-size:11px;font-weight:600;list-style-position:inside}.sidebar details div{display:grid;padding-bottom:3px}.sidebar nav a{padding:6px 19px;color:#293849;text-decoration:none;font-size:11px}.sidebar nav a:hover,.sidebar nav a.active{background:#eaf1fd;color:#0055ad}.main{min-width:0;flex:1}.header{height:48px;background:white;border-bottom:1px solid #e7eaf0;display:flex;align-items:center;gap:15px;padding:0 16px}.header button{border:0;background:none;font-size:20px;cursor:pointer}.header span{margin-left:auto;color:#68758b}.content{padding:12px}.card{background:white;padding:16px;border-radius:4px;border:1px solid #e2e7ef}.muted{color:#64748b}
+@media(max-width:850px){.sidebar{position:fixed;z-index:20;left:-190px;transition:left .2s}.sidebar.visible{left:0}.content{padding:12px}}
+
+/* UI batch 01: React admin topbar structure, without authentication side effects. */
+.header{height:60px;gap:18px;box-shadow:0 1px 4px #00000008;position:relative;z-index:4}
+.menuToggle{font-size:23px!important;color:#333!important;padding:6px}
+.searchBox{position:relative;max-width:360px;width:100%}
+.searchBox input{width:100%;height:35px;padding:8px 38px 8px 14px;border:1px solid #e6e6e6;background:#f7f8fa;border-radius:5px;font-size:12px;box-sizing:border-box}
+.searchBox>i{position:absolute;right:12px;top:9px;font-size:18px;color:#666}
+.headerRight{margin-left:auto;display:flex;align-items:center;gap:20px}
+.dropdown{position:relative}.dropdown summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;color:#444}.dropdown summary::-webkit-details-marker{display:none}
+.dropdown summary>i{font-size:21px}.userToggle img{width:32px;height:32px;border-radius:50%;object-fit:cover;background:#e9edf3}.userToggle span{font-size:12px;font-weight:600}
+.dropdownMenu{position:absolute;right:0;top:calc(100% + 14px);min-width:195px;background:#fff;border:1px solid #e5e8ec;box-shadow:0 8px 24px #0002;border-radius:4px;padding:7px 0;z-index:10}
+.dropdownMenu a,.dropdownMenu span{display:flex;align-items:center;gap:9px;padding:9px 14px;text-decoration:none;color:#333;font-size:12px;white-space:nowrap}.dropdownMenu a:hover{background:#f5f7fa}.dropdownMenu i{font-size:16px}
+.overlay{display:none}
+@media(max-width:850px){.searchBox{max-width:240px}.overlay{display:block;position:fixed;inset:0;background:#0006;border:0;z-index:15}.sidebar{z-index:20}}
+@media(max-width:560px){.searchBox{display:none}.header{padding:0 10px}.headerRight{gap:12px}.userToggle span{display:none}}
+
+/* Batch 02: React sidebar navigation hierarchy and compact icon alignment. */
+.brand{display:flex;align-items:center;gap:8px;min-height:58px;padding:9px 12px;font-size:16px;line-height:1.2;color:#1b4d82}
+.brandMark{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;flex-shrink:0;border-radius:5px;background:#064b9d;color:#fff;font-weight:800;font-size:19px}
+.brand small{display:block;margin-top:2px;font-size:10px;color:#ec942d}
+.sideNav{padding:8px 0 24px}
+.sideNav .navGroup{border:0}
+.sideNav .navHeading{display:flex;align-items:center;gap:10px;padding:9px 12px;color:#38465a;text-decoration:none;font-size:12px;font-weight:500;list-style:none;min-height:34px;cursor:pointer}
+.sideNav .navHeading::-webkit-details-marker{display:none}
+.sideNav .navHeading>i:first-child{font-size:17px;width:19px;flex-shrink:0;color:#60748a}
+.sideNav .navHeading>span{flex:1}
+.sideNav .chevron{font-size:14px;margin-left:auto;color:#8090a0}
+.sideNav details[open] .chevron{transform:rotate(180deg)}
+.sideNav .subLinks{display:grid;padding:0 0 5px 29px}
+.sideNav .subLinks a{padding:7px 8px 7px 13px;font-size:11px;color:#536073;border-left:2px solid #e9edf2}
+.sideNav .subLinks a:hover,.sideNav .subLinks a.active{color:#0055ad;background:#f1f6fd;border-left-color:#0055ad}
+.sideNav .navHeading:hover,.sideNav .navHeading.active{color:#0055ad;background:#f1f6fd}
+
+/* React admin screenshot: denser shell, smaller topbar, neutral background. */
+.shell{background:#f7f8fa}
+.sidebar{width:172px}
+.brand{min-height:44px;padding:5px 9px;font-size:13px}
+.brandMark{width:24px;height:24px;font-size:15px}
+.sideNav{padding-top:3px}
+.sideNav .navHeading{min-height:29px;padding:6px 9px;font-size:11px;gap:7px}
+.sideNav .navHeading>i:first-child{font-size:14px;width:15px}
+.sideNav .subLinks{padding-left:21px}
+.sideNav .subLinks a{font-size:10px;padding:5px 7px 5px 10px}
+.header{height:42px;padding:0 11px;gap:10px}
+.searchBox{max-width:250px}
+.searchBox input{height:28px;font-size:10px}
+.searchBox>i{top:6px;font-size:15px}
+.userToggle img{height:24px;width:24px}
+.headerRight{gap:11px}
+.content{padding:10px}
+@media(max-width:850px){.sidebar{left:-172px}}
+
+/* Original React logo asset and dropdown action parity. */
+.brandLogo{display:block;max-width:100%;width:145px;height:auto;max-height:40px;object-fit:contain;object-position:left center}
+.logout{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:9px;padding:9px 14px;color:#333;font-size:12px;text-align:left;cursor:pointer}.logout:hover{background:#f5f7fa}
+
+/* Batch 07: source Header.jsx dropdown, search controls and compact responsive behavior. */
+.searchClear{position:absolute;right:28px;top:3px;padding:1px 3px!important;color:#777;font-size:16px!important}
+.dropdownMenu a{justify-content:space-between;gap:12px}
+.dropdownMenu a span{margin:0;color:inherit;flex:1}
+.dropdownMenu a i{flex-shrink:0}
+.dropdownMenu .logout{font-size:12px!important}
+.dropdownMenu .logout i{font-size:16px}
+.brandLogo{width:145px;max-height:34px}
+@media(max-width:850px){.sidebar{left:-172px}.sidebar.visible{left:0}}
+
+/* Batch 08: prevent native details marker and align compact React-style navigation. */
+.sideNav .navHeading{list-style:none}
+.sideNav .navHeading::-webkit-details-marker{display:none}
+.sideNav .navGroup[open]>.navHeading{color:#1762aa;background:#f2f6fc}
+.sideNav .navGroup[open]>.navHeading>i:first-child{color:#1762aa}
+.sideNav .subLinks a.active{font-weight:600}
+.sidebar{scrollbar-width:thin;scrollbar-color:#cdd5df transparent}
+.headerRight .dropdown[open]>summary{color:#1762aa}
+.dropdownMenu{max-height:min(70vh,520px);overflow-y:auto}
+@media(max-width:850px){.sidebar{box-shadow:4px 0 18px #00000016}}
+
+/* Batch 09: restore React Rocker Admin typography and dimensions (app.css). */
+.shell{font-family:"Golos Text",Arial,sans-serif;font-size:14px;color:#4c5258;background:#f7f8f9}
+.sidebar{width:250px;border-right:1px solid #e4e4e4}
+.brand{min-height:60px;padding:10px 15px;border-bottom:1px solid #e4e4e4}
+.brandLogo{width:200px;max-height:48px}
+.header{height:60px;padding:0 30px;gap:18px;box-shadow:none}
+.searchBox{max-width:360px}
+.searchBox input{height:36px;font-size:14px}
+.searchBox>i{top:9px;font-size:17px}
+.searchClear{top:7px}
+.userToggle img{width:32px;height:32px}
+.userToggle span{font-size:14px}
+.sideNav .navHeading{min-height:38px;padding:9px 15px;font-size:14px;gap:10px}
+.sideNav .navHeading>i:first-child{font-size:18px;width:20px}
+.sideNav .subLinks{padding-left:32px}
+.sideNav .subLinks a{font-size:13px;padding:8px 10px 8px 13px}
+.content{padding:24px}
+.dropdownMenu a,.dropdownMenu span,.dropdownMenu .logout{font-size:14px!important}
+.sideNav .navHeading.active,.sideNav .navGroup[open]>.navHeading,.sideNav .subLinks a.active{color:#00449c;background:#edf3fc}
+@media(max-width:850px){.sidebar{left:-250px}.sidebar.visible{left:0}.header{padding:0 12px}.content{padding:14px}}
+
+/* Phase 7: shared Admin navigation and React Header.jsx shortcut presentation.
+   Scoped to AdminShell only; public routes are not affected. */
+.sidebar{scrollbar-gutter:stable;overflow-x:hidden}
+.sideNav .navHeading{white-space:normal;line-height:1.35}
+.sideNav .navHeading>span{min-width:0}
+.sideNav .subLinks a{overflow-wrap:anywhere;line-height:1.35}
+.dropdownMenu .shortcutText{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;flex:1;padding:0;margin:0;color:#333}
+.shortcutText strong{font-weight:600;font-size:13px;line-height:1.3}
+.shortcutText small{font-size:11px;line-height:1.3;color:#6b7280}
+.dropdownMenu a:focus-visible,.sideNav a:focus-visible,.sideNav summary:focus-visible,.header button:focus-visible,.dropdown summary:focus-visible{outline:2px solid #1264c5;outline-offset:-2px}
+@media(max-width:850px){.sidebar{scrollbar-gutter:auto}}
