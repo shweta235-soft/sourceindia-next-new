@@ -416,6 +416,10 @@ export const adminMenu = [
     "title": "Reports",
     "links": [
       {
+        "title": "Reports List",
+        "href": "/admin/reports"
+      },
+      {
         "title": "Seller Unused Categories",
         "href": "/admin/seller_category_report"
       },
