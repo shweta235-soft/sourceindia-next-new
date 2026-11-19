@@ -1,8 +1,6 @@
-type FieldType = "text" | "multiline" | "editor" | "url" | "email" | "number" | "image" | "switch";
-export type HomeSettingField = [name: string, label: string, type?: FieldType, columns?: 4 | 6 | 12];
-type HomeSection = { id: string; title: string; icon: string; fields: HomeSettingField[]; uppercase?: boolean };
+import type { SettingsSection } from "./adminSettings";
 
-export const homeSections: HomeSection[] = [
+export const homeSections: SettingsSection[] = [
   { id: "category", title: "Top Categories", icon: "bx-category", fields: [
     ["categorysub_heading", "Sub Heading"], ["category_heading", "Heading"],
     ["categoryshort_description", "Short Description", "multiline", 12],
