@@ -1,0 +1,20 @@
+.menu {
+  border: 1px solid var(--bs-border-color);
+  box-shadow: none;
+}
+
+.tabs :global(.nav-link) {
+  color: var(--bs-secondary-color);
+  font-weight: 500;
+  border-left: 1px solid transparent;
+}
+
+.tabs :global(.nav-link.active) {
+  background-color: rgb(219 233 251);
+  color: var(--bs-primary);
+  border-left-color: var(--bs-primary);
+}
+
+.icon {
+  font-size: 18px;
+}
