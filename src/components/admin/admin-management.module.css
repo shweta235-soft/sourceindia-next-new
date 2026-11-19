@@ -1,0 +1,18 @@
+.heading {
+  font-size: 19px;
+  font-weight: 700;
+  color: #1f2020;
+}
+
+.count {
+  border-bottom: 1px solid #00449c;
+  background-color: #dbe9fb;
+  color: #00449c;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.required::after {
+  content: " *";
+  color: #dc3545;
+}

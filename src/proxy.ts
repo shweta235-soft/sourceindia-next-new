@@ -3,7 +3,7 @@ import { adminDashboardPath, adminSessionCookie, readAdminSession, safeAdminDest
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
-  if (pathname === "/admin/enquiry-data" || pathname === "/admin/member-data" || pathname === "/admin/support-data" || pathname === "/admin/submission-data" || pathname === "/admin/circular-data" || pathname === "/admin/user-activity-data" || pathname === "/admin/user-history-data" || pathname === "/admin/menu-data" || pathname === "/admin/home-settings-data" || pathname === "/admin/site-settings-data" || pathname === "/admin/mail-history-data") return NextResponse.next();
+  if (pathname === "/admin/enquiry-data" || pathname === "/admin/member-data" || pathname === "/admin/support-data" || pathname === "/admin/submission-data" || pathname === "/admin/circular-data" || pathname === "/admin/user-activity-data" || pathname === "/admin/user-history-data" || pathname === "/admin/menu-data" || pathname === "/admin/home-settings-data" || pathname === "/admin/site-settings-data" || pathname === "/admin/mail-history-data" || pathname === "/admin/management-data") return NextResponse.next();
   const session = readAdminSession(request.cookies.get(adminSessionCookie)?.value);
   const destination = request.nextUrl.clone();
   destination.search = "";
