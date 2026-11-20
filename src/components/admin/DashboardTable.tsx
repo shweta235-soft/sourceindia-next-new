@@ -12,7 +12,7 @@ export type DashboardColumn = {
 };
 
 export default function DashboardTable({
-  id, title, columns, load, headerAction, hideHeading, leadingColumn, renderSerial,
+  id, title, columns, load, headerAction, hideHeading, leadingColumn, renderSerial, initialSortDirection = "DESC",
 }: {
   id?: string;
   headerAction?: ReactNode;
@@ -20,6 +20,7 @@ export default function DashboardTable({
   title: string;
   columns: DashboardColumn[];
   leadingColumn?: DashboardColumn;
+  initialSortDirection?: "ASC" | "DESC";
   renderSerial?: (row: LeadRecord, serial: number) => ReactNode;
   load: (query: URLSearchParams, signal: AbortSignal) => Promise<LeadListResult>;
 }) {
@@ -28,7 +29,7 @@ export default function DashboardTable({
   const [limit, setLimit] = useState(25);
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
-  const [sort, setSort] = useState({ key: "id", direction: "DESC" });
+  const [sort, setSort] = useState({ key: "id", direction: initialSortDirection });
   const [attempt, setAttempt] = useState(0);
   const [response, setResponse] = useState<{ key: string; result?: LeadListResult; error?: string }>();
   const query = new URLSearchParams({

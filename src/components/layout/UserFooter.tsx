@@ -1,1 +1,5 @@
-export default function UserFooter(){return <footer className="py-3 text-center small">© {new Date().getFullYear()} Source India</footer>}
+import styles from "../account/account.module.css";
+
+export default function UserFooter() {
+  return <footer className={styles.footer}>Copyright © {new Date().getFullYear()}. All right reserved.</footer>;
+}
