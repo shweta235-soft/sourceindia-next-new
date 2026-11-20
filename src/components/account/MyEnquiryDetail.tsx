@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { enquiryCode, readAccountEnquiries } from "@/lib/accountEnquiries";
+import { enquiryCode, MAX_ENQUIRY_MESSAGE_LENGTH, readAccountEnquiries } from "@/lib/accountEnquiries";
 import { leadDate, type LeadRecord } from "@/lib/adminEnquiries";
 import { accountRecord as record, displayText as text } from "@/lib/userDashboard";
 import { EnquiryStatus } from "./MyEnquiries";
@@ -20,11 +20,58 @@ function directoryLink(type: "companies" | "products", name: string, slug: strin
   return name && enquiryCode(slug) ? <Link href={`/${type}/${encodeURIComponent(slug)}`}>{name}</Link> : name;
 }
 
+function MessageComposer({ number, refresh }: { number: string; refresh: () => void }) {
+  const [draft, setDraft] = useState("");
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState("");
+  const [sending, setSending] = useState(false);
+  const pending = useRef<AbortController | null>(null);
+
+  useEffect(() => () => pending.current?.abort(), []);
+
+  async function send(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const message = draft.trim();
+    if (!message || pending.current) return;
+    const controller = new AbortController();
+    pending.current = controller;
+    setSending(true);
+    setError("");
+    setStatus("");
+    try {
+      const result = await readAccountEnquiries<{ sent: boolean }>(new URLSearchParams(), controller.signal, { number, message });
+      if (controller.signal.aborted) return;
+      if (result.sent !== true) throw new Error("Sending could not be confirmed. Refresh messages before trying again.");
+      setDraft("");
+      setStatus("Message sent.");
+      refresh();
+    } catch (failure) {
+      if (!controller.signal.aborted) setError(failure instanceof Error && !(failure instanceof TypeError)
+        ? failure.message : "Sending could not be confirmed. Refresh messages before trying again.");
+    } finally {
+      pending.current = null;
+      if (!controller.signal.aborted) setSending(false);
+    }
+  }
+
+  return <form className="mt-3" onSubmit={send} aria-busy={sending}>
+    <div className="input-group">
+      <span className="input-group-text" aria-hidden="true"><i className="bx bx-envelope" /></span>
+      <input type="text" className="form-control" aria-label="Message" placeholder="Type a message" maxLength={MAX_ENQUIRY_MESSAGE_LENGTH}
+        value={draft} disabled={sending} onChange={(event) => setDraft(event.target.value)} />
+      <button type="submit" className="btn btn-primary" disabled={sending || !draft.trim()}>{sending ? "Sending…" : "Send"}</button>
+    </div>
+    {error && <p className="text-danger mb-0 mt-2" role="alert">{error}</p>}
+    {status && <p className="text-success mb-0 mt-2" role="status">{status}</p>}
+  </form>;
+}
+
 export default function MyEnquiryDetail({ number }: { number: string }) {
   const { user } = useAuth();
   const requestKey = `${user?.id ?? ""}:${number}`;
   const [result, setResult] = useState<{ key: string; row?: LeadRecord; error?: string }>();
   const [attempt, setAttempt] = useState(0);
+  const scroll = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -39,6 +86,10 @@ export default function MyEnquiryDetail({ number }: { number: string }) {
   const product = record(row?.product);
   const messages = Array.isArray(row?.messages) ? row.messages.map(record) : null;
   const status = text(row?.status) === "3" ? "3" : text(record(row?.item).enquiry_status);
+
+  useEffect(() => {
+    if (scroll.current) scroll.current.scrollTop = scroll.current.scrollHeight;
+  }, [row]);
 
   return <>
     <div className="d-flex align-items-center justify-content-between mb-3">
@@ -77,16 +128,20 @@ export default function MyEnquiryDetail({ number }: { number: string }) {
             ["Company Name", text(product.company)]])}
         </div></div></div>
         <div className="col-md-8"><div className="card mb-3"><div className="card-body">
-          <div className="border-bottom pb-2 mb-3"><h2 className="h6 d-inline-block bg-primary text-white rounded px-3 py-2 mb-0">Messages</h2></div>
+          <div className="border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center gap-2">
+            <h2 className="h6 d-inline-block bg-primary text-white rounded px-3 py-2 mb-0">Messages</h2>
+            <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setAttempt((n) => n + 1)}>Refresh messages</button>
+          </div>
           {!messages ? <p className="text-secondary">Messages could not be loaded.</p> :
             !messages.length ? <div className="text-center p-4"><img src="/no-data.jpg" alt="" className="img-fluid w-50 mb-2" /><p>No enquiry messages.</p></div> :
-            <div className="overflow-auto" style={{ maxHeight: 450 }}>
+            <div ref={scroll} className="overflow-auto" style={{ maxHeight: 450 }}>
               {messages.map((message, index) => <div key={text(message.id) || index} className={`mb-3 ${message.mine ? "text-end" : ""}`}>
                 <small className="text-secondary">{message.mine ? "You" : [text(message.user_fname), text(message.user_lname)].filter(Boolean).join(" ")} {leadDate(message.updated_at)}</small>
                 <div><p className={`d-inline-block text-start rounded-3 py-2 px-3 mb-0 text-break ${message.mine ? "bg-primary-subtle" : "bg-light"}`}
                   style={{ whiteSpace: "pre-wrap", maxWidth: "90%" }}>{text(message.message)}</p></div>
               </div>)}
             </div>}
+          {row.canSend === true && <MessageComposer key={requestKey} number={number} refresh={() => setAttempt((n) => n + 1)} />}
         </div></div></div>
       </div>
     </>}

@@ -6,6 +6,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useSiteSettings } from "@/context/SiteSettingsContext";
 import { assetUrl } from "@/lib/asset";
+import { canManageSellerProducts } from "@/lib/sellerProducts";
 import { accountFlag } from "@/lib/userDashboard";
 import UserHeader from "../layout/UserHeader";
 import UserFooter from "../layout/UserFooter";
@@ -33,12 +34,12 @@ export default function AccountShell({ children }: { children: ReactNode }) {
   const admin = Number(user.member_role) === 1;
   const productRole = admin || Number(user.member_role) === 3;
   const complete = accountFlag(user.is_complete) && accountFlag(user.is_approve);
-  const products = productRole && seller && accountFlag(user.is_company);
+  const products = canManageSellerProducts(user);
   const menu = [
     { label: seller ? "Seller Dashboard" : "Buyer Dashboard", href: "/dashboard", icon: "bx-home-circle", ready: true },
     { label: "Profile", href: "/profile", icon: "bx-user", ready: true },
-    { label: "Add Product/Service", href: "/add_product", icon: "bx-comment-add", hidden: !products },
-    { label: "My Products", href: "/my-product", icon: "bx-devices", hidden: !products },
+    { label: "Add Product/Service", href: "/add_product", icon: "bx-comment-add", ready: true, hidden: !products },
+    { label: "My Products", href: "/my-product", icon: "bx-devices", ready: true, hidden: !products },
     { label: "Leads", href: "/seller_enquiry", icon: "bx-user", hidden: !(seller && complete) },
     { label: "Lead Chats", href: "/all-leads-chats", icon: "bx-chat", hidden: !(seller && complete && productRole) },
     { label: "My Enquiries", href: "/my_enquiry", icon: "bx-folder", ready: true, hidden: !(admin && complete) },
@@ -65,7 +66,7 @@ export default function AccountShell({ children }: { children: ReactNode }) {
         <ul className={styles.menu}>
           {menu.filter((item) => !item.hidden).map(({ label, href, icon, ready }) => {
             const item = <><span className={styles.menuIcon}><i className={`bx ${icon}`} aria-hidden="true" /></span><span>{label}</span></>;
-            return <li key={href}>{ready ? <Link href={href} aria-current={href === pathname || (href === "/profile" && ["/profile-edit", "/company-edit"].includes(pathname)) ? "page" : undefined}
+            return <li key={href}>{ready ? <Link href={href} aria-current={href === pathname || (href === "/my-product" && pathname.startsWith("/edit_product/")) || (href === "/profile" && ["/profile-edit", "/company-edit"].includes(pathname)) ? "page" : undefined}
               onClick={() => setMobileOpen(false)}>{item}</Link> :
               <span className={styles.pending} aria-disabled="true">{item}</span>}</li>;
           })}

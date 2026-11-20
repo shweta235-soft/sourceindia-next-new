@@ -12,10 +12,11 @@ export type DashboardColumn = {
 };
 
 export default function DashboardTable({
-  id, title, columns, load, headerAction, hideHeading, leadingColumn, renderSerial, initialSortDirection = "DESC",
+  id, title, columns, load, headerAction, renderHeading, hideHeading, leadingColumn, renderSerial, initialSortDirection = "DESC",
 }: {
   id?: string;
   headerAction?: ReactNode;
+  renderHeading?: (total: number, id: string) => ReactNode;
   hideHeading?: boolean;
   title: string;
   columns: DashboardColumn[];
@@ -69,7 +70,7 @@ export default function DashboardTable({
 
   return (
     <section className={styles.tableSection} id={id} aria-labelledby={heading} tabIndex={id ? -1 : undefined}>
-      {headerAction ? <div className={`card mb-3 ${styles.stockCard}`}>
+      {renderHeading ? renderHeading(total, heading) : headerAction ? <div className={`card mb-3 ${styles.stockCard}`}>
         <div className="card-body d-flex flex-wrap align-items-center justify-content-between gap-2">
           <h5 id={heading} className="mb-0">{title}</h5>
           {headerAction}
