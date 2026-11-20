@@ -1,0 +1,24 @@
+.inbox { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+.sidebar { border-right: 1px solid #dee2e6; }
+.threads { max-height: 480px; overflow-y: auto; }
+.thread {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: white;
+  color: #212529;
+  border: 0;
+  border-bottom: 1px solid #dee2e6;
+}
+.thread:hover, .thread[aria-pressed="true"] { background: #f0f5fb; }
+.conversation { min-width: 0; padding: 1rem; }
+.messages { min-height: 300px; max-height: 420px; overflow: auto; padding-top: 1rem; }
+.message { max-width: 82%; overflow-wrap: anywhere; white-space: pre-wrap; }
+.sent { background: #dcecff; color: #102d51; }
+.received { background: #f2f3f4; color: #212529; }
+
+@media (max-width: 767px) {
+  .inbox { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { border-right: 0; border-bottom: 1px solid #dee2e6; }
+  .threads { max-height: 180px; }
+}

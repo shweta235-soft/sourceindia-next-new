@@ -12,10 +12,12 @@ export type DashboardColumn = {
 };
 
 export default function DashboardTable({
-  id, title, columns, load, headerAction, renderHeading, hideHeading, leadingColumn, renderSerial, initialSortDirection = "DESC",
+  id, title, columns, load, headerAction, renderHeading, hideHeading, limitOptions = [25, 50, 100], filterControl, leadingColumn, renderSerial, initialSortDirection = "DESC",
 }: {
   id?: string;
   headerAction?: ReactNode;
+  limitOptions?: number[];
+  filterControl?: (resetPage: () => void) => ReactNode;
   renderHeading?: (total: number, id: string) => ReactNode;
   hideHeading?: boolean;
   title: string;
@@ -27,7 +29,7 @@ export default function DashboardTable({
 }) {
   const heading = useId();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(25);
+  const [limit, setLimit] = useState(limitOptions[0]);
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
   const [sort, setSort] = useState({ key: "id", direction: initialSortDirection });
@@ -85,7 +87,7 @@ export default function DashboardTable({
             <label className="d-flex align-items-center col-auto gap-2">
               <select className="form-select form-select-sm w-auto" value={limit} aria-label="Entries per page"
                 onChange={(event) => { setLimit(Number(event.target.value)); setPage(1); }}>
-                {[25, 50, 100].map((size) => <option key={size}>{size}</option>)}
+                {limitOptions.map((size) => <option key={size}>{size}</option>)}
               </select>
               entries per page
             </label>
@@ -94,6 +96,7 @@ export default function DashboardTable({
               <input className={`form-control form-control-sm ${styles.search}`} placeholder="Search..." maxLength={100}
                 value={search} onChange={(event) => setSearch(event.target.value)} />
             </label>
+            {filterControl && <div className="col-auto">{filterControl(() => setPage(1))}</div>}
           </div>
           <div className="table-responsive border rounded-2 mt-4" aria-busy={!displayed}>
             <table className={`table table-striped table-hover align-middle mb-0 ${styles.table}`}>
