@@ -1,14 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth, type User } from "@/context/AuthContext";
 import { accountFlag, accountRead, accountRecord, displayText } from "@/lib/userDashboard";
 import { assetUrl } from "@/lib/asset";
-import { leadDate, type LeadListResult, type LeadRecord } from "@/lib/adminEnquiries";
-import DashboardTable, { type DashboardColumn } from "../admin/DashboardTable";
-import AdminRowActions from "../admin/AdminRowActions";
-import modalStyles from "../admin/product-keywords.module.css";
+import { type LeadRecord } from "@/lib/adminEnquiries";
+import { MyEnquiriesTable } from "./MyEnquiries";
 import styles from "./account.module.css";
 
 const steps = [["Email Verify", "bx-envelope"], ["Profile", "bx-user"], ["Company", "bx-buildings"], ["Product", "bx-cart"]];
@@ -72,63 +70,6 @@ function Recommendations({ sellers, items }: { sellers?: boolean; items: LeadRec
   </section>;
 }
 
-function DeletePreview({ close }: { close: () => void }) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const title = useId();
-  useEffect(() => {
-    if (dialog.current && !dialog.current.open) dialog.current.showModal();
-  }, []);
-  return <dialog ref={dialog} className={`modal show ${modalStyles.dialog}`} aria-labelledby={title} onClose={close}
-    onClick={(event) => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
-    <div className="modal-dialog"><div className="modal-content">
-      <div className="modal-header"><h5 className="modal-title" id={title}>Confirm Deletion</h5>
-        <button type="button" className="btn-close" aria-label="Close" onClick={() => dialog.current?.close()} /></div>
-      <div className="modal-body">Are you sure you want to delete this enquiry?</div>
-      <div className="modal-footer justify-content-between">
-        <button type="button" className="btn btn-secondary btn-sm" onClick={() => dialog.current?.close()}>Cancel</button>
-        <button type="button" className="btn btn-danger" disabled>Delete</button>
-      </div>
-    </div></div>
-  </dialog>;
-}
-
-function BuyerEnquiries({ id }: { id: string }) {
-  const [preview, setPreview] = useState(false);
-  const load = useCallback(async (query: URLSearchParams, signal: AbortSignal) => {
-    query.set("user_id", id);
-    const result = await accountRead<LeadListResult>(`enquiries/by-enquiry?${query}`, signal);
-    if (!Array.isArray(result.data) || !Number.isFinite(result.filteredRecords) || !Number.isFinite(result.totalRecords)) {
-      throw new Error("Your enquiries could not be loaded.");
-    }
-    return result;
-  }, [id]);
-  const firstItem = (row: LeadRecord) => accountRecord(Array.isArray(row.enquiry_users) ? row.enquiry_users[0] : null);
-  const columns: DashboardColumn[] = [
-    { key: "enquiry_number", label: "Enquiry No", render: (row) => displayText(row.enquiry_number) },
-    { key: "name", label: "Receiver", sortable: false, render: (row) => {
-      const receiver = accountRecord(row.from_user);
-      return <>{displayText(receiver.full_name)}<br />{displayText(receiver.email)}</>;
-    } },
-    { key: "enquiry_product", label: "Product", render: (row) => displayText(firstItem(row).product_name) },
-    { key: "quantity", label: "Quantity", render: (row) => displayText(row.quantity) },
-    { key: "created_at", label: "Created", render: (row) => leadDate(row.created_at) },
-    { key: "status", label: "Status", sortable: false, render: (row) => {
-      const status = displayText(firstItem(row).enquiry_status);
-      if (status === "1") return <span className="badge bg-success">Open</span>;
-      if (status === "2" || status === "3") return <span className="badge bg-danger">Closed</span>;
-      return <span className="badge bg-warning-subtle text-warning-emphasis">Pending</span>;
-    } },
-    { key: "action", label: "Action", sortable: false, render: (row) =>
-      <AdminRowActions name={displayText(row.enquiry_number) || "enquiry"} actions={[
-        { label: "Delete", icon: "bx-trash", danger: true, onClick: () => setPreview(true) },
-      ]} /> },
-  ];
-  return <div className="mt-4">
-    <DashboardTable title="My Enquiries" hideHeading columns={columns} load={load} initialSortDirection="ASC" />
-    {preview && <DeletePreview close={() => setPreview(false)} />}
-  </div>;
-}
-
 type Overview = { id: string; count?: string; countFailed?: boolean; message?: string; products?: LeadRecord[]; companies?: LeadRecord[] };
 
 export default function UserDashboard() {
@@ -184,7 +125,7 @@ export default function UserDashboard() {
         </div>
       </div>
     </div></div>
-    {!seller && <BuyerEnquiries key={id} id={id} />}
+    {!seller && <div className="mt-4"><MyEnquiriesTable key={id} /></div>}
     <Recommendations items={current?.products ?? []} />
     <Recommendations sellers items={current?.companies ?? []} />
   </>;

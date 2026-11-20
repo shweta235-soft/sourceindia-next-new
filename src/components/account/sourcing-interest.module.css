@@ -1,0 +1,27 @@
+.dialog {
+  max-width: min(1200px, calc(100% - 2rem));
+}
+
+.scroll {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.options {
+  background: #ffe5e5;
+}
+
+@media (min-width: 992px) {
+  .categories {
+    border-right: 1px solid var(--bs-border-color);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .options {
+    margin-top: 1rem;
+  }
+  .scroll {
+    max-height: 260px;
+  }
+}

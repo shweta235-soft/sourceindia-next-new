@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { accountFlag, accountRead, accountRecord, displayText } from "@/lib/userDashboard";
 import { assetUrl } from "@/lib/asset";
+import ChangePassword from "./ChangePassword";
 import styles from "./account.module.css";
 
 function Fields({ fields }: { fields: [string, unknown][] }) {
@@ -55,7 +56,7 @@ export default function UserProfile() {
       <h4 className="mt-3">{fullName}</h4>
       <p className="text-primary mb-1">{displayText(user.email)}</p>
       <p className="text-muted mb-2">{displayText(user.mobile)}</p>
-      <button className="btn btn-link text-danger p-0" disabled>Change Password <i className="bx bx-key" aria-hidden="true" /></button>
+      <ChangePassword key={id} />
     </div></div></div>
     <div className="col-lg-8"><div className="card"><div className="card-body">
       <div className="d-flex align-items-center justify-content-between gap-2 border-bottom pb-2">

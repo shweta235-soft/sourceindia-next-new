@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { assetUrl } from "@/lib/asset";
+import SourcingInterest from "../account/SourcingInterest";
 import styles from "../account/account.module.css";
 
 export default function UserHeader({ menuOpen, toggleMenu }: { menuOpen: boolean; toggleMenu: () => void }) {
@@ -18,7 +19,7 @@ export default function UserHeader({ menuOpen, toggleMenu }: { menuOpen: boolean
       </button>
       <div className={styles.company}>{user?.company_info?.organization_name}</div>
       <div className={styles.headerActions}>
-        <button type="button" className="btn btn-outline-primary" disabled>Sourcing Interest</button>
+        <SourcingInterest key={String(user?.id ?? "")} />
         <Link className="btn btn-primary" href="/"><i className="bx bx-arrow-back me-1" aria-hidden="true" />Back to Home</Link>
       </div>
       <div className="dropdown">

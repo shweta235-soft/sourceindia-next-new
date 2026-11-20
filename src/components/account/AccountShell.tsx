@@ -41,7 +41,7 @@ export default function AccountShell({ children }: { children: ReactNode }) {
     { label: "My Products", href: "/my-product", icon: "bx-devices", hidden: !products },
     { label: "Leads", href: "/seller_enquiry", icon: "bx-user", hidden: !(seller && complete) },
     { label: "Lead Chats", href: "/all-leads-chats", icon: "bx-chat", hidden: !(seller && complete && productRole) },
-    { label: "My Enquiries", href: "/my_enquiry", icon: "bx-folder", hidden: !(admin && complete) },
+    { label: "My Enquiries", href: "/my_enquiry", icon: "bx-folder", ready: true, hidden: !(admin && complete) },
     { label: "Enquiry Chats", href: "/my-all-enquiries-chats", icon: "bx-chat", hidden: !(Number(user.member_role) !== 3 && complete) },
     { label: "Open Enquiries", href: "/open-enquiry-dashboard", icon: "bx-folder-open", hidden: !(productRole && seller && complete) },
     { label: "My Open Enquiries", href: "/my-open-enquiry-dashboard", icon: "bx-list-ul", hidden: seller && !accountFlag(user.is_approve) },
