@@ -1,0 +1,23 @@
+next_path,methods,role,source_file
+/admin/circular-data,GET,LIVE API PROXY / dependency likely,src/app/admin/circular-data/route.ts
+/admin/enquiry-data,GET,LIVE API PROXY / dependency likely,src/app/admin/enquiry-data/route.ts
+/admin/home-settings-data,GET,LIVE API PROXY / dependency likely,src/app/admin/home-settings-data/route.ts
+/admin/mail-history-data,GET,LIVE API PROXY / dependency likely,src/app/admin/mail-history-data/route.ts
+/admin/management-data,GET,LIVE API PROXY / dependency likely,src/app/admin/management-data/route.ts
+/admin/member-data,GET,LIVE API PROXY / dependency likely,src/app/admin/member-data/route.ts
+/admin/menu-data,GET,LIVE API PROXY / dependency likely,src/app/admin/menu-data/route.ts
+/admin/report-data,GET,LIVE API PROXY / dependency likely,src/app/admin/report-data/route.ts
+/admin/site-settings-data,GET,LIVE API PROXY / dependency likely,src/app/admin/site-settings-data/route.ts
+/admin/submission-data,GET,LIVE API PROXY / dependency likely,src/app/admin/submission-data/route.ts
+/admin/support-data,GET,LIVE API PROXY / dependency likely,src/app/admin/support-data/route.ts
+/admin/user-activity-data,GET,LIVE API PROXY / dependency likely,src/app/admin/user-activity-data/route.ts
+/admin/user-history-data,GET,LIVE API PROXY / dependency likely,src/app/admin/user-history-data/route.ts
+/api/account/change-password,POST,LIVE API PROXY / dependency likely,src/app/api/account/change-password/route.ts
+/api/account/enquiries,"GET,POST",LIVE API PROXY / dependency likely,src/app/api/account/enquiries/route.ts
+/api/account/enquiry-directory,GET,LIVE API PROXY / dependency likely,src/app/api/account/enquiry-directory/route.ts
+/api/account/lead-inbox,GET,LIVE API PROXY / dependency likely,src/app/api/account/lead-inbox/route.ts
+/api/account/products,GET,LIVE API PROXY / dependency likely,src/app/api/account/products/route.ts
+/api/account/sourcing-interest,"GET,POST",LIVE API PROXY / dependency likely,src/app/api/account/sourcing-interest/route.ts
+/api/admin-session,"POST,DELETE",LIVE API PROXY / dependency likely,src/app/api/admin-session/route.ts
+/api/site-settings,GET,LIVE API PROXY / dependency likely,src/app/api/site-settings/route.ts
+/api/support/track,POST,LIVE API PROXY / dependency likely,src/app/api/support/track/route.ts

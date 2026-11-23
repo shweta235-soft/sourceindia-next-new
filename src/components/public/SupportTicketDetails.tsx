@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
+import TicketReplyDraft from "./TicketReplyDraft";
 import { assetUrl } from "@/lib/asset";
 import { getTrackedTicket, type TicketDetails } from "@/lib/publicSupport";
-import LegalDescriptionEditor from "../admin/LegalDescriptionEditor";
 import SupportPortal from "./SupportPortal";
 import TrackSupportTicket from "./TrackSupportTicket";
 
@@ -76,14 +76,7 @@ function Ticket({ ticket }: { ticket: TicketDetails }) {
         </div></div>
       </div>
       <div className="col-lg-8">
-        <div className="card mb-4"><div className="card-body">
-          <h2 className="h5 headinginfo mb-3">Add Reply</h2>
-          <form onSubmit={(event) => event.preventDefault()}>
-            <LegalDescriptionEditor description="" label="Message" />
-            <input aria-label="Reply attachment" type="file" className="form-control my-3" />
-            <button type="submit" className="btn btn-primary" disabled>Post</button>
-          </form>
-        </div></div>
+        <TicketReplyDraft />
         <h2 className="h5 headinginfo text-dark mb-3">Conversation</h2>
         <div className="conversationSection">
           {ticket.replies.length ? ticket.replies.map((entry, i) => <Reply key={entry.id || i} entry={entry} />)

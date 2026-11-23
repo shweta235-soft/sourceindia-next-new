@@ -1,4 +1,4 @@
-import { sourcingId, type SourcingCategory, type SourcingOption } from "@/lib/sourcingInterest";
+import { sourcingId, type BuyerInterestGroup, type SourcingCategory, type SourcingOption } from "@/lib/sourcingInterest";
 
 function record(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
@@ -19,7 +19,7 @@ function json(body: unknown, status = 200) {
 
 class SourcingReadError extends Error {
   constructor(
-    readonly source: "account verification" | "category list" | "category options",
+    readonly source: "account verification" | "category list" | "category options" | "buyer interests",
     readonly reason: string,
     readonly upstreamStatus?: number,
   ) {
@@ -90,6 +90,26 @@ async function serve(request: Request, write: boolean) {
       if (!id) throw new Error("Account ID missing.");
       return id;
     });
+
+    if (!write && new URL(request.url).searchParams.get("view") === "buyer-activities") {
+      const data = await read("buyer interests", `dashboard/get-buyer-interest?userId=${userId}`, (payload) => {
+        const result = record(payload);
+        return { categories: rows(result.categories), options: record(result.subCategories), checked: record(result.checked) };
+      });
+      const groups: BuyerInterestGroup[] = data.categories.flatMap((category) => {
+        const group = option(category);
+        if (!group.id || !group.name) return [];
+        const key = String(group.id);
+        const selected = new Set(Array.isArray(data.checked[key]) ? data.checked[key].map(sourcingId) : []);
+        const options = Array.isArray(data.options[key]) ? rows(data.options[key]) : [];
+        return [{
+          ...group,
+          options: options.map(option).filter((item) => item.id && item.name)
+            .map((item) => ({ ...item, checked: selected.has(item.id) })),
+        }];
+      });
+      return json({ groups });
+    }
 
     if (!categoryId) {
       const categoryRows = await read("category list", `dashboard/get-itemtype?userId=${userId}`, (data) => rows(record(data).categories));

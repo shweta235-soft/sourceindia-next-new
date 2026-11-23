@@ -1,16 +1,57 @@
 "use client";
-import {useEffect,useState,type FormEvent} from "react";
+import {useEffect,useRef,useState,type FormEvent} from "react";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
 import {apiFetch} from "@/lib/api";
 import {useAuth} from "@/context/AuthContext";
 type ApiResponse={message?:string;token?:string;user?:Record<string,unknown>;userId?:number|string;success?:boolean};
 const post=(path:string,body:object)=>apiFetch<ApiResponse>(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+const accountRoutes = new Set([
+  "/dashboard", "/is-interested", "/profile", "/profile-edit", "/company-edit", "/my_enquiry",
+  "/my-product", "/add_product", "/open-enquiry-dashboard", "/my-open-enquiry-dashboard",
+  "/my-buyer-enquiries", "/seller_enquiry", "/all-leads-chats", "/my-all-enquiries-chats",
+]);
+
+function loginDestination(fallback: string) {
+  const returnTo = new URLSearchParams(window.location.search).get("returnTo");
+  if (returnTo && (accountRoutes.has(returnTo) || /^\/edit_product\/[1-9][0-9]*$/.test(returnTo)
+    || /^\/open-enquiry\/[1-9][0-9]*(?:\?type=1)?$/.test(returnTo))) return returnTo;
+  return fallback;
+}
+
 export default function LoginPage(){
- const router=useRouter();const {login,setUser}=useAuth();const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [otp,setOtp]=useState("");const [userId,setUserId]=useState<string|number|null>(null);const [otpMode,setOtpMode]=useState(false);const [showPassword,setShowPassword]=useState(false);const [remember,setRemember]=useState(false);const [busy,setBusy]=useState(false);const [message,setMessage]=useState("");const [modal,setModal]=useState<"forgot"|"verify"|"reset"|null>(null);const [resetEmail,setResetEmail]=useState("");const [resetOtp,setResetOtp]=useState("");const [newPassword,setNewPassword]=useState("");const [confirmPassword,setConfirmPassword]=useState("");
+ const {login,isLoggedIn,loadingUser}=useAuth();const leaving=useRef(false);const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [otp,setOtp]=useState("");const [userId,setUserId]=useState<string|number|null>(null);const [otpMode,setOtpMode]=useState(false);const [showPassword,setShowPassword]=useState(false);const [remember,setRemember]=useState(false);const [busy,setBusy]=useState(false);const [message,setMessage]=useState("");const [modal,setModal]=useState<"forgot"|"verify"|"reset"|null>(null);const [resetEmail,setResetEmail]=useState("");const [resetOtp,setResetOtp]=useState("");const [newPassword,setNewPassword]=useState("");const [confirmPassword,setConfirmPassword]=useState("");
  useEffect(()=>{try{const saved=localStorage.getItem("si_remember_email");if(saved){setEmail(saved);setRemember(true)}}catch{}},[]);
  const action=async(fn:()=>Promise<void>)=>{setMessage("");setBusy(true);try{await fn()}catch(e){setMessage(e instanceof Error?e.message:"Request failed")}finally{setBusy(false)}};
- const submit=(e:FormEvent)=>{e.preventDefault();void action(async()=>{if(!/^\S+@\S+\.\S+$/.test(email))throw Error("Invalid email format");if(!otpMode&&!password)throw Error("Password is required");if(otpMode&&!otp)throw Error("OTP is required");const result=otpMode?await post("/signup/verify-login-otp",{userId,otp}):await post("/signup/login",{email,password});if(!result.token)throw Error(result.message||"Login failed");login(result.token);if(result.user)setUser(result.user);if(remember)localStorage.setItem("si_remember_email",email);else localStorage.removeItem("si_remember_email");const returnTo=new URLSearchParams(window.location.search).get("returnTo");router.replace(returnTo && (["/dashboard", "/profile", "/profile-edit", "/company-edit", "/my_enquiry", "/my-product", "/add_product", "/open-enquiry-dashboard", "/my-open-enquiry-dashboard", "/my-buyer-enquiries", "/seller_enquiry", "/all-leads-chats", "/my-all-enquiries-chats"].includes(returnTo)||/^\/edit_product\/[1-9][0-9]*$/.test(returnTo)||/^\/open-enquiry\/[1-9][0-9]*(?:\?type=1)?$/.test(returnTo))?returnTo:"/")})};
+ useEffect(() => {
+  if (!loadingUser && isLoggedIn && !leaving.current) {
+   leaving.current = true;
+   window.location.replace(loginDestination("/dashboard"));
+  }
+ }, [isLoggedIn, loadingUser]);
+
+ function submit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  if (busy || leaving.current) return;
+  void action(async () => {
+   if (!/^\S+@\S+\.\S+$/.test(email)) throw Error("Invalid email format");
+   if (!otpMode && !password) throw Error("Password is required");
+   if (otpMode && !otp) throw Error("OTP is required");
+   const result = otpMode
+    ? await post("/signup/verify-login-otp", { userId, otp })
+    : await post("/signup/login", { email, password });
+   if (!result.token) throw Error(result.message || "Login failed");
+
+   login(result.token);
+   try {
+    if (remember) localStorage.setItem("si_remember_email", email);
+    else localStorage.removeItem("si_remember_email");
+   } catch {
+    // The optional remembered email should not interrupt a successful login.
+   }
+   leaving.current = true;
+   window.location.replace(loginDestination("/"));
+  });
+ }
  const sendLoginOtp=()=>void action(async()=>{if(!/^\S+@\S+\.\S+$/.test(email))throw Error("Enter a valid email");const r=await post("/signup/send-login-otp",{email});if(!r.userId)throw Error(r.message||"Failed to send OTP");setUserId(r.userId);setOtpMode(true);setMessage(r.message||"OTP sent")});
  const forgot=(e:FormEvent)=>{e.preventDefault();void action(async()=>{const r=await post("/signup/forgot-password",{email:resetEmail});setMessage(r.message||"Request submitted");setModal("verify")})};
  const verify=(e:FormEvent)=>{e.preventDefault();void action(async()=>{const r=await post("/signup/verify-forgot-otp",{email:resetEmail,otp:resetOtp});setMessage(r.message||"OTP verified");setModal("reset")})};

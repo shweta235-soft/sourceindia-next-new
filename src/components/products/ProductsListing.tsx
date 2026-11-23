@@ -3,13 +3,13 @@ import {useCallback,useEffect,useRef,useState} from "react";
 import Link from "next/link";
 import {useSearchParams} from "next/navigation";
 import {apiFetch} from "@/lib/api";
+import {includeProductAncestors,productCategoryQuery} from "@/lib/productCategoryQuery";
 import {assetUrl} from "@/lib/asset";
 import ProductEnquiryModal from "./ProductEnquiryModal";
 
 type Entry={id:number;name:string;product_count?:number;organization_name?:string;item_category_id?:number;item_subcategory_id?:number};
 type Product={id:number;slug?:string;title?:string;file_name?:string;company_name?:string;state_name?:string;company_id?:number};
 type ProductResponse={products?:Product[];total?:number};
-type Hierarchy={category_id?:number;sub_category_id?:number;item_category_id?:number;item_subcategory_id?:number;item_id?:number};
 type FilterKey="category"|"sub_category"|"item_category_id"|"item_subcategory_id"|"item_id"|"user_state"|"company_id";
 type FilterGroup={key:FilterKey;label:string;items:Entry[]};
 const takeArray=(v:unknown):Entry[]=>Array.isArray(v)?v as Entry[]:[];
@@ -24,9 +24,8 @@ export default function ProductsListing(){
  const [sort,setSort]=useState("");const [list,setList]=useState(false);const [mobileFilters,setMobileFilters]=useState(false);
  const [loading,setLoading]=useState(true);const [moreLoading,setMoreLoading]=useState(false);const [page,setPage]=useState(1);const [hasMore,setHasMore]=useState(false);
  const [error,setError]=useState("");const [filterSearch,setFilterSearch]=useState<Record<string,string>>({});
- const request=useRef(0);const sentinel=useRef<HTMLDivElement>(null);const ready=useRef(false);
+ const request=useRef(0);const sentinel=useRef<HTMLDivElement>(null);const [resolvedQuery,setResolvedQuery]=useState<string>();
  const ids=useCallback((key:FilterKey)=>filters[key]||[],[filters]);
- const setIds=(key:FilterKey,values:number[])=>setFilters(f=>({...f,[key]:values}));
  const toggle=(key:FilterKey,id:number)=>setFilters(f=>{const current=f[key]||[];return {...f,[key]:current.includes(id)?current.filter(n=>n!==id):[...current,id]};});
  const loadOptions=useCallback(async()=>{
   const selected=(k:FilterKey)=>filters[k]||[];
@@ -45,18 +44,27 @@ export default function ProductsListing(){
  },[filters]);
  useEffect(()=>{void loadOptions();},[loadOptions]);
  useEffect(()=>{
-  const term=(params.get("search")||"").trim();setSearch(term);setInput(term);
-  const keys:[string,FilterKey][]=[["category_id","category"],["subcategory_id","sub_category"],["item_category_id","item_category_id"],["item_subcategory_id","item_subcategory_id"],["item_id","item_id"]];
-  const found=keys.find(([name])=>params.get(name));
-  ready.current=false;
-  if(!found){setFilters({});ready.current=true;return;}
-  const id=Number(params.get(found[0]));if(!Number.isInteger(id)||id<=0){setFilters({});ready.current=true;return;}
-  let active=true;
-  apiFetch<Hierarchy>(`products/item-hierarchy/${({category:"category",sub_category:"subcategory",item_category_id:"item_category",item_subcategory_id:"item_subcategory",item_id:"item"} as Record<FilterKey,string>)[found[1]]}/${id}`).then(h=>{
-   if(!active)return;setFilters({category:h.category_id?[h.category_id]:[],sub_category:h.sub_category_id?[h.sub_category_id]:[],item_category_id:h.item_category_id?[h.item_category_id]:[],item_subcategory_id:h.item_subcategory_id?[h.item_subcategory_id]:[],item_id:h.item_id?[h.item_id]:[]});
-  }).catch(()=>{if(active)setFilters({[found[1]]:[id]});}).finally(()=>{if(active)ready.current=true;});
-  return()=>{active=false;};
- },[query,params]);
+  const controller=new AbortController();
+  const urlParams=new URLSearchParams(query);
+  const term=(urlParams.get("search")||"").trim();
+  setSearch(term);setInput(term);
+  request.current++;
+  setLoading(true);
+  setMoreLoading(false);
+  setHasMore(false);
+  setError("");
+  const {selected,endpoint}=productCategoryQuery(urlParams);
+  function apply(next:typeof selected) {
+   if (!controller.signal.aborted) {
+    setFilters(next);
+    setResolvedQuery(query);
+   }
+  }
+  if (!endpoint) apply(selected);
+  else void apiFetch<Record<string,unknown>>(endpoint,{signal:controller.signal})
+   .then(h=>apply(includeProductAncestors(selected,h))).catch(()=>apply(selected));
+  return()=>controller.abort();
+ },[query]);
  const fetchPage=useCallback(async(n:number,append:boolean)=>{
   const ticket=++request.current;
   if(append)setMoreLoading(true);else {setLoading(true);setError("");}
@@ -79,7 +87,7 @@ export default function ProductsListing(){
   finally{if(ticket===request.current){setLoading(false);setMoreLoading(false);}}
  },[ids,search,sort]);
  const filtersKey=JSON.stringify(filters);
- useEffect(()=>{if(!ready.current)return;setPage(1);setHasMore(false);void fetchPage(1,false);},[fetchPage,filtersKey,query]);
+ useEffect(()=>{if(resolvedQuery!==query)return;setPage(1);setHasMore(false);void fetchPage(1,false);},[fetchPage,filtersKey,query,resolvedQuery]);
  useEffect(()=>{const node=sentinel.current;if(!node||!hasMore||loading||moreLoading)return;const obs=new IntersectionObserver(entries=>{if(entries[0]?.isIntersecting)void fetchPage(page+1,true);},{rootMargin:"150px"});obs.observe(node);return()=>obs.disconnect();},[fetchPage,hasMore,loading,moreLoading,page]);
  useEffect(()=>{const timer=setTimeout(()=>setSearch(input),700);return()=>clearTimeout(timer);},[input]);
  const sections:FilterGroup[]=[{key:"category",label:"Category",items:groups.category||[]},{key:"sub_category",label:"Sub Category",items:groups.sub_category||[]},{key:"item_category_id",label:"Item Category",items:groups.item_category_id||[]},{key:"item_subcategory_id",label:"Item Sub Category",items:groups.item_subcategory_id||[]},{key:"user_state",label:"State",items:groups.user_state||[]},{key:"company_id",label:"Companies",items:groups.company_id||[]}];
