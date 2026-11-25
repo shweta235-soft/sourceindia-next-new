@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const sql = readFileSync(new URL('./localOpenEnquiryRead.ts', import.meta.url), 'utf8');
+const handler = readFileSync(new URL('./localOpenEnquiryHandler.ts', import.meta.url), 'utf8');
+for (const table of ['open_enquriys', 'buyerenquiry']) test(`correct ${table} table`, () => assert.match(sql, new RegExp(table)));
+test('read-only queries', () => { assert.doesNotMatch(sql, /SELECT\s+\*/i); assert.doesNotMatch(sql, /\b(?:INSERT|DELETE|UPDATE)\s/i); });
+test('owned open enquiries only', () => { assert.match(sql, /o\.user_id = \?/g); assert.match(sql, /o\.is_delete = 0/g); });
+test('incoming messages are addressed to current user', () => assert.match(sql, /b\.reciever_id = \?/g));
+test('authenticated local JWT and fresh account', () => {assert.match(handler, /verifyLocalAuthToken/);assert.match(handler, /accountById\(claims\.id\)/);});
+test('no public caching', () => assert.match(handler, /private, no-store/));
+test('pagination and IDs validated', () => {assert.match(sql, /limit > 50/);assert.match(sql, /Number\.isSafeInteger/);});
+test('does not return private password hash', () => assert.doesNotMatch(sql, /password/i));

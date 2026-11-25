@@ -3,21 +3,9 @@ import {useEffect,useRef,useState,type FormEvent} from "react";
 import Link from "next/link";
 import {apiFetch} from "@/lib/api";
 import {useAuth} from "@/context/AuthContext";
+import {accountLoginDestination} from "@/lib/accountLoginRedirect";
 type ApiResponse={message?:string;token?:string;user?:Record<string,unknown>;userId?:number|string;success?:boolean};
 const post=(path:string,body:object)=>apiFetch<ApiResponse>(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-const accountRoutes = new Set([
-  "/dashboard", "/is-interested", "/profile", "/profile-edit", "/company-edit", "/my_enquiry",
-  "/my-product", "/add_product", "/open-enquiry-dashboard", "/my-open-enquiry-dashboard",
-  "/my-buyer-enquiries", "/seller_enquiry", "/all-leads-chats", "/my-all-enquiries-chats",
-]);
-
-function loginDestination(fallback: string) {
-  const returnTo = new URLSearchParams(window.location.search).get("returnTo");
-  if (returnTo && (accountRoutes.has(returnTo) || /^\/edit_product\/[1-9][0-9]*$/.test(returnTo)
-    || /^\/open-enquiry\/[1-9][0-9]*(?:\?type=1)?$/.test(returnTo))) return returnTo;
-  return fallback;
-}
-
 export default function LoginPage(){
  const {login,isLoggedIn,loadingUser}=useAuth();const leaving=useRef(false);const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [otp,setOtp]=useState("");const [userId,setUserId]=useState<string|number|null>(null);const [otpMode,setOtpMode]=useState(false);const [showPassword,setShowPassword]=useState(false);const [remember,setRemember]=useState(false);const [busy,setBusy]=useState(false);const [message,setMessage]=useState("");const [modal,setModal]=useState<"forgot"|"verify"|"reset"|null>(null);const [resetEmail,setResetEmail]=useState("");const [resetOtp,setResetOtp]=useState("");const [newPassword,setNewPassword]=useState("");const [confirmPassword,setConfirmPassword]=useState("");
  useEffect(()=>{try{const saved=localStorage.getItem("si_remember_email");if(saved){setEmail(saved);setRemember(true)}}catch{}},[]);
@@ -25,7 +13,7 @@ export default function LoginPage(){
  useEffect(() => {
   if (!loadingUser && isLoggedIn && !leaving.current) {
    leaving.current = true;
-   window.location.replace(loginDestination("/dashboard"));
+   window.location.replace(accountLoginDestination(window.location.search));
   }
  }, [isLoggedIn, loadingUser]);
 
@@ -49,7 +37,7 @@ export default function LoginPage(){
     // The optional remembered email should not interrupt a successful login.
    }
    leaving.current = true;
-   window.location.replace(loginDestination("/"));
+   window.location.replace(accountLoginDestination(window.location.search));
   });
  }
  const sendLoginOtp=()=>void action(async()=>{if(!/^\S+@\S+\.\S+$/.test(email))throw Error("Enter a valid email");const r=await post("/signup/send-login-otp",{email});if(!r.userId)throw Error(r.message||"Failed to send OTP");setUserId(r.userId);setOtpMode(true);setMessage(r.message||"OTP sent")});

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { apiFetch } from "@/lib/api";
 import { assetUrl } from "@/lib/asset";
+import { companyListingConnectHref } from "@/lib/companyListingConnect";
 
 type Company = { id?: string | number; organization_slug?: string | null; organization_name?: string | null; company_logo_file?: string | null; city?: string; state?: string; company_location?: string | null; company_website?: string | null; core_activity_name?: string | null; activity_name?: string | null; category_name?: string | null; sub_category_name?: string | null; user?: { address?: string | null; products?: string | null }; products?: {id?: number | string; slug?: string | null; title?: string | null}[]; };
 type FilterOption = { id: number; name: string; company_count?: number };
@@ -121,7 +122,7 @@ export default function CompanyListingFilter({mode}:{mode:Mode}) {
  {error&&<div className="alert alert-danger" role="alert">{error}<button className="btn btn-sm btn-outline-danger ms-2" onClick={()=>setRetryCount(n=>n+1)}>Retry</button></div>}
  <div className="row g-3 mt-1">{items.map((company,i)=>{
  const name=company.organization_name||"Company";
- const url=company.organization_slug?`/companies/${encodeURIComponent(company.organization_slug)}`:null;
+ const url=companyListingConnectHref(company.organization_slug);
  const location=mode==="buyer"?(company.user?.address||company.company_location):company.company_location;
  const fields: {label:string;value?:string|null}[]=mode==="buyer"?[{label:"Product",value:company.user?.products}]:[
  {label:"Website",value:company.company_website},{label:"Core Activity",value:company.core_activity_name},{label:"Activity",value:company.activity_name},{label:"Category",value:company.category_name},{label:"Sub Category",value:company.sub_category_name}];
@@ -140,7 +141,7 @@ export default function CompanyListingFilter({mode}:{mode:Mode}) {
  <div className="featuredCompaniesPara d-flex align-items-center gap-1 flex-wrap">{company.products?.filter(p=>p.slug&&p.title).map((product,idx)=><Link key={String(product.id||idx)} href={`/products/${encodeURIComponent(product.slug!)}`} className="small badge text-decoration-none text-white btn-orange text-start" style={{whiteSpace:"pre-wrap",lineHeight:"17px",padding:"2px 6px",fontSize:10}}>{product.title}</Link>)}</div>
  </div>
  <div className={`card-footer ${viewMode==="list"?"bg-white border-0 pe-2 pt-0":""}`}><div className={`d-flex gap-2 ${viewMode==="list"?"align-items-center h-100":"flex-row"}`}>
- {mode==="buyer"?<Link href="/login" className="d-block w-100 pt-2 btn btn-orange text-nowrap px-5">Connect</Link>:url?<Link href={url} className="d-block w-100 pt-2 btn btn-primary si-company-view-details text-nowrap px-5">View Details</Link>:<span className="text-muted small">Details unavailable</span>}
+ {mode==="buyer"?(url?<Link href={url} className="d-block w-100 pt-2 btn btn-orange text-nowrap px-5">Connect</Link>:<span className="text-muted small">Details unavailable</span>):url?<Link href={url} className="d-block w-100 pt-2 btn btn-primary si-company-view-details text-nowrap px-5">View Details</Link>:<span className="text-muted small">Details unavailable</span>}
  </div></div></article></div>})}</div>
  {!loading&&!error&&items.length===0&&<p className="text-muted py-4">No companies found.</p>}
  {loading&&<p className="text-center py-4" role="status">Loading companies...</p>}

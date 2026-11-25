@@ -10,6 +10,7 @@ import { canBrowseOpenEnquiries, canReadConnects, canReadOwnOpenEnquiries } from
 import { canReadLeadChat, canReadLeads } from "@/lib/accountLeadInbox";
 import { canManageSellerProducts } from "@/lib/sellerProducts";
 import { accountFlag } from "@/lib/userDashboard";
+import { accountLoginReturnTarget } from "@/lib/accountLoginRedirect";
 import UserHeader from "../layout/UserHeader";
 import UserFooter from "../layout/UserFooter";
 import styles from "./account.module.css";
@@ -22,8 +23,7 @@ export default function AccountShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
     if (!loadingUser && !isLoggedIn) {
-      const allOpenEnquiries = pathname.startsWith("/open-enquiry/") && new URLSearchParams(window.location.search).get("type") === "1";
-      const target = allOpenEnquiries ? `${pathname}?type=1` : pathname;
+      const target = accountLoginReturnTarget(pathname, window.location.search);
       router.replace(`/login?returnTo=${encodeURIComponent(target)}`);
     }
   }, [isLoggedIn, loadingUser, pathname, router]);

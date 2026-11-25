@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {adminFaqPaging,adminFaqDeleteFlag,adminFaqId,faqStatusPayload,ADMIN_FAQ_LIST,ADMIN_FAQ_COUNT,ADMIN_FAQ_DETAIL,ADMIN_FAQ_CATEGORY_LIST,ADMIN_FAQ_CATEGORY_DETAIL,ADMIN_FAQ_STATUS_UPDATE,ADMIN_FAQ_CATEGORY_STATUS_UPDATE} from './localAdminFaq.ts';
+test('bounded pagination',()=>{assert.deepEqual(adminFaqPaging('http://localhost/admin/api/local/faqs'),{page:1,limit:20,offset:0});assert.deepEqual(adminFaqPaging('http://localhost/?page=2&limit=10'),{page:2,limit:10,offset:10});});
+test('invalid pagination rejected',()=>{for(const x of ['page=0','page=abc','page=-1','limit=51'])assert.equal(adminFaqPaging('http://localhost/?'+x),null);});
+test('deleted filter strictly parsed',()=>{assert.equal(adminFaqDeleteFlag('http://localhost/'),0);assert.equal(adminFaqDeleteFlag('http://localhost/?deleted=1'),1);assert.equal(adminFaqDeleteFlag('http://localhost/?deleted=all'),null);});
+test('FAQ ids strictly numeric',()=>{assert.equal(adminFaqId('123'),123);for(const s of ['0','-1','a','1.1','9007199254740992'])assert.equal(adminFaqId(s),null);});
+test('status payload accepts only numeric 0 or 1',()=>{assert.equal(faqStatusPayload({status:1}),1);assert.equal(faqStatusPayload({status:0}),0);for(const b of [{status:'1'},{status:true},{status:2},{status:1,extra:true},{},null,[]])assert.equal(faqStatusPayload(b),null);});
+test('SQL uses physical columns and placeholders',()=>{assert.match(ADMIN_FAQ_LIST,/f.faq_id AS id/);assert.match(ADMIN_FAQ_COUNT,/is_delete = \?/);assert.match(ADMIN_FAQ_CATEGORY_LIST,/faqcategory_id AS id/);assert.match(ADMIN_FAQ_DETAIL,/faq_id = \?/);assert.match(ADMIN_FAQ_CATEGORY_DETAIL,/faqcategory_id = \?/);assert.match(ADMIN_FAQ_STATUS_UPDATE,/status = \?/);assert.match(ADMIN_FAQ_CATEGORY_STATUS_UPDATE,/status = \?/);});

@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const query = readFileSync(new URL('./localOpenChatRead.ts', import.meta.url), 'utf8');
+const handler = readFileSync(new URL('./localOpenChatHandler.ts', import.meta.url), 'utf8');
+for (const table of ['open_enquriys','open_enquriychats']) test(`matches model table ${table}`,()=> assert.match(query,new RegExp(table)));
+test('owner check restricts enquiry and excludes deleted',()=> {assert.match(query,/o\.user_id = \?/);assert.match(query,/o\.is_delete = 0/)});
+test('chat queries restrict enquiry ID',()=> {assert.match(query,/c\.enquiry_id = \?/);assert.match(query,/c\.open_enquriychats_id = \?/)});
+test('strict ID and pagination validation',()=> {assert.match(query,/Number\.isSafeInteger/);assert.match(query,/limit <= 50/);assert.match(query,/getAll\('page'\)/)});
+test('session verification and owner before reading chats',()=> {assert.match(handler,/verifyLocalAuthToken/);assert.match(handler,/accountById\(claims\.id\)/); assert.ok(handler.indexOf('ownOpenChatQueries.owner') < handler.indexOf('ownOpenChatQueries.detail'))});
+test('read only and private response',()=> {assert.doesNotMatch(query,/\b(?:INSERT|UPDATE|DELETE)\s+(?:INTO|[a-z_])/i);assert.match(handler,/private, no-store/)});
+test('does not leak missing owners',()=>assert.match(handler,/fail\(404, 'Open enquiry not found\.'\)/));
+test('no hardcoded user IDs',()=>assert.match(handler,/\[enquiryId, account\.id\]/));

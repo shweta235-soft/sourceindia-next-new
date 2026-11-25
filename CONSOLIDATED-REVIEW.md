@@ -1,1 +1,0 @@
-Compared against original frontend/src/sections/Banner.jsx. Restored TrendingShowcase nesting inside mainBanner and focused search suggestion behavior. No API or database changes. Build/visual parity must be verified independently.

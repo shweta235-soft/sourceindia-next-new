@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseBuyerMessageSend,deduplicationUuid,buyerTemplateRender,escapeHtml,buyerMessageExistingSql,buyerMessageInsertSql} from './localBuyerMessageSend.ts';
+const data={company_id:5,title:'Hello',message:'Details',request_id:'acb766df-6bc1-4f91-8284-3a257b52a72b'};
+test('valid send includes validated idempotency UUID',()=>assert.equal(parseBuyerMessageSend(data)?.requestId,data.request_id));
+test('missing request id is rejected',()=>assert.equal(parseBuyerMessageSend({...data,request_id:undefined}),null));
+test('unexpected identity field rejected',()=>assert.equal(parseBuyerMessageSend({...data,logged_in_user_id:7}),null));
+test('deterministic uuid is scoped to sender',()=>{const a=deduplicationUuid(1,data.request_id,'secret');assert.equal(a,deduplicationUuid(1,data.request_id,'secret'));assert.notEqual(a,deduplicationUuid(2,data.request_id,'secret'));assert.match(a,/^[a-f0-9-]{36}$/);});
+test('HTML in inputs escaped',()=>assert.equal(escapeHtml('<x & "abc">'),'&lt;x &amp; &quot;abc&quot;&gt;'));
+test('template replaces placeholders with escaped values',()=>assert.equal(buyerTemplateRender('{{ USER_NAME }} {{ TITLE }}','Joe','Seller','<h1>','hi'),'Joe &lt;h1&gt;'));
+test('SQL includes unique uuid and sender identity',()=>{assert.match(buyerMessageExistingSql,/WHERE b\.uuid = \?/);assert.match(buyerMessageInsertSql,/uuid,user_id,reciever_id/);});

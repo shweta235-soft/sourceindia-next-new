@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { adminUpstreamExpiry, validUpstreamAdminId } from "@/lib/adminLoginValidation";
 import { adminSessionCookie, adminSessionSecret, encodeAdminSession, maxAdminSessionAge, safeAdminDestination } from "@/lib/adminSession";
 
 function response(data: Record<string, unknown>, status = 200) {
@@ -53,17 +54,14 @@ export async function POST(request: NextRequest) {
     if (!login.ok) return response({ message: "Admin login is temporarily unavailable." }, 502);
 
     const { admin, token } = await login.json();
-    if ((typeof admin?.id !== "string" && typeof admin?.id !== "number") || typeof token !== "string") {
+    const adminId = validUpstreamAdminId(admin?.id);
+    const now = Math.floor(Date.now() / 1000);
+    const upstreamExpiry = adminUpstreamExpiry(token, now);
+    if (!adminId || !upstreamExpiry) {
       return response({ message: "Admin login returned an invalid response." }, 502);
     }
-    const now = Math.floor(Date.now() / 1000);
-    // The token came directly from the configured admin login endpoint.
-    const upstream = JSON.parse(Buffer.from(token.split(".")[1] ?? "", "base64url").toString());
-    if (!Number.isSafeInteger(upstream?.exp) || upstream.exp <= now) {
-      return response({ message: "Admin login returned an expired session." }, 502);
-    }
-    const expires = Math.min(upstream.exp, now + maxAdminSessionAge);
-    const signed = encodeAdminSession({ id: String(admin.id), expires }, secret);
+    const expires = Math.min(upstreamExpiry, now + maxAdminSessionAge);
+    const signed = encodeAdminSession({ id: adminId, expires }, secret);
     const result = response({ destination: safeAdminDestination(input.returnTo) });
     result.cookies.set(adminSessionCookie, signed, { ...cookieOptions(request), maxAge: expires - now });
     return result;

@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { parseBasicProfileUpdate, basicProfileUpdateSql } from './localProfileUpdate.ts';
+test('accepts valid basic fields', () => assert.deepEqual(parseBasicProfileUpdate({fname:' Jane ',mobile:'+91 9876543210'}),{fname:'Jane',mobile:'+91 9876543210'}));
+test('rejects email modification', () => assert.equal(parseBasicProfileUpdate({email:'changed@example.com'}),null));
+test('rejects password and company modification', () => {assert.equal(parseBasicProfileUpdate({password:'x'}),null);assert.equal(parseBasicProfileUpdate({company_id:2}),null)});
+test('rejects blank required name', () => assert.equal(parseBasicProfileUpdate({fname:'  '}),null));
+test('rejects oversized and invalid values', () => {assert.equal(parseBasicProfileUpdate({lname:'a'.repeat(101)}),null);assert.equal(parseBasicProfileUpdate({website:'javascript:alert(1)'}),null)});
+test('rejects empty payload', () => assert.equal(parseBasicProfileUpdate({}),null));
+test('uses scoped, parametrized SQL in fixed column order', () => {const x=basicProfileUpdateSql({zipcode:'12345',fname:'A'},77); assert.match(x.sql,/WHERE user_id = \? AND is_delete = 0 AND status = 1/);assert.deepEqual(x.params,['A','12345',77]);});
+test('rejects bad user id', () => assert.throws(()=>basicProfileUpdateSql({fname:'A'},0)));
