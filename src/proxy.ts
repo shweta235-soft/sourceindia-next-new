@@ -15,7 +15,7 @@ export function proxy(request: NextRequest) {
   }
   // API clients must receive an explicit 401, not a redirect to the HTML login page.
   // The individual FAQ handlers also validate the signed admin session.
-  const adminFaqApi = pathname === "/admin/api/local/faqs" || pathname.startsWith("/admin/api/local/faqs/");
+  const adminFaqApi = pathname === "/admin/api/local/faqs" || pathname.startsWith("/admin/api/local/faqs/") || pathname === "/admin/api/local/testimonials" || pathname.startsWith("/admin/api/local/testimonials/") || pathname === "/admin/api/local/knowledge-center" || pathname.startsWith("/admin/api/local/knowledge-center/") || pathname === "/admin/api/local/front-menu" || pathname.startsWith("/admin/api/local/front-menu/");
   if (!session && adminFaqApi) {
     return NextResponse.json(
       { message: "Admin session required." },

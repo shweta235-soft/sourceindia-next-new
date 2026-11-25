@@ -58,9 +58,12 @@ function formatDate(value: unknown) {
   return `${date.toLocaleDateString("sv-SE")} ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`;
 }
 
-function ContentImage({ file, preview, size }: { file: unknown; preview?: string; size: number }) {
-  return <img src={preview || assetUrl(text(file))} alt="" width={size} height={size}
+function ContentImage({ file, preview, size, testimonialImageId }: { file: unknown; preview?: string; size: number; testimonialImageId?: unknown }) {
+  const localImage = testimonialImageId && /^[1-9]\d*$/.test(text(testimonialImageId)) && /^upload\/testimonials\//.test(text(file))
+    ? `/admin/api/local/testimonials/images/${encodeURIComponent(text(testimonialImageId))}` : null;
+  return <img src={preview || localImage || assetUrl(text(file))} alt="" width={size} height={size}
     className={styles.image} loading="lazy" onError={(event) => {
+      if (localImage && event.currentTarget.src.includes("/admin/api/local/testimonials/images/")) { event.currentTarget.src = assetUrl(text(file)); return; }
       if (!event.currentTarget.src.endsWith("/default.png")) event.currentTarget.src = "/default.png";
     }} />;
 }
@@ -124,7 +127,7 @@ function ContentForm({ kind, row, reset }: { kind: Kind; row?: Row; reset: () =>
         setPreview("");
         setFile(event.target.files?.[0]);
       }} />
-      {(preview || row?.file_name) ? <div className="mt-3"><ContentImage file={row?.file_name} preview={preview} size={150} /></div> : null}
+      {(preview || row?.file_name) ? <div className="mt-3"><ContentImage file={row?.file_name} preview={preview} size={150} testimonialImageId={kind === "testimonial" ? row?.file_id : undefined} /></div> : null}
     </div>}
     <div className="d-flex justify-content-between">
       <button className="btn btn-sm btn-secondary" type="button" onClick={reset}>{row ? "Cancel" : "Reset"}</button>
@@ -346,7 +349,7 @@ export default function AdminContentMaster({ kind, deleted = false }: { kind: Ki
                       let value = text(row[field]);
                       if (field.endsWith("_at")) value = formatDate(row[field]);
                       if (field === "description" && value.length > 25) value = `${value.slice(0, 25)}...`;
-                      return <td key={field}>{field === "image" ? <ContentImage file={row.file_name} size={50} /> : value}</td>;
+                      return <td key={field}>{field === "image" ? <ContentImage file={row.file_name} size={50} testimonialImageId={kind === "testimonial" ? row.file_id : undefined} /> : value}</td>;
                     })}
                     <td>{deleted ? <span className={`badge bg-${active ? "success" : "danger"}`}>{active ? "Active" : "Inactive"}</span> :
                       <div className="form-check form-switch"><input className="form-check-input" type="checkbox"

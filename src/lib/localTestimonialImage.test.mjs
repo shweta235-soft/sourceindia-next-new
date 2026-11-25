@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const file=readFileSync(new URL('./localTestimonialImage.ts',import.meta.url),'utf8');
+const pub=readFileSync(new URL('../app/api/local/testimonials/images/[id]/route.ts',import.meta.url),'utf8');
+const admin=readFileSync(new URL('../app/admin/api/local/testimonials/images/[id]/route.ts',import.meta.url),'utf8');
+const component=readFileSync(new URL('../components/admin/AdminContentMaster.tsx',import.meta.url),'utf8');
+test('public query checks active and nondeleted testimonial',()=>{assert.match(file,/t\.status = 1 AND t\.is_delete = 0/);});
+test('image path restricted and image signature validated',()=>{assert.match(file,/upload\\\/testimonials/);assert.match(file,/testimonialImageFormat\(bytes,mime\)/);});
+test('public and admin images use distinct endpoints',()=>{assert.match(pub,/loadTestimonialImage\(id,false\)/);assert.match(admin,/loadTestimonialImage\(id,true\)/);});
+test('admin images require signed session',()=>{assert.match(admin,/authorizedAdminFaq\(request\)/);});
+test('legacy asset fallback remains available in Admin UI',()=>{assert.match(component,/assetUrl\(text\(file\)\)/);assert.match(component,/testimonialImageId/);});

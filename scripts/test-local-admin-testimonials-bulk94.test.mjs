@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const node=readFileSync(new URL('./test-local-admin-testimonials-bulk94.mjs',import.meta.url),'utf8');
+const ps=readFileSync(new URL('./test-local-admin-testimonials-bulk94.ps1',import.meta.url),'utf8');
+test('uses explicit signed cookie and prevents redirects',()=>{assert.match(node,/si_admin_session=/);assert.match(node,/redirect:'manual'/);});
+test('validates signed session before protected endpoints',()=>{assert.match(node,/admin\/session-status/);assert.match(node,/authenticated!==true/);});
+test('checks Admin testimonial listing count and invalid inputs',()=>{assert.match(node,/admin\/api\/local\/testimonials\/count/);assert.match(node,/deleted=unknown/);assert.match(node,/testimonials\/invalid/);});
+test('no testimonial data writes',()=>{assert.doesNotMatch(node, /method:'(?:PATCH|PUT|DELETE)'[^\n]*testimonials/);assert.doesNotMatch(node,/console\.log[^\n]*setCookie/);});
+test('PowerShell 5.1 compatible wrapper uses memory-only encoded stdin',()=>{assert.match(ps,/RedirectStandardInput\s*=\s*\$true/);assert.match(ps,/ToBase64String/);assert.doesNotMatch(ps,/StandardInputEncoding/);assert.doesNotMatch(ps,/\$payload\s*\|\s*node/);});

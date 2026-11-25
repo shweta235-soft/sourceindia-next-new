@@ -1,0 +1,12 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {parseKnowledge,parseMenu,parseBitBody,parseIds,enabledContentWrites,KNOWLEDGE_DELETE,MENU_CHILD_COUNT} from './localContentWrites.ts';
+const k={name:'Article',video_url:'https://example.com/a',file_id:1,status:1};
+const m={parent_id:0,name:'Home',link:'/',is_show:1,status:1,type:1,position:0};
+test('knowledge parser accepts valid fields',()=>assert.deepEqual(parseKnowledge(k),k));
+test('knowledge parser rejects unknown and invalid image',()=>{assert.equal(parseKnowledge({...k,evil:1}),null);assert.equal(parseKnowledge({...k,file_id:0}),null);});
+test('menu parser accepts valid fields',()=>assert.deepEqual(parseMenu(m),m));
+test('menu parser rejects dangerous links, invalid types',()=>{assert.equal(parseMenu({...m,link:'javascript:alert(1)'}),null);assert.equal(parseMenu({...m,type:3}),null);});
+test('single-field patches strict',()=>{assert.deepEqual(parseBitBody({status:0},'status'),{value:0});assert.equal(parseBitBody({status:2},'status'),null);});
+test('bulk delete IDs strict dedup',()=>{assert.deepEqual(parseIds({ids:[1,1,2]}),[1,2]);assert.equal(parseIds({ids:[0]}),null);});
+test('writes disabled by default',()=>{delete process.env.LOCAL_ADMIN_CONTENT_WRITES_ENABLED;assert.equal(enabledContentWrites(),false);});
+test('SQL only parameterized and soft deletes knowledge',()=>{assert.match(KNOWLEDGE_DELETE,/is_delete=1/);assert.match(KNOWLEDGE_DELETE,/\?/);assert.match(MENU_CHILD_COUNT,/parent_id=\?/);});
