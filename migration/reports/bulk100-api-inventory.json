@@ -1,0 +1,3323 @@
+{
+  "generated_at": "2026-11-26T11:02:58.529Z",
+  "warning": "This is a static inventory, NOT verified legacy-to-local parity. Some legacy registrations are aliases. A Next.js route may be a proxy, and dynamic paths may represent multiple logical operations.",
+  "legacy": {
+    "registrations": 516,
+    "route_files": 48,
+    "methods": {
+      "GET": 270,
+      "POST": 93,
+      "PUT": 33,
+      "PATCH": 58,
+      "DELETE": 62,
+      "HEAD": 0,
+      "OPTIONS": 0
+    },
+    "duplicate_normalized_keys": []
+  },
+  "next": {
+    "route_files": 342,
+    "method_exports": 432,
+    "local_route_files": 318,
+    "local_method_exports": 405,
+    "route_declaration_issues": []
+  },
+  "modules": [
+    {
+      "route_file": "usersRoutes.js",
+      "legacy_registrations": 50,
+      "legacy_methods": {
+        "GET": 22,
+        "POST": 26,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "enquiriesRoutes.js",
+      "legacy_registrations": 30,
+      "legacy_methods": {
+        "GET": 17,
+        "POST": 9,
+        "DELETE": 2,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "productsRoutes.js",
+      "legacy_registrations": 25,
+      "legacy_methods": {
+        "GET": 15,
+        "POST": 3,
+        "DELETE": 3,
+        "PUT": 1,
+        "PATCH": 3
+      }
+    },
+    {
+      "route_file": "sellerRoutes.js",
+      "legacy_registrations": 25,
+      "legacy_methods": {
+        "POST": 3,
+        "GET": 16,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 3
+      }
+    },
+    {
+      "route_file": "categoriesRoutes.js",
+      "legacy_registrations": 20,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 13,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 3
+      }
+    },
+    {
+      "route_file": "itemCategoryRoutes.js",
+      "legacy_registrations": 18,
+      "legacy_methods": {
+        "POST": 3,
+        "GET": 10,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "keywordsRoutes.js",
+      "legacy_registrations": 17,
+      "legacy_methods": {
+        "POST": 3,
+        "GET": 10,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "ticketRoutes.js",
+      "legacy_registrations": 16,
+      "legacy_methods": {
+        "POST": 6,
+        "GET": 7,
+        "PUT": 1,
+        "DELETE": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "buyerRoutes.js",
+      "legacy_registrations": 15,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 7,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 4
+      }
+    },
+    {
+      "route_file": "itemSubCategoryRoutes.js",
+      "legacy_registrations": 15,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 8,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "subCategoryRoutes.js",
+      "legacy_registrations": 15,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 8,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "faqCategoryRoutes.js",
+      "legacy_registrations": 14,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 6,
+        "PUT": 2,
+        "DELETE": 2,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "itemsRoutes.js",
+      "legacy_registrations": 14,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 7,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "openEnquiriesRoutes.js",
+      "legacy_registrations": 14,
+      "legacy_methods": {
+        "GET": 9,
+        "POST": 2,
+        "DELETE": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "applicationRoutes.js",
+      "legacy_registrations": 12,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 3,
+        "PUT": 1,
+        "PATCH": 3
+      }
+    },
+    {
+      "route_file": "activityRoutes.js",
+      "legacy_registrations": 11,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 5,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "coreActivityRoutes.js",
+      "legacy_registrations": 11,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 5,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "interestSubCategoriesRoutes.js",
+      "legacy_registrations": 11,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 6,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "faqRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "frontMenuRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 4,
+        "PUT": 1,
+        "PATCH": 2,
+        "DELETE": 1
+      }
+    },
+    {
+      "route_file": "homeBannerRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "knowledgeCenterRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "membershipPlanRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "newsletterRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 5,
+        "PUT": 1,
+        "DELETE": 2
+      }
+    },
+    {
+      "route_file": "sellerMailHistoriesRoutes.js",
+      "legacy_registrations": 10,
+      "legacy_methods": {
+        "GET": 4,
+        "POST": 2,
+        "DELETE": 2,
+        "PATCH": 2
+      }
+    },
+    {
+      "route_file": "subAdminRoutes.js",
+      "legacy_registrations": 9,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "ticketCategoryRoutes.js",
+      "legacy_registrations": 9,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "emailsRoutes.js",
+      "legacy_registrations": 8,
+      "legacy_methods": {
+        "POST": 2,
+        "GET": 4,
+        "PUT": 1,
+        "DELETE": 1
+      }
+    },
+    {
+      "route_file": "interestCategoriesRoutes.js",
+      "legacy_registrations": 8,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "PUT": 1,
+        "DELETE": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "rolesRoutes.js",
+      "legacy_registrations": 8,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 3,
+        "DELETE": 2,
+        "PUT": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "seoPagesRoutes.js",
+      "legacy_registrations": 8,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 5,
+        "PUT": 1,
+        "DELETE": 1
+      }
+    },
+    {
+      "route_file": "testimonialRoutes.js",
+      "legacy_registrations": 8,
+      "legacy_methods": {
+        "POST": 1,
+        "GET": 4,
+        "PUT": 1,
+        "DELETE": 1,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "usersDashboardRoutes.js",
+      "legacy_registrations": 8,
+      "legacy_methods": {
+        "GET": 6,
+        "POST": 2
+      }
+    },
+    {
+      "route_file": "contactsRoutes.js",
+      "legacy_registrations": 7,
+      "legacy_methods": {
+        "POST": 1,
+        "DELETE": 2,
+        "GET": 3,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "locationRoutes.js",
+      "legacy_registrations": 6,
+      "legacy_methods": {
+        "GET": 6
+      }
+    },
+    {
+      "route_file": "registrationsRoutes.js",
+      "legacy_registrations": 6,
+      "legacy_methods": {
+        "DELETE": 2,
+        "GET": 3,
+        "PATCH": 1
+      }
+    },
+    {
+      "route_file": "settingRoutes.js",
+      "legacy_registrations": 5,
+      "legacy_methods": {
+        "GET": 3,
+        "PUT": 2
+      }
+    },
+    {
+      "route_file": "shortcutRoutes.js",
+      "legacy_registrations": 4,
+      "legacy_methods": {
+        "GET": 1,
+        "POST": 1,
+        "PUT": 1,
+        "DELETE": 1
+      }
+    },
+    {
+      "route_file": "userActivityRoutes.js",
+      "legacy_registrations": 4,
+      "legacy_methods": {
+        "GET": 4
+      }
+    },
+    {
+      "route_file": "buyerEnquiryRoutes.js",
+      "legacy_registrations": 3,
+      "legacy_methods": {
+        "GET": 3
+      }
+    },
+    {
+      "route_file": "adminAuthRoutes.js",
+      "legacy_registrations": 2,
+      "legacy_methods": {
+        "POST": 2
+      }
+    },
+    {
+      "route_file": "fileRoutes.js",
+      "legacy_registrations": 2,
+      "legacy_methods": {
+        "GET": 2
+      }
+    },
+    {
+      "route_file": "newsletterHistoriesRoutes.js",
+      "legacy_registrations": 2,
+      "legacy_methods": {
+        "GET": 2
+      }
+    },
+    {
+      "route_file": "pagesRoutes.js",
+      "legacy_registrations": 2,
+      "legacy_methods": {
+        "GET": 1,
+        "PUT": 1
+      }
+    },
+    {
+      "route_file": "adminEnquiriesRoutes.js",
+      "legacy_registrations": 1,
+      "legacy_methods": {
+        "GET": 1
+      }
+    },
+    {
+      "route_file": "categoryConflictLogsRoutes.js",
+      "legacy_registrations": 1,
+      "legacy_methods": {
+        "GET": 1
+      }
+    },
+    {
+      "route_file": "companiesRoutes.js",
+      "legacy_registrations": 1,
+      "legacy_methods": {
+        "GET": 1
+      }
+    },
+    {
+      "route_file": "membershipPlansRoutes.js",
+      "legacy_registrations": 1,
+      "legacy_methods": {
+        "GET": 1
+      }
+    }
+  ],
+  "handlers": [
+    {
+      "path": "/admin/api/local/activities",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/route.ts"
+    },
+    {
+      "path": "/admin/api/local/activities/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/activities/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/activities/coreactivity/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/coreactivity/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/activities/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/activities/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/activities/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/activities/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/applications",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/applications/route.ts"
+    },
+    {
+      "path": "/admin/api/local/applications/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/applications/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/applications/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/applications/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/applications/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/applications/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/applications/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/applications/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/applications/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/applications/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyer-enquiries",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyer-enquiries/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyer-enquiries/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyer-enquiries/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyer-enquiries/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyer-enquiries/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyer-enquiries/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyer-enquiries/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyer-enquiries/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyer-enquiries/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyer-enquiries/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyer-enquiries/summary/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/chart",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/chart/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/get-buyer-sourcing-interests",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/get-buyer-sourcing-interests/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/buyers/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/buyers/summary/route.ts"
+    },
+    {
+      "path": "/admin/api/local/category-conflict-logs/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/category-conflict-logs/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/companies",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/companies/route.ts"
+    },
+    {
+      "path": "/admin/api/local/companies/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/companies/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/companies/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/companies/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/companies/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/companies/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/companies/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/companies/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/companies/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/companies/summary/route.ts"
+    },
+    {
+      "path": "/admin/api/local/contacts",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/contacts/route.ts"
+    },
+    {
+      "path": "/admin/api/local/contacts/:id",
+      "methods": [
+        "GET",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/contacts/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/contacts/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/contacts/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/contacts/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/contacts/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/contacts/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/contacts/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities/colors",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/colors/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/core-activities/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/core-activities/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/designations",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/designations/route.ts"
+    },
+    {
+      "path": "/admin/api/local/designations/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/designations/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/designations/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/designations/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/designations/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/designations/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/designations/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/designations/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/email-templates",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/email-templates/route.ts"
+    },
+    {
+      "path": "/admin/api/local/email-templates/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/email-templates/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/email-templates/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/email-templates/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/email-templates/clone",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/email-templates/clone/route.ts"
+    },
+    {
+      "path": "/admin/api/local/email-templates/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/email-templates/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/email-templates/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/email-templates/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/enquiries",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/enquiries/route.ts"
+    },
+    {
+      "path": "/admin/api/local/enquiries/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/enquiries/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/enquiries/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/enquiries/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/enquiries/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/enquiries/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/enquiries/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/enquiries/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/enquiries/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/enquiries/summary/route.ts"
+    },
+    {
+      "path": "/admin/api/local/faqs",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/faqs/route.ts"
+    },
+    {
+      "path": "/admin/api/local/faqs/:id",
+      "methods": [
+        "GET",
+        "PATCH",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/faqs/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/faqs/categories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/faqs/categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/faqs/categories/:id",
+      "methods": [
+        "GET",
+        "PATCH",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/faqs/categories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/front-menu",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/front-menu/route.ts"
+    },
+    {
+      "path": "/admin/api/local/front-menu/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/front-menu/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/front-menu/:id/children",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/front-menu/[id]/children/route.ts"
+    },
+    {
+      "path": "/admin/api/local/front-menu/:id/is_show",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/front-menu/[id]/is_show/route.ts"
+    },
+    {
+      "path": "/admin/api/local/front-menu/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/front-menu/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/front-menu/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/front-menu/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-banners",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-banners/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-banners/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-banners/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-banners/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-banners/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-banners/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-banners/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-banners/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-banners/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-settings",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-settings/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-settings/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-settings/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-settings/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-settings/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/home-settings/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/home-settings/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-categories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-categories/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-categories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-categories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-categories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-categories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories/category/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/category/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/interest-subcategories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/interest-subcategories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-categories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-categories/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-categories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-categories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-categories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-categories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-categories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-categories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-subcategories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-subcategories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-subcategories/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-subcategories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-subcategories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-subcategories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-subcategories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-subcategories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/item-subcategories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/item-subcategories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/knowledge-center",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/knowledge-center/route.ts"
+    },
+    {
+      "path": "/admin/api/local/knowledge-center/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/knowledge-center/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/knowledge-center/:id/delete_status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/knowledge-center/[id]/delete_status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/knowledge-center/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/knowledge-center/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/knowledge-center/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/knowledge-center/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/knowledge-center/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/knowledge-center/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/mail-master",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/mail-master/route.ts"
+    },
+    {
+      "path": "/admin/api/local/mail-master/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/mail-master/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/mail-master/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/mail-master/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/mail-master/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/mail-master/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/membership-plans",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/membership-plans/route.ts"
+    },
+    {
+      "path": "/admin/api/local/membership-plans/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/membership-plans/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/membership-plans/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/membership-plans/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/membership-plans/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/membership-plans/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/membership-plans/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/membership-plans/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/membership-plans/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/membership-plans/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/nature-businesses",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/nature-businesses/route.ts"
+    },
+    {
+      "path": "/admin/api/local/nature-businesses/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/nature-businesses/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/nature-businesses/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/nature-businesses/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/nature-businesses/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/nature-businesses/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/nature-businesses/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/nature-businesses/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars/:id/images",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/[id]/images/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars/:id/images/:imageId",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/[id]/images/[imageId]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-circulars/user_type",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-circulars/user_type/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-histories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-histories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/newsletter-histories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/newsletter-histories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-categories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-categories/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-categories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-categories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-categories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-categories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-categories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-categories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-keywords",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-keywords/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-keywords/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-keywords/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-keywords/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-keywords/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-keywords/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-keywords/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-keywords/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-keywords/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-subcategories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-subcategories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-subcategories/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-subcategories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-subcategories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-subcategories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-subcategories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-subcategories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/product-subcategories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/product-subcategories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/registrations",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/registrations/route.ts"
+    },
+    {
+      "path": "/admin/api/local/registrations/:id",
+      "methods": [
+        "GET",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/registrations/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/registrations/:id/delete-status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/registrations/[id]/delete-status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/registrations/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/registrations/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/registrations/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/registrations/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/registrations/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/registrations/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/roles",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/roles/route.ts"
+    },
+    {
+      "path": "/admin/api/local/roles/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/roles/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/roles/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/roles/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/roles/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/roles/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/roles/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/roles/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/roles/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/roles/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/chart",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/chart/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/designations",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/designations/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/nature_business",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/nature_business/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/seller-categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/seller-categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/seller-message/:userId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/seller-message/[userId]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/seller-subcategories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/seller-subcategories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/seller-subcategories-by-user",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/seller-subcategories-by-user/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/summary/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/trends",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/trends/route.ts"
+    },
+    {
+      "path": "/admin/api/local/sellers/with-messages",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/sellers/with-messages/route.ts"
+    },
+    {
+      "path": "/admin/api/local/seo-pages",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/seo-pages/route.ts"
+    },
+    {
+      "path": "/admin/api/local/seo-pages/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/seo-pages/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/seo-pages/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/seo-pages/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/seo-pages/slug/:slug",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/seo-pages/slug/[slug]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/shortcut-menus",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/shortcut-menus/route.ts"
+    },
+    {
+      "path": "/admin/api/local/shortcut-menus/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/shortcut-menus/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/shortcut-menus/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/shortcut-menus/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/shortcut-menus/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/shortcut-menus/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/shortcut-menus/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/shortcut-menus/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/shortcut-menus/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/shortcut-menus/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/static-pages",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/static-pages/route.ts"
+    },
+    {
+      "path": "/admin/api/local/static-pages/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/static-pages/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/static-pages/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/static-pages/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/static-pages/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/static-pages/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/testimonials",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/testimonials/route.ts"
+    },
+    {
+      "path": "/admin/api/local/testimonials/:id",
+      "methods": [
+        "GET",
+        "PATCH",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/testimonials/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/testimonials/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/testimonials/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/testimonials/images/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/testimonials/images/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/testimonials/upload",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/testimonials/upload/route.ts"
+    },
+    {
+      "path": "/admin/api/local/ticket-categories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/ticket-categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/ticket-categories/:id",
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/ticket-categories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/ticket-categories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/ticket-categories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/ticket-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/ticket-categories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/ticket-categories/delete-selected",
+      "methods": [
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/ticket-categories/delete-selected/route.ts"
+    },
+    {
+      "path": "/admin/api/local/tickets",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/tickets/route.ts"
+    },
+    {
+      "path": "/admin/api/local/tickets/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/tickets/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/tickets/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/tickets/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/tickets/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/tickets/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/tickets/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/tickets/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/tickets/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/tickets/summary/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-activity",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-activity/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-activity/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-activity/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-activity/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-activity/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-activity/user_id/:user_id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-activity/user_id/[user_id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-categories",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-categories/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-categories/:id",
+      "methods": [
+        "GET",
+        "PUT"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-categories/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-categories/:id/status",
+      "methods": [
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-categories/[id]/status/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-categories/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/user-categories/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/user-categories/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/users",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/users/route.ts"
+    },
+    {
+      "path": "/admin/api/local/users/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/users/[id]/route.ts"
+    },
+    {
+      "path": "/admin/api/local/users/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/users/count/route.ts"
+    },
+    {
+      "path": "/admin/api/local/users/filtered",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/users/filtered/route.ts"
+    },
+    {
+      "path": "/admin/api/local/users/server-side",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/users/server-side/route.ts"
+    },
+    {
+      "path": "/admin/api/local/users/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/api/local/users/summary/route.ts"
+    },
+    {
+      "path": "/admin/circular-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/circular-data/route.ts"
+    },
+    {
+      "path": "/admin/enquiry-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/enquiry-data/route.ts"
+    },
+    {
+      "path": "/admin/home-settings-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/home-settings-data/route.ts"
+    },
+    {
+      "path": "/admin/mail-history-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/mail-history-data/route.ts"
+    },
+    {
+      "path": "/admin/management-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/management-data/route.ts"
+    },
+    {
+      "path": "/admin/member-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/member-data/route.ts"
+    },
+    {
+      "path": "/admin/menu-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/menu-data/route.ts"
+    },
+    {
+      "path": "/admin/report-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/report-data/route.ts"
+    },
+    {
+      "path": "/admin/session-status",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/session-status/route.ts"
+    },
+    {
+      "path": "/admin/site-settings-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/site-settings-data/route.ts"
+    },
+    {
+      "path": "/admin/submission-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/submission-data/route.ts"
+    },
+    {
+      "path": "/admin/support-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/support-data/route.ts"
+    },
+    {
+      "path": "/admin/user-activity-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/user-activity-data/route.ts"
+    },
+    {
+      "path": "/admin/user-history-data",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/admin/user-history-data/route.ts"
+    },
+    {
+      "path": "/api/account/change-password",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/change-password/route.ts"
+    },
+    {
+      "path": "/api/account/enquiries",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/enquiries/route.ts"
+    },
+    {
+      "path": "/api/account/enquiry-directory",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/enquiry-directory/route.ts"
+    },
+    {
+      "path": "/api/account/lead-inbox",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/lead-inbox/route.ts"
+    },
+    {
+      "path": "/api/account/products",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/products/route.ts"
+    },
+    {
+      "path": "/api/account/session",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/session/route.ts"
+    },
+    {
+      "path": "/api/account/sourcing-interest",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/account/sourcing-interest/route.ts"
+    },
+    {
+      "path": "/api/admin-session",
+      "methods": [
+        "POST",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/admin-session/route.ts"
+    },
+    {
+      "path": "/api/local/auth/login",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/auth/login/route.ts"
+    },
+    {
+      "path": "/api/local/auth/session",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/auth/session/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/categories/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/categories/:id/subcategories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/categories/[id]/subcategories/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/categories/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/categories/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/categories/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-categories/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-categories/by-category-subcategory/:categoryId/:subcategoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-categories/by-category-subcategory/[categoryId]/[subcategoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-categories/by-category/:categoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-categories/by-category/[categoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-categories/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-categories/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-categories/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-subcategories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-subcategories/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-subcategories/by-hierarchy/:categoryId/:subcategoryId/:itemCategoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-subcategories/by-hierarchy/[categoryId]/[subcategoryId]/[itemCategoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-subcategories/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-subcategories/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-subcategories/by-item-category/:itemCategoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-subcategories/by-item-category/[itemCategoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/item-subcategories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/item-subcategories/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/items",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/items/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/items/by-hierarchy/:categoryId/:subcategoryId/:itemCategoryId/:itemSubcategoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/items/by-hierarchy/[categoryId]/[subcategoryId]/[itemCategoryId]/[itemSubcategoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/items/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/items/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/items/by-item-subcategory/:itemSubcategoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/items/by-item-subcategory/[itemSubcategoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/items/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/items/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/product-keywords",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/product-keywords/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/product-keywords/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/product-keywords/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/product-keywords/by-item-subcategory/:itemSubcategoryId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/product-keywords/by-item-subcategory/[itemSubcategoryId]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/product-keywords/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/product-keywords/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/products",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/products/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/products/:slug",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/products/[slug]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/products/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/products/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/products/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/products/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/subcategories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/subcategories/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/subcategories/by-id/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/subcategories/by-id/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/subcategories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/subcategories/count/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/taxonomy/search",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/taxonomy/search/route.ts"
+    },
+    {
+      "path": "/api/local/catalog/taxonomy/summary",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/catalog/taxonomy/summary/route.ts"
+    },
+    {
+      "path": "/api/local/categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/categories/route.ts"
+    },
+    {
+      "path": "/api/local/companies/me",
+      "methods": [
+        "GET",
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/companies/me/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/buyer-interest",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/buyer-interest/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/get-buyer-interest",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/get-buyer-interest/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/get-item-subcategory",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/get-item-subcategory/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/get-itemtype",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/get-itemtype/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/get-products",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/get-products/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/get-seller-company",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/get-seller-company/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/store-buyer-interest",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/store-buyer-interest/route.ts"
+    },
+    {
+      "path": "/api/local/dashboard/store-item-subcategory",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/dashboard/store-item-subcategory/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/:kind",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/[kind]/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/:kind/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/[kind]/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/:kind/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/[kind]/count/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/buyer-messages/delivery-readiness",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/buyer-messages/delivery-readiness/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/buyer-messages/prepare",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/buyer-messages/prepare/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/buyer-messages/recipient/:companyId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/buyer-messages/recipient/[companyId]/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/buyer-messages/send",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/buyer-messages/send/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/buyer-messages/validate",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/buyer-messages/validate/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/incoming-buyer-messages",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/incoming-buyer-messages/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/incoming-buyer-messages/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/incoming-buyer-messages/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/incoming-buyer-messages/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/incoming-buyer-messages/count/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/open",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/open/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/open/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/open/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/open/:id/chats",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/open/[id]/chats/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/open/:id/chats/:chatId",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/open/[id]/chats/[chatId]/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/open/:id/chats/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/open/[id]/chats/count/route.ts"
+    },
+    {
+      "path": "/api/local/enquiries/open/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/enquiries/open/count/route.ts"
+    },
+    {
+      "path": "/api/local/faqs",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/faqs/route.ts"
+    },
+    {
+      "path": "/api/local/faqs/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/faqs/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/faqs/categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/faqs/categories/route.ts"
+    },
+    {
+      "path": "/api/local/faqs/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/faqs/count/route.ts"
+    },
+    {
+      "path": "/api/local/files",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/files/route.ts"
+    },
+    {
+      "path": "/api/local/files/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/files/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/front-menu",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/front-menu/route.ts"
+    },
+    {
+      "path": "/api/local/front-menu/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/front-menu/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/front-menu/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/front-menu/count/route.ts"
+    },
+    {
+      "path": "/api/local/interest-categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-categories/route.ts"
+    },
+    {
+      "path": "/api/local/interest-categories/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-categories/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/interest-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-categories/count/route.ts"
+    },
+    {
+      "path": "/api/local/interest-subcategories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-subcategories/route.ts"
+    },
+    {
+      "path": "/api/local/interest-subcategories/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-subcategories/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/interest-subcategories/category/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-subcategories/category/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/interest-subcategories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/interest-subcategories/count/route.ts"
+    },
+    {
+      "path": "/api/local/knowledge-center",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/knowledge-center/route.ts"
+    },
+    {
+      "path": "/api/local/knowledge-center/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/knowledge-center/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/knowledge-center/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/knowledge-center/count/route.ts"
+    },
+    {
+      "path": "/api/local/locations/cities",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/locations/cities/route.ts"
+    },
+    {
+      "path": "/api/local/locations/cities/by-state",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/locations/cities/by-state/route.ts"
+    },
+    {
+      "path": "/api/local/locations/countries",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/locations/countries/route.ts"
+    },
+    {
+      "path": "/api/local/locations/states",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/locations/states/route.ts"
+    },
+    {
+      "path": "/api/local/locations/states/by-country",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/locations/states/by-country/route.ts"
+    },
+    {
+      "path": "/api/local/products",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/products/route.ts"
+    },
+    {
+      "path": "/api/local/products/me",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/products/me/route.ts"
+    },
+    {
+      "path": "/api/local/products/me/:id",
+      "methods": [
+        "GET",
+        "PATCH",
+        "DELETE"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/products/me/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/seo-pages/slug/:slug",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/seo-pages/slug/[slug]/route.ts"
+    },
+    {
+      "path": "/api/local/subcategories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/subcategories/route.ts"
+    },
+    {
+      "path": "/api/local/testimonials",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/testimonials/route.ts"
+    },
+    {
+      "path": "/api/local/testimonials/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/testimonials/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/testimonials/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/testimonials/count/route.ts"
+    },
+    {
+      "path": "/api/local/testimonials/images/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/testimonials/images/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/ticket-categories",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/ticket-categories/route.ts"
+    },
+    {
+      "path": "/api/local/ticket-categories/:id",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/ticket-categories/[id]/route.ts"
+    },
+    {
+      "path": "/api/local/ticket-categories/count",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/ticket-categories/count/route.ts"
+    },
+    {
+      "path": "/api/local/users/me",
+      "methods": [
+        "GET",
+        "PATCH"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/local/users/me/route.ts"
+    },
+    {
+      "path": "/api/site-settings",
+      "methods": [
+        "GET"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/site-settings/route.ts"
+    },
+    {
+      "path": "/api/support/track",
+      "methods": [
+        "POST"
+      ],
+      "duplicateMethods": [],
+      "file": "src/app/api/support/track/route.ts"
+    }
+  ],
+  "parity": "NOT_VERIFIED"
+}

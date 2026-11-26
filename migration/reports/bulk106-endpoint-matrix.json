@@ -1,0 +1,5172 @@
+{
+  "generated_at": "2026-11-25T12:17:32.440Z",
+  "stats": {
+    "legacy_rows": 516,
+    "method_path_candidates": 161,
+    "explicit_module_but_missing_method": 104,
+    "modules_without_explicit_mapping": 251,
+    "parity": "NOT_VERIFIED"
+  },
+  "rows": [
+    {
+      "row": 1,
+      "method": "GET",
+      "legacy_path": "/v2/api/admin/open-enquiries/:id",
+      "legacy_route_file": "adminEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 2,
+      "method": "GET",
+      "legacy_path": "/v2/api/files/",
+      "legacy_route_file": "fileRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 3,
+      "method": "GET",
+      "legacy_path": "/v2/api/files/:id",
+      "legacy_route_file": "fileRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 4,
+      "method": "POST",
+      "legacy_path": "/v2/api/admin/login",
+      "legacy_route_file": "adminAuthRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 5,
+      "method": "POST",
+      "legacy_path": "/v2/api/admin/change-password",
+      "legacy_route_file": "adminAuthRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 6,
+      "method": "POST",
+      "legacy_path": "/v2/api/activities/",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities",
+      "candidate_handler_files": "src/app/admin/api/local/activities/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 7,
+      "method": "GET",
+      "legacy_path": "/v2/api/activities/count",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/count",
+      "candidate_handler_files": "src/app/admin/api/local/activities/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 8,
+      "method": "GET",
+      "legacy_path": "/v2/api/activities/",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities",
+      "candidate_handler_files": "src/app/admin/api/local/activities/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 9,
+      "method": "GET",
+      "legacy_path": "/v2/api/activities/server-side",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/activities/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 10,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/activities/delete-selected",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/activities/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 11,
+      "method": "GET",
+      "legacy_path": "/v2/api/activities/coreactivity/:coreactivity",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/coreactivity/:coreactivity",
+      "candidate_handler_files": "src/app/admin/api/local/activities/coreactivity/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 12,
+      "method": "GET",
+      "legacy_path": "/v2/api/activities/:id",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/:id",
+      "candidate_handler_files": "src/app/admin/api/local/activities/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 13,
+      "method": "PUT",
+      "legacy_path": "/v2/api/activities/:id",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/:id",
+      "candidate_handler_files": "src/app/admin/api/local/activities/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 14,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/activities/:id",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/:id",
+      "candidate_handler_files": "src/app/admin/api/local/activities/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 15,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/activities/:id/status",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/activities/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 16,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/activities/:id/delete_status",
+      "legacy_route_file": "activityRoutes.js",
+      "local_candidate": "/admin/api/local/activities/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 17,
+      "method": "POST",
+      "legacy_path": "/v2/api/core_activities/",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 18,
+      "method": "GET",
+      "legacy_path": "/v2/api/core_activities/count",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/count",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 19,
+      "method": "GET",
+      "legacy_path": "/v2/api/core_activities/",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 20,
+      "method": "GET",
+      "legacy_path": "/v2/api/core_activities/server-side",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 21,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/core_activities/delete-selected",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 22,
+      "method": "GET",
+      "legacy_path": "/v2/api/core_activities/colors",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/colors",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/colors/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 23,
+      "method": "GET",
+      "legacy_path": "/v2/api/core_activities/:id",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/:id",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 24,
+      "method": "PUT",
+      "legacy_path": "/v2/api/core_activities/:id",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/:id",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 25,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/core_activities/:id",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/:id",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 26,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/core_activities/:id/status",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/core-activities/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 27,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/core_activities/:id/delete_status",
+      "legacy_route_file": "coreActivityRoutes.js",
+      "local_candidate": "/admin/api/local/core-activities/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 28,
+      "method": "POST",
+      "legacy_path": "/v2/api/ticket_categories/",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 29,
+      "method": "GET",
+      "legacy_path": "/v2/api/ticket_categories/count",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/count",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 30,
+      "method": "GET",
+      "legacy_path": "/v2/api/ticket_categories/",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 31,
+      "method": "GET",
+      "legacy_path": "/v2/api/ticket_categories/server-side",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 32,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/ticket_categories/delete-selected",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 33,
+      "method": "GET",
+      "legacy_path": "/v2/api/ticket_categories/:id",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 34,
+      "method": "PUT",
+      "legacy_path": "/v2/api/ticket_categories/:id",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 35,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/ticket_categories/:id",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 36,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/ticket_categories/:id/status",
+      "legacy_route_file": "ticketCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/ticket-categories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/ticket-categories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 37,
+      "method": "POST",
+      "legacy_path": "/v2/api/testimonials/",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials",
+      "candidate_handler_files": "src/app/admin/api/local/testimonials/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 38,
+      "method": "GET",
+      "legacy_path": "/v2/api/testimonials/",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials",
+      "candidate_handler_files": "src/app/admin/api/local/testimonials/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 39,
+      "method": "GET",
+      "legacy_path": "/v2/api/testimonials/server-side",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 40,
+      "method": "GET",
+      "legacy_path": "/v2/api/testimonials/count",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials/count",
+      "candidate_handler_files": "src/app/admin/api/local/testimonials/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 41,
+      "method": "GET",
+      "legacy_path": "/v2/api/testimonials/:id",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials/:id",
+      "candidate_handler_files": "src/app/admin/api/local/testimonials/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 42,
+      "method": "PUT",
+      "legacy_path": "/v2/api/testimonials/:id",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials/:id",
+      "candidate_handler_files": "src/app/admin/api/local/testimonials/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 43,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/testimonials/:id",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials/:id",
+      "candidate_handler_files": "src/app/admin/api/local/testimonials/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 44,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/testimonials/:id/status",
+      "legacy_route_file": "testimonialRoutes.js",
+      "local_candidate": "/admin/api/local/testimonials/:id/status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 45,
+      "method": "POST",
+      "legacy_path": "/v2/api/faq_categories/",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 46,
+      "method": "GET",
+      "legacy_path": "/v2/api/faq_categories/",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 47,
+      "method": "GET",
+      "legacy_path": "/v2/api/faq_categories/server-side",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 48,
+      "method": "GET",
+      "legacy_path": "/v2/api/faq_categories/:id",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 49,
+      "method": "PUT",
+      "legacy_path": "/v2/api/faq_categories/:id",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 50,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/faq_categories/:id",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 51,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/faq_categories/:id/status",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/categories/:id/status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 52,
+      "method": "POST",
+      "legacy_path": "/v2/api/faqcategories/",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 53,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqcategories/",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 54,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqcategories/server-side",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 55,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqcategories/:id",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 56,
+      "method": "PUT",
+      "legacy_path": "/v2/api/faqcategories/:id",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 57,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/faqcategories/:id",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 58,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/faqcategories/:id/status",
+      "legacy_route_file": "faqCategoryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 59,
+      "method": "POST",
+      "legacy_path": "/v2/api/faqs/",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 60,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqs/count",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/count",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 61,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqs/",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 62,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqs/server-side",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 63,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/faqs/delete-selected",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 64,
+      "method": "GET",
+      "legacy_path": "/v2/api/faqs/:id",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/:id",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 65,
+      "method": "PUT",
+      "legacy_path": "/v2/api/faqs/:id",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/:id",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 66,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/faqs/:id",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/:id",
+      "candidate_handler_files": "src/app/admin/api/local/faqs/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 67,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/faqs/:id/status",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/:id/status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 68,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/faqs/:id/delete_status",
+      "legacy_route_file": "faqRoutes.js",
+      "local_candidate": "/admin/api/local/faqs/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 69,
+      "method": "POST",
+      "legacy_path": "/v2/api/home_banners/",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 70,
+      "method": "GET",
+      "legacy_path": "/v2/api/home_banners/count",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/count",
+      "candidate_handler_files": "src/app/admin/api/local/home-banners/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 71,
+      "method": "GET",
+      "legacy_path": "/v2/api/home_banners/",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners",
+      "candidate_handler_files": "src/app/admin/api/local/home-banners/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 72,
+      "method": "GET",
+      "legacy_path": "/v2/api/home_banners/server-side",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/home-banners/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 73,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/home_banners/delete-selected",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 74,
+      "method": "GET",
+      "legacy_path": "/v2/api/home_banners/:id",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/:id",
+      "candidate_handler_files": "src/app/admin/api/local/home-banners/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 75,
+      "method": "PUT",
+      "legacy_path": "/v2/api/home_banners/:id",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 76,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/home_banners/:id",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 77,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/home_banners/:id/status",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/home-banners/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 78,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/home_banners/:id/delete_status",
+      "legacy_route_file": "homeBannerRoutes.js",
+      "local_candidate": "/admin/api/local/home-banners/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 79,
+      "method": "POST",
+      "legacy_path": "/v2/api/roles/",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles",
+      "candidate_handler_files": "src/app/admin/api/local/roles/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 80,
+      "method": "GET",
+      "legacy_path": "/v2/api/roles/",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles",
+      "candidate_handler_files": "src/app/admin/api/local/roles/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 81,
+      "method": "GET",
+      "legacy_path": "/v2/api/roles/server-side",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/roles/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 82,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/roles/delete-selected",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/roles/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 83,
+      "method": "GET",
+      "legacy_path": "/v2/api/roles/:id",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles/:id",
+      "candidate_handler_files": "src/app/admin/api/local/roles/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 84,
+      "method": "PUT",
+      "legacy_path": "/v2/api/roles/:id",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles/:id",
+      "candidate_handler_files": "src/app/admin/api/local/roles/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 85,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/roles/:id",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles/:id",
+      "candidate_handler_files": "src/app/admin/api/local/roles/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 86,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/roles/:id/status",
+      "legacy_route_file": "rolesRoutes.js",
+      "local_candidate": "/admin/api/local/roles/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/roles/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 87,
+      "method": "POST",
+      "legacy_path": "/v2/api/sub_admin/",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 88,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_admin/",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 89,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_admin/server-side",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 90,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_admin/count",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 91,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/sub_admin/delete-selected",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 92,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_admin/:id",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 93,
+      "method": "PUT",
+      "legacy_path": "/v2/api/sub_admin/:id",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 94,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/sub_admin/:id",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 95,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/sub_admin/:id/status",
+      "legacy_route_file": "subAdminRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 96,
+      "method": "POST",
+      "legacy_path": "/v2/api/knowledge_center/",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 97,
+      "method": "GET",
+      "legacy_path": "/v2/api/knowledge_center/count",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/count",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 98,
+      "method": "GET",
+      "legacy_path": "/v2/api/knowledge_center/",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 99,
+      "method": "GET",
+      "legacy_path": "/v2/api/knowledge_center/server-side",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 100,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/knowledge_center/delete-selected",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 101,
+      "method": "GET",
+      "legacy_path": "/v2/api/knowledge_center/:id",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/:id",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 102,
+      "method": "PUT",
+      "legacy_path": "/v2/api/knowledge_center/:id",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/:id",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 103,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/knowledge_center/:id",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/:id",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 104,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/knowledge_center/:id/status",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/knowledge-center/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 105,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/knowledge_center/:id/delete_status",
+      "legacy_route_file": "knowledgeCenterRoutes.js",
+      "local_candidate": "/admin/api/local/knowledge-center/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 106,
+      "method": "GET",
+      "legacy_path": "/v2/api/location/countries",
+      "legacy_route_file": "locationRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 107,
+      "method": "GET",
+      "legacy_path": "/v2/api/location/states",
+      "legacy_route_file": "locationRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 108,
+      "method": "GET",
+      "legacy_path": "/v2/api/location/cities",
+      "legacy_route_file": "locationRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 109,
+      "method": "GET",
+      "legacy_path": "/v2/api/location/pincode/:pin",
+      "legacy_route_file": "locationRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 110,
+      "method": "GET",
+      "legacy_path": "/v2/api/location/states/:country_id",
+      "legacy_route_file": "locationRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 111,
+      "method": "GET",
+      "legacy_path": "/v2/api/location/cities/:state_id",
+      "legacy_route_file": "locationRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 112,
+      "method": "POST",
+      "legacy_path": "/v2/api/buyers/",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 113,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/count",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 114,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 115,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/server-side",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 116,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/filtered",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 117,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/get-buyer-sourcing-interests",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 118,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/buyers/delete-selected",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 119,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/chart",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 120,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyers/:id",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 121,
+      "method": "PUT",
+      "legacy_path": "/v2/api/buyers/:id",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 122,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/buyers/:id",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 123,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/buyers/:id/status",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 124,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/buyers/:id/account_status",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 125,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/buyers/:id/seller_status",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 126,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/buyers/:id/delete_status",
+      "legacy_route_file": "buyerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 127,
+      "method": "POST",
+      "legacy_path": "/v2/api/membership_plan/",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 128,
+      "method": "GET",
+      "legacy_path": "/v2/api/membership_plan/count",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/count",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 129,
+      "method": "GET",
+      "legacy_path": "/v2/api/membership_plan/",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 130,
+      "method": "GET",
+      "legacy_path": "/v2/api/membership_plan/server-side",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 131,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/membership_plan/delete-selected",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 132,
+      "method": "GET",
+      "legacy_path": "/v2/api/membership_plan/:id",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/:id",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 133,
+      "method": "PUT",
+      "legacy_path": "/v2/api/membership_plan/:id",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/:id",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 134,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/membership_plan/:id",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/:id",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 135,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/membership_plan/:id/status",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/membership-plans/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 136,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/membership_plan/:id/delete_status",
+      "legacy_route_file": "membershipPlanRoutes.js",
+      "local_candidate": "/admin/api/local/membership-plans/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 137,
+      "method": "POST",
+      "legacy_path": "/v2/api/categories/",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 138,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/master",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/master",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 139,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/count",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/count",
+      "candidate_handler_files": "src/app/admin/api/local/product-categories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 140,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories",
+      "candidate_handler_files": "src/app/admin/api/local/product-categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 141,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/product-categories",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/product-categories",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 142,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/category-item",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/category-item",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 143,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/sub-category-item",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/sub-category-item",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 144,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/item-category",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/item-category",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 145,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/sub-items",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/sub-items",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 146,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/items",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/items",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 147,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/server-side",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/product-categories/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 148,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/product-bar-graph",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/product-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 149,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/seller-bar-graph",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/seller-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 150,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/categories/delete-selected",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 151,
+      "method": "GET",
+      "legacy_path": "/v2/api/categories/:id",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/product-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 152,
+      "method": "PUT",
+      "legacy_path": "/v2/api/categories/:id",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 153,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/categories/:id",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 154,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/categories/:id/status",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/product-categories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 155,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/categories/:id/category_status",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/:id/category-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 156,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/categories/:id/delete_status",
+      "legacy_route_file": "categoriesRoutes.js",
+      "local_candidate": "/admin/api/local/product-categories/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 157,
+      "method": "POST",
+      "legacy_path": "/v2/api/sub_categories/",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 158,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/count",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/count",
+      "candidate_handler_files": "src/app/admin/api/local/product-subcategories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 159,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories",
+      "candidate_handler_files": "src/app/admin/api/local/product-subcategories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 160,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/server-side",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/product-subcategories/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 161,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/sub_categories/delete-selected",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 162,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/product-bar-graph",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/product-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 163,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/seller-bar-graph",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/seller-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 164,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/category/:category",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/category/:category",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 165,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/category-all/:category",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/category-all/:category",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 166,
+      "method": "GET",
+      "legacy_path": "/v2/api/sub_categories/:id",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/product-subcategories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 167,
+      "method": "PUT",
+      "legacy_path": "/v2/api/sub_categories/:id",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 168,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/sub_categories/:id",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 169,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/sub_categories/:id/status",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/product-subcategories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 170,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/sub_categories/:id/delete_status",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 171,
+      "method": "POST",
+      "legacy_path": "/v2/api/sub_categories/categories",
+      "legacy_route_file": "subCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/product-subcategories/categories",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 172,
+      "method": "POST",
+      "legacy_path": "/v2/api/interest_categories/",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 173,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_categories/count",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories/count",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 174,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_categories/",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 175,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_categories/server-side",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 176,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_categories/:id",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 177,
+      "method": "PUT",
+      "legacy_path": "/v2/api/interest_categories/:id",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 178,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/interest_categories/:id",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 179,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/interest_categories/:id/status",
+      "legacy_route_file": "interestCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-categories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/interest-categories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 180,
+      "method": "POST",
+      "legacy_path": "/v2/api/interest_sub_categories/",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 181,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_sub_categories/count",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/count",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 182,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_sub_categories/",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 183,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_sub_categories/count_relation",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/count-relation",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 184,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_sub_categories/server-side",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 185,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/interest_sub_categories/delete-selected",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 186,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_sub_categories/category/:interest_category_id",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/category/:interest_category_id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/category/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 187,
+      "method": "GET",
+      "legacy_path": "/v2/api/interest_sub_categories/:id",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 188,
+      "method": "PUT",
+      "legacy_path": "/v2/api/interest_sub_categories/:id",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 189,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/interest_sub_categories/:id",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 190,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/interest_sub_categories/:id/status",
+      "legacy_route_file": "interestSubCategoriesRoutes.js",
+      "local_candidate": "/admin/api/local/interest-subcategories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/interest-subcategories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 191,
+      "method": "POST",
+      "legacy_path": "/v2/api/tickets/",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 192,
+      "method": "POST",
+      "legacy_path": "/v2/api/tickets/send-otp",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 193,
+      "method": "POST",
+      "legacy_path": "/v2/api/tickets/verify-otp",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 194,
+      "method": "POST",
+      "legacy_path": "/v2/api/tickets/store-ticket",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 195,
+      "method": "POST",
+      "legacy_path": "/v2/api/tickets/track-ticket",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 196,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/support-ticket/track/:number",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 197,
+      "method": "POST",
+      "legacy_path": "/v2/api/tickets/store-support-ticket-reply",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 198,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/count",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 199,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 200,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/server-side",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 201,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/:ticket_id/next",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 202,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/id/:id/next",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 203,
+      "method": "GET",
+      "legacy_path": "/v2/api/tickets/:id",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 204,
+      "method": "PUT",
+      "legacy_path": "/v2/api/tickets/:id",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 205,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/tickets/:id",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 206,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/tickets/:id/status",
+      "legacy_route_file": "ticketRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 207,
+      "method": "POST",
+      "legacy_path": "/v2/api/sellers/messages",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 208,
+      "method": "POST",
+      "legacy_path": "/v2/api/sellers/",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 209,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/count",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 210,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/get-email-template",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 211,
+      "method": "POST",
+      "legacy_path": "/v2/api/sellers/send-mail",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 212,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/sendmail-cron",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 213,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 214,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/server-side",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 215,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/filtered",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 216,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/sellers/delete-selected",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 217,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/designations",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 218,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/nature_business",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 219,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/with-messages",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 220,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/seller-categories",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 221,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/seller-subcategories",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 222,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/seller-subcategories-by-user",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 223,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/trends",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 224,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/chart",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 225,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/seller-message/:user_id",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 226,
+      "method": "GET",
+      "legacy_path": "/v2/api/sellers/:id",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 227,
+      "method": "PUT",
+      "legacy_path": "/v2/api/sellers/:id",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 228,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/sellers/:id",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 229,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/sellers/:id/status",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 230,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/sellers/:id/account_status",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 231,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/sellers/:id/delete_status",
+      "legacy_route_file": "sellerRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 232,
+      "method": "POST",
+      "legacy_path": "/v2/api/applications/",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications",
+      "candidate_handler_files": "src/app/admin/api/local/applications/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 233,
+      "method": "GET",
+      "legacy_path": "/v2/api/applications/",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications",
+      "candidate_handler_files": "src/app/admin/api/local/applications/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 234,
+      "method": "GET",
+      "legacy_path": "/v2/api/applications/server-side",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/applications/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 235,
+      "method": "GET",
+      "legacy_path": "/v2/api/applications/count",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/count",
+      "candidate_handler_files": "src/app/admin/api/local/applications/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 236,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/applications/delete-selected",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/applications/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 237,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/applications/count",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/count",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 238,
+      "method": "GET",
+      "legacy_path": "/v2/api/applications/:id",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/:id",
+      "candidate_handler_files": "src/app/admin/api/local/applications/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 239,
+      "method": "PUT",
+      "legacy_path": "/v2/api/applications/:id",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/:id",
+      "candidate_handler_files": "src/app/admin/api/local/applications/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 240,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/applications/:id",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/:id",
+      "candidate_handler_files": "src/app/admin/api/local/applications/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 241,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/applications/:id/status",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/applications/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 242,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/applications/:id/category_status",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/:id/category-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 243,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/applications/:id/delete_status",
+      "legacy_route_file": "applicationRoutes.js",
+      "local_candidate": "/admin/api/local/applications/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 244,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/all-products",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 245,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/suggest",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 246,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/suggested-item-subcategories",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 247,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/latest-home",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 248,
+      "method": "POST",
+      "legacy_path": "/v2/api/products/",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 249,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/count",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 250,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 251,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/server-side",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 252,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/products/delete-selected",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 253,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/companies",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 254,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/companies_filtered",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 255,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/filtered",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 256,
+      "method": "POST",
+      "legacy_path": "/v2/api/products/company-review",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 257,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/companies/:id",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 258,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/details/:id",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 259,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/item-hierarchy/:type/:item_id",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 260,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/product-keyword-update",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 261,
+      "method": "GET",
+      "legacy_path": "/v2/api/products/:id",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 262,
+      "method": "PUT",
+      "legacy_path": "/v2/api/products/:id",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 263,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/products/:id",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 264,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/products/:id/status",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 265,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/products/:id/account_status",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 266,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/products/:id/delete_status",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 267,
+      "method": "POST",
+      "legacy_path": "/v2/api/products/:id/images",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 268,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/products/:id/images/:imageId",
+      "legacy_route_file": "productsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 269,
+      "method": "GET",
+      "legacy_path": "/v2/api/settings/site",
+      "legacy_route_file": "settingRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 270,
+      "method": "GET",
+      "legacy_path": "/v2/api/settings/front-site",
+      "legacy_route_file": "settingRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 271,
+      "method": "PUT",
+      "legacy_path": "/v2/api/settings/site",
+      "legacy_route_file": "settingRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 272,
+      "method": "GET",
+      "legacy_path": "/v2/api/settings/home",
+      "legacy_route_file": "settingRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 273,
+      "method": "PUT",
+      "legacy_path": "/v2/api/settings/home",
+      "legacy_route_file": "settingRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 274,
+      "method": "POST",
+      "legacy_path": "/v2/api/newsletters/",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 275,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletters/count",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/count",
+      "candidate_handler_files": "src/app/admin/api/local/newsletter-circulars/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 276,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletters/",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars",
+      "candidate_handler_files": "src/app/admin/api/local/newsletter-circulars/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 277,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletters/server-side",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/newsletter-circulars/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 278,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletters/user_type",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/user_type",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 279,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletters/:id",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/:id",
+      "candidate_handler_files": "src/app/admin/api/local/newsletter-circulars/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 280,
+      "method": "PUT",
+      "legacy_path": "/v2/api/newsletters/:id",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 281,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/newsletters/:id",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 282,
+      "method": "POST",
+      "legacy_path": "/v2/api/newsletters/:id/images",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/:id/images",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 283,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/newsletters/:id/images/:imageId",
+      "legacy_route_file": "newsletterRoutes.js",
+      "local_candidate": "/admin/api/local/newsletter-circulars/:id/images/:imageId",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 284,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/count",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 285,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/lead-count",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 286,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/user-count",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 287,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 288,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/server-side",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 289,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/filtered",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 290,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/by-user",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 291,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/by-enquiry",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 292,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/prove-enquiry",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 293,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/awarded",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 294,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/accept",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 295,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/messages",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 296,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/all-leads",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 297,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/send-message",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 298,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/shortlisted",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 299,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/chart",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 300,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/enquiries/delete-selected",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 301,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/:enquiry_number",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 302,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/:enquiry_number/next",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 303,
+      "method": "GET",
+      "legacy_path": "/v2/api/enquiries/:enquiry_number/previous",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 304,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/enquiries/:id",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 305,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/enquiries/:id/delete_status",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 306,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/enquiries/:id/account_status",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 307,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/verify",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 308,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/resend-otp",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 309,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/submit-otp",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 310,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/store",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 311,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/submit-enquiry",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 312,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/user-submit-enquiry",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 313,
+      "method": "POST",
+      "legacy_path": "/v2/api/enquiries/send-message-connect",
+      "legacy_route_file": "enquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 314,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 315,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/count/:userId",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 316,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/front-enquiry",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 317,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/user-openenquiry",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 318,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/messages",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 319,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/openenquiry-entry",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 320,
+      "method": "POST",
+      "legacy_path": "/v2/api/open_enquiries/cheak-chats",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 321,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/server-side",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 322,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/count",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 323,
+      "method": "GET",
+      "legacy_path": "/v2/api/open_enquiries/:id",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 324,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/open_enquiries/:id",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 325,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/open_enquiries/:id/home_status",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 326,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/open_enquiries/:id/delete_status",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 327,
+      "method": "POST",
+      "legacy_path": "/v2/api/open_enquiries/send-message",
+      "legacy_route_file": "openEnquiriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 328,
+      "method": "POST",
+      "legacy_path": "/v2/api/seo_pages/",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 329,
+      "method": "GET",
+      "legacy_path": "/v2/api/seo_pages/",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 330,
+      "method": "GET",
+      "legacy_path": "/v2/api/seo_pages/server-side",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 331,
+      "method": "GET",
+      "legacy_path": "/v2/api/seo_pages/count",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages/count",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 332,
+      "method": "GET",
+      "legacy_path": "/v2/api/seo_pages/slug/:slug",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages/slug/:slug",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/slug/[slug]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 333,
+      "method": "GET",
+      "legacy_path": "/v2/api/seo_pages/:id",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages/:id",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 334,
+      "method": "PUT",
+      "legacy_path": "/v2/api/seo_pages/:id",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages/:id",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 335,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/seo_pages/:id",
+      "legacy_route_file": "seoPagesRoutes.js",
+      "local_candidate": "/admin/api/local/seo-pages/:id",
+      "candidate_handler_files": "src/app/admin/api/local/seo-pages/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 336,
+      "method": "GET",
+      "legacy_path": "/v2/api/user_activity/count",
+      "legacy_route_file": "userActivityRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 337,
+      "method": "GET",
+      "legacy_path": "/v2/api/user_activity/",
+      "legacy_route_file": "userActivityRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 338,
+      "method": "GET",
+      "legacy_path": "/v2/api/user_activity/server-side",
+      "legacy_route_file": "userActivityRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 339,
+      "method": "GET",
+      "legacy_path": "/v2/api/user_activity/user_id/:user_id",
+      "legacy_route_file": "userActivityRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 340,
+      "method": "GET",
+      "legacy_path": "/v2/api/category_conflict_logs/server-side",
+      "legacy_route_file": "categoryConflictLogsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 341,
+      "method": "GET",
+      "legacy_path": "/v2/api/seller_mail_histories/",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 342,
+      "method": "GET",
+      "legacy_path": "/v2/api/seller_mail_histories/server-side",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 343,
+      "method": "GET",
+      "legacy_path": "/v2/api/seller_mail_histories/details/:mailCode",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 344,
+      "method": "GET",
+      "legacy_path": "/v2/api/seller_mail_histories/track-open/:token",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 345,
+      "method": "POST",
+      "legacy_path": "/v2/api/seller_mail_histories/bulk-resend-failed/:mailCode",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 346,
+      "method": "POST",
+      "legacy_path": "/v2/api/seller_mail_histories/:id/resend",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 347,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/seller_mail_histories/delete-selected",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 348,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/seller_mail_histories/:id",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 349,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/seller_mail_histories/:id/status",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 350,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/seller_mail_histories/:id/delete_status",
+      "legacy_route_file": "sellerMailHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 351,
+      "method": "POST",
+      "legacy_path": "/v2/api/contacts/",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 352,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/contacts/delete-selected",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts/delete-selected",
+      "candidate_handler_files": "src/app/admin/api/local/contacts/delete-selected/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 353,
+      "method": "GET",
+      "legacy_path": "/v2/api/contacts/count",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts/count",
+      "candidate_handler_files": "src/app/admin/api/local/contacts/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 354,
+      "method": "GET",
+      "legacy_path": "/v2/api/contacts/",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts",
+      "candidate_handler_files": "src/app/admin/api/local/contacts/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 355,
+      "method": "GET",
+      "legacy_path": "/v2/api/contacts/server-side",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/contacts/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 356,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/contacts/:id",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts/:id",
+      "candidate_handler_files": "src/app/admin/api/local/contacts/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 357,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/contacts/:id/delete_status",
+      "legacy_route_file": "contactsRoutes.js",
+      "local_candidate": "/admin/api/local/contacts/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 358,
+      "method": "POST",
+      "legacy_path": "/v2/api/emails/",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 359,
+      "method": "POST",
+      "legacy_path": "/v2/api/emails/clone",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates/clone",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 360,
+      "method": "GET",
+      "legacy_path": "/v2/api/emails/count",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates/count",
+      "candidate_handler_files": "src/app/admin/api/local/email-templates/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 361,
+      "method": "GET",
+      "legacy_path": "/v2/api/emails/",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates",
+      "candidate_handler_files": "src/app/admin/api/local/email-templates/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 362,
+      "method": "GET",
+      "legacy_path": "/v2/api/emails/server-side",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/email-templates/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 363,
+      "method": "GET",
+      "legacy_path": "/v2/api/emails/:id",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates/:id",
+      "candidate_handler_files": "src/app/admin/api/local/email-templates/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 364,
+      "method": "PUT",
+      "legacy_path": "/v2/api/emails/:id",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 365,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/emails/:id",
+      "legacy_route_file": "emailsRoutes.js",
+      "local_candidate": "/admin/api/local/email-templates/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 366,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletter_histories/count",
+      "legacy_route_file": "newsletterHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 367,
+      "method": "GET",
+      "legacy_path": "/v2/api/newsletter_histories/server-side",
+      "legacy_route_file": "newsletterHistoriesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 368,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/all",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 369,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/server-side",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 370,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/all_users",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 371,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/count",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 372,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/send-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 373,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/verify-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 374,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/login",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 375,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/send-login-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 376,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/verify-login-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 377,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/register",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 378,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/change-password",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 379,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/impersonate-login",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 380,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/profile",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 381,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/update-profile",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 382,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/countries",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 383,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/states",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 384,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/cities",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 385,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/forgot-password",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 386,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/users/:id/status",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 387,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/insert-from-company",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 388,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/product-category",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 389,
+      "method": "GET",
+      "legacy_path": "/v2/api/users/product-category/:userId",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 390,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/verify-forgot-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 391,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/reset-password",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 392,
+      "method": "POST",
+      "legacy_path": "/v2/api/users/resend-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 393,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/all",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 394,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/server-side",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 395,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/all_users",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 396,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/count",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 397,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/send-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 398,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/verify-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 399,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/login",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 400,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/send-login-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 401,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/verify-login-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 402,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/register",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 403,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/change-password",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 404,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/impersonate-login",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 405,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/profile",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 406,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/update-profile",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 407,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/countries",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 408,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/states",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 409,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/cities",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 410,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/forgot-password",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 411,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/signup/:id/status",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 412,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/insert-from-company",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 413,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/product-category",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 414,
+      "method": "GET",
+      "legacy_path": "/v2/api/signup/product-category/:userId",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 415,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/verify-forgot-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 416,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/reset-password",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 417,
+      "method": "POST",
+      "legacy_path": "/v2/api/signup/resend-otp",
+      "legacy_route_file": "usersRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 418,
+      "method": "GET",
+      "legacy_path": "/v2/api/dashboard/buyer-interest",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 419,
+      "method": "POST",
+      "legacy_path": "/v2/api/dashboard/store-buyer-interest",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 420,
+      "method": "GET",
+      "legacy_path": "/v2/api/dashboard/get-buyer-interest",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 421,
+      "method": "GET",
+      "legacy_path": "/v2/api/dashboard/get-itemtype",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 422,
+      "method": "GET",
+      "legacy_path": "/v2/api/dashboard/get-item-subcategory",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 423,
+      "method": "GET",
+      "legacy_path": "/v2/api/dashboard/get-products",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 424,
+      "method": "GET",
+      "legacy_path": "/v2/api/dashboard/get-seller-company",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 425,
+      "method": "POST",
+      "legacy_path": "/v2/api/dashboard/store-item-subcategory",
+      "legacy_route_file": "usersDashboardRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 426,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/registrations/delete-selected",
+      "legacy_route_file": "registrationsRoutes.js",
+      "local_candidate": "/admin/api/local/registrations/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 427,
+      "method": "GET",
+      "legacy_path": "/v2/api/registrations/count",
+      "legacy_route_file": "registrationsRoutes.js",
+      "local_candidate": "/admin/api/local/registrations/count",
+      "candidate_handler_files": "src/app/admin/api/local/registrations/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 428,
+      "method": "GET",
+      "legacy_path": "/v2/api/registrations/",
+      "legacy_route_file": "registrationsRoutes.js",
+      "local_candidate": "/admin/api/local/registrations",
+      "candidate_handler_files": "src/app/admin/api/local/registrations/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 429,
+      "method": "GET",
+      "legacy_path": "/v2/api/registrations/server-side",
+      "legacy_route_file": "registrationsRoutes.js",
+      "local_candidate": "/admin/api/local/registrations/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/registrations/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 430,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/registrations/:id",
+      "legacy_route_file": "registrationsRoutes.js",
+      "local_candidate": "/admin/api/local/registrations/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 431,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/registrations/:id/delete_status",
+      "legacy_route_file": "registrationsRoutes.js",
+      "local_candidate": "/admin/api/local/registrations/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 432,
+      "method": "POST",
+      "legacy_path": "/v2/api/item_category/",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 433,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/count",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/count",
+      "candidate_handler_files": "src/app/admin/api/local/item-categories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 434,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories",
+      "candidate_handler_files": "src/app/admin/api/local/item-categories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 435,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/getitem",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/getitem",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 436,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/server-side",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/item-categories/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 437,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/product-bar-graph",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/product-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 438,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/sourcing-interest-bar-graph",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/sourcing-interest-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 439,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/item_category/delete-selected",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 440,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/by-category-subcategory/:category_id/:subcategory_id",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/by-category-subcategory/:category_id/:subcategory_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 441,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/by-category-subcategory-all/:category_id/:subcategory_id",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/by-category-subcategory-all/:category_id/:subcategory_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 442,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/getitemtype/:category_id",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/getitemtype/:category_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 443,
+      "method": "POST",
+      "legacy_path": "/v2/api/item_category/by-selected-category-subcategory",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/by-selected-category-subcategory",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 444,
+      "method": "POST",
+      "legacy_path": "/v2/api/item_category/:id/import-subcategories-keywords",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/:id/import-subcategories-keywords",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 445,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_category/:id",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/item-categories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 446,
+      "method": "PUT",
+      "legacy_path": "/v2/api/item_category/:id",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 447,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/item_category/:id",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 448,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/item_category/:id/status",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/item-categories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 449,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/item_category/:id/delete_status",
+      "legacy_route_file": "itemCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-categories/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 450,
+      "method": "POST",
+      "legacy_path": "/v2/api/item_sub_category/",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 451,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/count",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/count",
+      "candidate_handler_files": "src/app/admin/api/local/item-subcategories/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 452,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories",
+      "candidate_handler_files": "src/app/admin/api/local/item-subcategories/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 453,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/server-side",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/item-subcategories/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 454,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/product-bar-graph",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/product-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 455,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/sourcing-interest-bar-graph",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/sourcing-interest-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 456,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/item_sub_category/delete-selected",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 457,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/by-category-subcategory-itemcategory/:category_id/:subcategory_id/:item_category_id",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/by-category-subcategory-itemcategory/:category_id/:subcategory_id/:item_category_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 458,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/by-category-subcategory-itemcategory-all/:category_id/:subcategory_id/:item_category_id",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/by-category-subcategory-itemcategory-all/:category_id/:subcategory_id/:item_category_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 459,
+      "method": "POST",
+      "legacy_path": "/v2/api/item_sub_category/by-selected-category-subcategory-itemcategory",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/by-selected-category-subcategory-itemcategory",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 460,
+      "method": "GET",
+      "legacy_path": "/v2/api/item_sub_category/:id",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/:id",
+      "candidate_handler_files": "src/app/admin/api/local/item-subcategories/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 461,
+      "method": "PUT",
+      "legacy_path": "/v2/api/item_sub_category/:id",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 462,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/item_sub_category/:id",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 463,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/item_sub_category/:id/status",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/item-subcategories/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 464,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/item_sub_category/:id/delete_status",
+      "legacy_route_file": "itemSubCategoryRoutes.js",
+      "local_candidate": "/admin/api/local/item-subcategories/:id/delete-status",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 465,
+      "method": "POST",
+      "legacy_path": "/v2/api/keywords/",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 466,
+      "method": "POST",
+      "legacy_path": "/v2/api/keywords/import",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/import",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 467,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/count",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/count",
+      "candidate_handler_files": "src/app/admin/api/local/product-keywords/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 468,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/all",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/all",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 469,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords",
+      "candidate_handler_files": "src/app/admin/api/local/product-keywords/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 470,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/server-side",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/server-side",
+      "candidate_handler_files": "src/app/admin/api/local/product-keywords/server-side/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 471,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/product-bar-graph",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/product-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 472,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/sourcing-interest-bar-graph",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/sourcing-interest-bar-graph",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 473,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/keywords/delete-selected",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/delete-selected",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 474,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/by-category-subcategory-itemcategory/:category_id/:subcategory_id/:item_category_id",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/by-category-subcategory-itemcategory/:category_id/:subcategory_id/:item_category_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 475,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/by-category-subcategory-itemcategory-all/:category_id/:subcategory_id/:item_category_id",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/by-category-subcategory-itemcategory-all/:category_id/:subcategory_id/:item_category_id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 476,
+      "method": "POST",
+      "legacy_path": "/v2/api/keywords/by-selected-category-subcategory-itemcategory",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/by-selected-category-subcategory-itemcategory",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 477,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/by-subcategory/:id",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/by-subcategory/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 478,
+      "method": "GET",
+      "legacy_path": "/v2/api/keywords/:id",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/:id",
+      "candidate_handler_files": "src/app/admin/api/local/product-keywords/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 479,
+      "method": "PUT",
+      "legacy_path": "/v2/api/keywords/:id",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 480,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/keywords/:id",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 481,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/keywords/:id/status",
+      "legacy_route_file": "keywordsRoutes.js",
+      "local_candidate": "/admin/api/local/product-keywords/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/product-keywords/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 482,
+      "method": "POST",
+      "legacy_path": "/v2/api/items/",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 483,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 484,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/server-side",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 485,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/product-bar-graph",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 486,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/count",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 487,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/items/delete-selected",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 488,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/by-category-subcategory-itemcategory-itemsubcategory/:category_id/:subcategory_id/:item_category_id/:item_sub_category_id",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 489,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/by-category-subcategory-itemcategory-itemsubcategory-all/:category_id/:subcategory_id/:item_category_id/:item_sub_category_id",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 490,
+      "method": "POST",
+      "legacy_path": "/v2/api/items/by-selected-category-subcategory-itemcategory-itemsubcategory",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 491,
+      "method": "GET",
+      "legacy_path": "/v2/api/items/:id",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 492,
+      "method": "PUT",
+      "legacy_path": "/v2/api/items/:id",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 493,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/items/:id",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 494,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/items/:id/status",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 495,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/items/:id/delete_status",
+      "legacy_route_file": "itemsRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 496,
+      "method": "GET",
+      "legacy_path": "/v2/api/shortcut/shortcut_menus",
+      "legacy_route_file": "shortcutRoutes.js",
+      "local_candidate": "/admin/api/local/shortcut-menus",
+      "candidate_handler_files": "src/app/admin/api/local/shortcut-menus/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 497,
+      "method": "POST",
+      "legacy_path": "/v2/api/shortcut/shortcut_menus",
+      "legacy_route_file": "shortcutRoutes.js",
+      "local_candidate": "/admin/api/local/shortcut-menus",
+      "candidate_handler_files": "src/app/admin/api/local/shortcut-menus/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 498,
+      "method": "PUT",
+      "legacy_path": "/v2/api/shortcut/shortcut_menus/:id",
+      "legacy_route_file": "shortcutRoutes.js",
+      "local_candidate": "/admin/api/local/shortcut-menus/:id",
+      "candidate_handler_files": "src/app/admin/api/local/shortcut-menus/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 499,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/shortcut/shortcut_menus/:id",
+      "legacy_route_file": "shortcutRoutes.js",
+      "local_candidate": "/admin/api/local/shortcut-menus/:id",
+      "candidate_handler_files": "src/app/admin/api/local/shortcut-menus/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 500,
+      "method": "GET",
+      "legacy_path": "/v2/api/pages/:id",
+      "legacy_route_file": "pagesRoutes.js",
+      "local_candidate": "/admin/api/local/static-pages/:id",
+      "candidate_handler_files": "src/app/admin/api/local/static-pages/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 501,
+      "method": "PUT",
+      "legacy_path": "/v2/api/pages/:id",
+      "legacy_route_file": "pagesRoutes.js",
+      "local_candidate": "/admin/api/local/static-pages/:id",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 502,
+      "method": "POST",
+      "legacy_path": "/v2/api/front_menu/",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 503,
+      "method": "POST",
+      "legacy_path": "/v2/api/front_menu/main-search",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/main-search",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 504,
+      "method": "GET",
+      "legacy_path": "/v2/api/front_menu/",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 505,
+      "method": "GET",
+      "legacy_path": "/v2/api/front_menu/server-side",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/server-side",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_MATCHING_LOCAL_METHOD",
+      "parity_verified": false
+    },
+    {
+      "row": 506,
+      "method": "GET",
+      "legacy_path": "/v2/api/front_menu/count",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/count",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/count/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 507,
+      "method": "GET",
+      "legacy_path": "/v2/api/front_menu/:id",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/:id",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 508,
+      "method": "PUT",
+      "legacy_path": "/v2/api/front_menu/:id",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/:id",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 509,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/front_menu/:id/is_show",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/:id/is_show",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/[id]/is_show/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 510,
+      "method": "DELETE",
+      "legacy_path": "/v2/api/front_menu/:id",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/:id",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/[id]/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 511,
+      "method": "PATCH",
+      "legacy_path": "/v2/api/front_menu/:id/status",
+      "legacy_route_file": "frontMenuRoutes.js",
+      "local_candidate": "/admin/api/local/front-menu/:id/status",
+      "candidate_handler_files": "src/app/admin/api/local/front-menu/[id]/status/route.ts",
+      "mapping_status": "STATIC_ROUTE_SHAPE_CANDIDATE",
+      "parity_verified": false
+    },
+    {
+      "row": 512,
+      "method": "GET",
+      "legacy_path": "/v2/api/membership_plans/",
+      "legacy_route_file": "membershipPlansRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 513,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyerenquiry/admin-list",
+      "legacy_route_file": "buyerEnquiryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 514,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyerenquiry/admin",
+      "legacy_route_file": "buyerEnquiryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 515,
+      "method": "GET",
+      "legacy_path": "/v2/api/buyerenquiry/user",
+      "legacy_route_file": "buyerEnquiryRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    },
+    {
+      "row": 516,
+      "method": "GET",
+      "legacy_path": "/v2/api/companies/all",
+      "legacy_route_file": "companiesRoutes.js",
+      "local_candidate": "",
+      "candidate_handler_files": "",
+      "mapping_status": "NO_EXPLICIT_ROUTE_MAPPING",
+      "parity_verified": false
+    }
+  ]
+}

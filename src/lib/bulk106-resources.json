@@ -1,0 +1,319 @@
+{
+  "product-categories": {
+    "table": "categories",
+    "key": "category_id",
+    "columns": [
+      "uuid",
+      "name",
+      "slug",
+      "cat_file_id",
+      "stock_file_id",
+      "prefix",
+      "status",
+      "top_category",
+      "is_other",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name",
+      "slug",
+      "prefix"
+    ],
+    "status": true,
+    "deleted": true
+  },
+  "product-subcategories": {
+    "table": "sub_categories",
+    "key": "sub_category_id",
+    "columns": [
+      "uuid",
+      "name",
+      "slug",
+      "category",
+      "file_id",
+      "status",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name",
+      "slug"
+    ],
+    "status": true,
+    "deleted": true,
+    "filterColumn": "category"
+  },
+  "item-categories": {
+    "table": "item_category",
+    "key": "item_category_id",
+    "columns": [
+      "uuid",
+      "name",
+      "slug",
+      "file_id",
+      "category_id",
+      "subcategory_id",
+      "status",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name",
+      "slug"
+    ],
+    "status": true,
+    "deleted": true,
+    "filterColumn": "category_id"
+  },
+  "item-subcategories": {
+    "table": "item_subcategory",
+    "key": "item_subcategory_id",
+    "columns": [
+      "uuid",
+      "name",
+      "slug",
+      "file_id",
+      "item_category_id",
+      "category_id",
+      "subcategory_id",
+      "status",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name",
+      "slug"
+    ],
+    "status": true,
+    "deleted": true,
+    "filterColumn": "item_category_id"
+  },
+  "product-keywords": {
+    "table": "product_keywords",
+    "key": "product_keyword_id",
+    "columns": [
+      "name",
+      "item_subcategory_id",
+      "status",
+      "is_main",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name"
+    ],
+    "status": true,
+    "deleted": false,
+    "filterColumn": "item_subcategory_id"
+  },
+  "home-banners": {
+    "table": "home_banners",
+    "key": "home_banner_id",
+    "columns": [
+      "uuid",
+      "title",
+      "sub_title",
+      "description",
+      "button_text",
+      "button_url",
+      "file_id",
+      "status",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "title",
+      "sub_title"
+    ],
+    "status": true,
+    "deleted": true
+  },
+  "home-settings": {
+    "table": "home_settings",
+    "key": "home_setting_id",
+    "columns": [
+      "uuid",
+      "page",
+      "section",
+      "meta_key",
+      "meta_value",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "page",
+      "section",
+      "meta_key"
+    ],
+    "status": false,
+    "deleted": false
+  },
+  "static-pages": {
+    "table": "pages",
+    "key": "page_id",
+    "columns": [
+      "uuid",
+      "title",
+      "description",
+      "is_edit",
+      "meta_title",
+      "meta_keyword",
+      "meta_description",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "title",
+      "meta_title"
+    ],
+    "status": false,
+    "deleted": true
+  },
+  "newsletter-circulars": {
+    "table": "news_latters",
+    "key": "newsletter_id",
+    "columns": [
+      "uuid",
+      "title",
+      "subject",
+      "description",
+      "user_type",
+      "history_type",
+      "city",
+      "country",
+      "attachment",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "title",
+      "subject"
+    ],
+    "status": false,
+    "deleted": true
+  },
+  "email-templates": {
+    "table": "emails",
+    "key": "email_id",
+    "columns": [
+      "uuid",
+      "title",
+      "email_for",
+      "description",
+      "subject",
+      "is_seller_direct",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "title",
+      "email_for",
+      "subject"
+    ],
+    "status": true,
+    "deleted": false
+  },
+  "mail-master": {
+    "table": "mail_master",
+    "key": "mail_master_id",
+    "columns": [
+      "code",
+      "list",
+      "type",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "code",
+      "list",
+      "type"
+    ],
+    "status": false,
+    "deleted": false
+  },
+  "registrations": {
+    "table": "registrations",
+    "key": "registration_id",
+    "columns": [
+      "uuid",
+      "category",
+      "name",
+      "designation",
+      "organization",
+      "email",
+      "mobile",
+      "state",
+      "city",
+      "is_delete",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name",
+      "organization",
+      "email"
+    ],
+    "status": false,
+    "deleted": true
+  },
+  "designations": {
+    "table": "designations",
+    "key": "designation_id",
+    "columns": [
+      "uuid",
+      "name",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name"
+    ],
+    "status": true,
+    "deleted": false
+  },
+  "nature-businesses": {
+    "table": "nature_businesses",
+    "key": "nature_business_id",
+    "columns": [
+      "uuid",
+      "name",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name"
+    ],
+    "status": true,
+    "deleted": false
+  },
+  "user-categories": {
+    "table": "user_category",
+    "key": "user_category_id",
+    "columns": [
+      "uuid",
+      "name",
+      "status",
+      "type",
+      "user_type",
+      "created_at",
+      "updated_at"
+    ],
+    "search": [
+      "name",
+      "user_type"
+    ],
+    "status": true,
+    "deleted": false
+  }
+}

@@ -1,0 +1,375 @@
+[
+  {
+    "route": "/admin/api/local/ticket-categories/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "ticket-categories"
+    ]
+  },
+  {
+    "route": "/admin/api/local/testimonials/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "testimonials"
+    ]
+  },
+  {
+    "route": "/admin/api/local/faqs/categories/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "faq-categories"
+    ]
+  },
+  {
+    "route": "/admin/api/local/faqs/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "faqs"
+    ]
+  },
+  {
+    "route": "/admin/api/local/knowledge-center/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "knowledge-center"
+    ]
+  },
+  {
+    "route": "/admin/api/local/interest-categories/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "interest-categories"
+    ]
+  },
+  {
+    "route": "/admin/api/local/seo-pages/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "seo-pages"
+    ]
+  },
+  {
+    "route": "/admin/api/local/front-menu/server-side",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "front-menu"
+    ]
+  },
+  {
+    "route": "/admin/api/local/faqs/count",
+    "dispatcher": "bulk115AdminServer",
+    "values": [
+      "faqs",
+      "true"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/product-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "product-categories",
+      "product"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/seller-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "product-categories",
+      "seller"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-subcategories/product-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "product-subcategories",
+      "product"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-subcategories/seller-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "product-subcategories",
+      "seller"
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-categories/product-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "item-categories",
+      "product"
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-categories/sourcing-interest-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "item-categories",
+      "sourcing"
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-subcategories/product-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "item-subcategories",
+      "product"
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-subcategories/sourcing-interest-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "item-subcategories",
+      "sourcing"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-keywords/product-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "product-keywords",
+      "product"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-keywords/sourcing-interest-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "product-keywords",
+      "sourcing"
+    ]
+  },
+  {
+    "route": "/admin/api/local/items/product-bar-graph",
+    "dispatcher": "bulk115AdminChart",
+    "values": [
+      "items",
+      "product"
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/product-categories",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-categories",
+      "active",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/category-item",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-categories",
+      "active",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/sub-category-item",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-subcategories",
+      "active",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/item-category",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-categories",
+      "all",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/sub-items",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-subcategories",
+      "all",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-categories/items",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "items",
+      "all",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-subcategories/category/[category]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-subcategories",
+      "active",
+      [
+        "category"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-subcategories/category-all/[category]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-subcategories",
+      "all",
+      [
+        "category"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-categories/getitem",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-categories",
+      "all",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-categories/by-category-subcategory/[category_id]/[subcategory_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-categories",
+      "active",
+      [
+        "category_id",
+        "subcategory_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-categories/by-category-subcategory-all/[category_id]/[subcategory_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-categories",
+      "all",
+      [
+        "category_id",
+        "subcategory_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-categories/getitemtype/[category_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-categories",
+      "active",
+      [
+        "category_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-subcategories/by-category-subcategory-itemcategory/[category_id]/[subcategory_id]/[item_category_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-subcategories",
+      "active",
+      [
+        "category_id",
+        "subcategory_id",
+        "item_category_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/item-subcategories/by-category-subcategory-itemcategory-all/[category_id]/[subcategory_id]/[item_category_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "item-subcategories",
+      "all",
+      [
+        "category_id",
+        "subcategory_id",
+        "item_category_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-keywords/all",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-keywords",
+      "all",
+      []
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-keywords/by-category-subcategory-itemcategory/[category_id]/[subcategory_id]/[item_category_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-keywords",
+      "active",
+      [
+        "category_id",
+        "subcategory_id",
+        "item_category_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-keywords/by-category-subcategory-itemcategory-all/[category_id]/[subcategory_id]/[item_category_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-keywords",
+      "all",
+      [
+        "category_id",
+        "subcategory_id",
+        "item_category_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/product-keywords/by-subcategory/[id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "product-keywords",
+      "all",
+      [
+        "id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/items/by-category-subcategory-itemcategory-itemsubcategory/[category_id]/[subcategory_id]/[item_category_id]/[item_sub_category_id]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "items",
+      "active",
+      [
+        "category_id",
+        "subcategory_id",
+        "item_category_id",
+        "item_sub_category_id"
+      ]
+    ]
+  },
+  {
+    "route": "/admin/api/local/items/by-category-subcategory-itemcategory-itemsubcategory-all/[...ids]",
+    "dispatcher": "bulk115AdminList",
+    "values": [
+      "items",
+      "all",
+      [
+        "category_id",
+        "subcategory_id",
+        "item_category_id",
+        "item_sub_category_id"
+      ]
+    ],
+    "publicRoute": "/admin/api/local/items/by-category-subcategory-itemcategory-itemsubcategory-all/[category_id]/[subcategory_id]/[item_category_id]/[item_sub_category_id]"
+  }
+]

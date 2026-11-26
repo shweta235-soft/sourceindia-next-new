@@ -1,0 +1,11 @@
+export declare const BULK110_MODULES: readonly string[];
+export declare const BULK110_OPERATIONS: readonly string[];
+export declare function bulk110Id(value: unknown): number | null;
+export declare function bulk110Flag(value: string | null): number | null | undefined;
+export declare function bulk110Only(params: URLSearchParams, allowed: string[]): boolean;
+export declare function bulk110Key(date: Date, period: string): string;
+export type Bulk110Series = {period: string;keys:string[];from:string;to:string;fromSql:string;endSql:string;format:string;type:string|null};
+export declare function bulk110Series(params: URLSearchParams, mode: string, now?:Date): Bulk110Series|null;
+export declare function bulk110Totals(kind: string, rows: Array<{date:string;[key:string]:unknown}>, series:Bulk110Series): Array<{date:string;Active:number;Inactive:number;NotApproved:number;Deleted:number;NotCompleted?:number;Total:number}>;
+export declare function bulk110Trend(kind: string, rows: Array<{date:string;[key:string]:unknown}>, series:Bulk110Series): Record<string,unknown>;
+export declare function bulk110GroupSourcing(rows:Array<{item_category_id:unknown;category_name:unknown;item_subcategory_id:unknown;subcategory_name:unknown}>):Array<{category_id:number;category_name:string;subcategories:Array<{id:number;name:string}>}>;

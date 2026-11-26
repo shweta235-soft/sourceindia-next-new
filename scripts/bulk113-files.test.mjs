@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const lib = fs.readFileSync(new URL('../src/lib/localBulk113Files.ts', import.meta.url),'utf8');
+const list = fs.readFileSync(new URL('../src/app/api/local/files/route.ts', import.meta.url),'utf8');
+const detail = fs.readFileSync(new URL('../src/app/api/local/files/[id]/route.ts', import.meta.url),'utf8');
+test('legacy file metadata columns and alias',()=>{ for(const c of ['upload_image_id AS id','uuid','file','created_at','updated_at']) assert.ok(lib.includes(c)); });
+test('list order is ascending',()=>assert.match(lib,/ORDER BY upload_image_id ASC/));
+test('detail uses parameter binding',()=>assert.match(lib,/upload_image_id = \? LIMIT 1/));
+test('list GET exists and is read-only',()=>{assert.match(list,/export async function GET/);assert.doesNotMatch(list,/export async function (POST|PUT|DELETE)/);});
+test('detail GET validates identifier',()=>{assert.match(detail,/validFileId/);assert.match(detail,/export async function GET/);});
+test('detail not-found returns 404',()=>assert.match(detail,/status: 404/));
+test('both handlers disable caching',()=>{assert.match(list,/no-store/);assert.match(detail,/no-store/);});
+test('both handlers fail closed without DB',()=>{assert.match(list,/status: 503/);assert.match(detail,/status: 503/);});
