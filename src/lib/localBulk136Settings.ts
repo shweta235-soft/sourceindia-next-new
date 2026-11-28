@@ -7,6 +7,7 @@ import type {NextRequest} from 'next/server';
 import type {RowDataPacket, PoolConnection, ResultSetHeader} from 'mysql2/promise';
 import {timingSafeEqual,randomUUID} from 'node:crypto';
 import {localAccountDatabase} from '@/lib/localAccountDatabase';
+import {updateSettingsMultipart} from '@/lib/localBulk137SettingsUploads';
 const reply=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Cache-Control':'no-store'}});
 const unavailable=()=>reply({error:'Local database unavailable'},503);
 const excluded=new Set(['smtp_password','smtp_username','smtp_server_address','smtp_port','smtp_from_address','smtp_auto_reply','sms_password','sms_pid','site_email','sms_dlt_template_id','sms_route','sms_url','sms_username','smtp_from_name','smtp_tls']);
@@ -80,11 +81,11 @@ async function upsert(conn:PoolConnection,table:'site_settings'|'home_settings',
 }
 export async function updateSettings(req:NextRequest,table:'site_settings'|'home_settings'){
  const denied=writeGate(req);if(denied)return denied;
- if((req.headers.get('content-type')??'').startsWith('multipart/form-data'))return reply({message:'Multipart setting image updates require verified QA storage.'},501);
+ if((req.headers.get('content-type')??'').startsWith('multipart/form-data'))return updateSettingsMultipart(req,table);
  const values=await parse(req);if(!values)return reply({message:'Invalid settings payload.'},400);
  // Only text fields; original file paths must be controlled by upload handler, not client strings.
  const fileKeys=table==='site_settings'?['logo_file','favicon_file']:Object.values(homeImages);
- if(Object.keys(values).some(k=>fileKeys.includes(k)))return reply({message:'File uploads require multipart handling.'},400);
+ if(Object.keys(values).some(k=>fileKeys.includes(k)||k.endsWith('_file_id')||k==='popup_banner_session_id'))return reply({message:'Image files and image references require server-managed multipart handling.'},400);
  if(table==='home_settings'&&Object.hasOwn(values,'popup_banner_url')){
   const existing=await formatted('home_settings').catch(()=>null);
   if(!existing)return unavailable();
