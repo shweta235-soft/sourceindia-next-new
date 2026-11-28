@@ -1,0 +1,3 @@
+import {bulk116LatestHome} from '@/lib/localBulk116Products';
+export const runtime='nodejs';
+export async function GET(req: Request){return bulk116LatestHome(req);}

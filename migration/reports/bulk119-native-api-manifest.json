@@ -1,0 +1,97 @@
+{
+  "batch": "BULK119",
+  "implementation": "native Next.js GET handlers, not legacy bridge",
+  "old_batch_test_result": "BULK118 18/18 Express-vs-Next comparisons MATCH as reported by user",
+  "new_api_method_paths_count": 17,
+  "method_paths": [
+    {
+      "method": "GET",
+      "path": "/v2/api/faqs/[id]"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/faqs/count"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/faqs"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/faqs/server-side"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/seo_pages/[id]"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/seo_pages/count"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/seo_pages"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/seo_pages/server-side"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/seo_pages/slug/[slug]"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/testimonials/[id]"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/testimonials/count"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/testimonials"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/testimonials/server-side"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/roles/[id]"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/roles"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/roles/server-side"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/api/pages/[id]"
+    }
+  ],
+  "coverage": {
+    "original_registrations": 516,
+    "original_mounts": 50,
+    "original_route_modules": 48,
+    "native_method_path_overrides": 47,
+    "compatibility_fallbacks": 469,
+    "fully_verified_parity": 0,
+    "write_registrations": 246,
+    "no_runtime_mysql_comparison": true
+  },
+  "verification": {
+    "source_and_mocked_and_prior_regressions": "72/72 PASS",
+    "targeted_strict_typescript": "PASS",
+    "new_live_mysql_http": "NOT RUN in this environment",
+    "new_express_response_parity": "NOT VERIFIED"
+  },
+  "security": {
+    "database_mutations": "No new writes",
+    "legacy_bridge_writes": "Still disabled by default",
+    "original_react_source": "Preserved read-only"
+  }
+}

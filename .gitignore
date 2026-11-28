@@ -2,3 +2,8 @@ node_modules
 .next
 .env.local
 *.tsbuildinfo
+.qa-private-ticket-files/
+.qa-application-storage/
+# Locally generated QA credentials / never commit
+.env.bulk129.qa.local
+.env.bulk129.qa.*.local

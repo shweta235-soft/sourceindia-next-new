@@ -1,0 +1,28 @@
+const express = require('express');
+const router = express.Router();
+
+const categoriesController = require('../controllers/categoriesController');
+
+router.post('/', categoriesController.createCategories);
+// Excel export route
+router.get('/master', categoriesController.getCategoryMaster);
+router.get('/count', categoriesController.getCategoriesCount);
+router.get('/', categoriesController.getAllCategories);
+router.get('/product-categories', categoriesController.getProductCategories);
+router.get('/category-item', categoriesController.getItemCategories);
+router.get('/sub-category-item', categoriesController.getItemSubCategories);
+router.get('/item-category', categoriesController.getItemCategory);
+router.get('/sub-items', categoriesController.getItemSubcategory);
+router.get('/items', categoriesController.getItem);
+router.get('/server-side', categoriesController.getAllCategoriesServerSide);
+router.get('/product-bar-graph', categoriesController.getCategoryProductGraph);
+router.get('/seller-bar-graph', categoriesController.getSellerCategoryBarGraph);
+router.delete('/delete-selected', categoriesController.deleteSelectedCategories);
+router.get('/:id', categoriesController.getCategoriesById);
+router.put('/:id', categoriesController.updateCategories);
+router.delete('/:id', categoriesController.deleteCategories);
+router.patch('/:id/status', categoriesController.updateCategoriesStatus);
+router.patch('/:id/category_status', categoriesController.updateCategoriesTopCategory);
+router.patch('/:id/delete_status', categoriesController.updateCategoriesDeleteStatus);
+
+module.exports = router;

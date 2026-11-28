@@ -1,0 +1,3313 @@
+// Product name autocomplete with master data
+const { fetchWeightedProductKeywordSuggestions } = require('../utils/productAdminsuggest');
+
+const isTruthyQueryFlag = (value) => value === true || value === 'true' || value === '1' || value === 1;
+
+const SUGGEST_MATCH_STOP_WORDS = new Set([
+  'a', 'an', 'the', 'and', 'or', 'for', 'with', 'to', 'of', 'by', 'on', 'in', 'at', 'from'
+]);
+
+const SUGGEST_RANKING_STOP_WORDS = new Set([
+  ...SUGGEST_MATCH_STOP_WORDS,
+  'we', 'our', 'us', 'are', 'is', 'am', 'be', 'being', 'been',
+  'manufacturer', 'manufacturing', 'manufacture', 'suppliers', 'supplier', 'trader', 'dealers', 'dealer',
+  'company', 'companies', 'products', 'product', 'services', 'service', 'provide', 'providing'
+]);
+
+const normalizeTextForSuggest = (text = '') =>
+  text
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const tokenizeForSuggest = (text = '') =>
+  normalizeTextForSuggest(text)
+    .split(' ')
+    .map((w) => w.trim())
+    .filter((w) => w.length > 1 && !SUGGEST_MATCH_STOP_WORDS.has(w));
+
+const tokenizeForOrder = (text = '') =>
+  normalizeTextForSuggest(text)
+    .split(' ')
+    .map((w) => w.trim())
+    .filter((w) => w.length > 0 && !SUGGEST_RANKING_STOP_WORDS.has(w));
+
+const getLeadingPrefixTokenScore = (queryTokens = [], titleTokens = []) => {
+  if (!queryTokens.length || !titleTokens.length) return 0;
+  let score = 0;
+  const limit = Math.min(queryTokens.length, titleTokens.length);
+  for (let i = 0; i < limit; i += 1) {
+    if (titleTokens[i].startsWith(queryTokens[i])) {
+      score += 1;
+    } else {
+      break;
+    }
+  }
+  return score;
+};
+
+const getLevenshteinDistance = (a = '', b = '') => {
+  const s = a.toLowerCase();
+  const t = b.toLowerCase();
+  const rows = s.length + 1;
+  const cols = t.length + 1;
+  const dp = Array.from({ length: rows }, () => Array(cols).fill(0));
+
+  for (let i = 0; i < rows; i += 1) dp[i][0] = i;
+  for (let j = 0; j < cols; j += 1) dp[0][j] = j;
+
+  for (let i = 1; i < rows; i += 1) {
+    for (let j = 1; j < cols; j += 1) {
+      const cost = s[i - 1] === t[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return dp[s.length][t.length];
+};
+
+const isSuggestWordMatch = (queryWord = '', keywordWord = '') => {
+  if (!queryWord || !keywordWord) return false;
+  if (queryWord === keywordWord) return true;
+
+  // Allow controlled prefix matching for partial typing like "asse" -> "assebley".
+  const minPrefixLength = 2;
+  if (queryWord.length >= minPrefixLength && keywordWord.startsWith(queryWord)) return true;
+  if (keywordWord.length >= minPrefixLength && queryWord.startsWith(keywordWord)) return true;
+
+  // Typo tolerance (elastic-like): e.g., "cable" vs "cabel".
+  const minFuzzyLength = 5;
+  if (queryWord.length >= minFuzzyLength && keywordWord.length >= minFuzzyLength) {
+    const distance = getLevenshteinDistance(queryWord, keywordWord);
+    if (distance <= 1) return true;
+  }
+
+  return false;
+};
+
+const getSuggestWordMatchStats = (queryWords = [], keywordWords = []) => {
+  const usedKeywordIndexes = new Set();
+  const matchedQueryWords = [];
+  const matchedKeywordWords = [];
+
+  queryWords.forEach((queryWord) => {
+    const keywordIndex = keywordWords.findIndex(
+      (keywordWord, index) => !usedKeywordIndexes.has(index) && isSuggestWordMatch(queryWord, keywordWord)
+    );
+
+    if (keywordIndex === -1) return;
+    usedKeywordIndexes.add(keywordIndex);
+    matchedQueryWords.push(queryWord);
+    matchedKeywordWords.push(keywordWords[keywordIndex]);
+  });
+
+  return {
+    matchedQueryWords: Array.from(new Set(matchedQueryWords)),
+    matchedKeywordWords: Array.from(new Set(matchedKeywordWords)),
+  };
+};
+
+exports.suggestProducts = async (req, res) => {
+  try {
+    const {
+      query,
+      category,
+      sub_category,
+      item_category_id,
+      item_subcategory_id,
+      header_strict,
+      only_with_products,
+    } = req.query;
+    if (!query || query.length < 2) {
+      return res.json({
+        success: true,
+        data: [],
+        auto_classification: {
+          matched: false,
+          reason: 'query_too_short',
+          bucket: 'Others / Uncategorized',
+        },
+        alternatives: [],
+      });
+    }
+
+    if (isTruthyQueryFlag(header_strict)) {
+      const { normalizedQuery, queryWords, suggestions } = await fetchWeightedProductKeywordSuggestions({
+        query,
+        category,
+        sub_category,
+        item_category_id,
+        item_subcategory_id,
+        header_strict: true,
+        only_with_products: isTruthyQueryFlag(only_with_products),
+        limit: 15,
+      });
+
+
+      const bestConfidentMatch = suggestions.find((s) => s.is_confident_match) || suggestions[0] || null;
+      const alternatives = suggestions.filter((s) => !bestConfidentMatch || s.id !== bestConfidentMatch.id);
+
+      return res.json({
+        success: true,
+        normalized_query: normalizedQuery,
+        tokens: queryWords,
+        data: suggestions,
+        auto_classification: bestConfidentMatch
+          ? {
+            matched: true,
+            reason: bestConfidentMatch.exact_match ? 'exact_match' : 'best_score_match',
+            best_match: bestConfidentMatch,
+          }
+          : {
+            matched: false,
+            reason: suggestions.length ? 'low_confidence' : 'no_keyword_match',
+            bucket: 'Others / Uncategorized',
+          },
+        alternatives,
+      });
+    }
+
+    const normalizedQuery = normalizeTextForSuggest(query);
+    const queryWords = tokenizeForSuggest(query);
+    const queryOrderTokens = tokenizeForOrder(query);
+    if (!queryWords.length) {
+      return res.json({
+        success: true,
+        data: [],
+        auto_classification: {
+          matched: false,
+          reason: 'no_meaningful_tokens',
+          bucket: 'Others / Uncategorized',
+        },
+        alternatives: [],
+        normalized_query: normalizedQuery,
+      });
+    }
+
+    const keywordWhere = {
+      status: 1
+    };
+
+    // Candidate filtering: keep dataset small while still allowing scoring logic.
+    if (queryWords.length > 1) {
+
+      keywordWhere[Op.or] = [
+        {
+          name: {
+            [Op.like]: `%${queryWords.join('%')}%`
+          }
+        },
+        {
+          [Op.and]: queryWords.map(word => ({
+            name: {
+              [Op.like]: `%${word}%`
+            }
+          }))
+        },
+        ...queryWords.map(word => ({
+          name: {
+            [Op.like]: `%${word}%`
+          }
+        }))
+      ];
+
+    } else {
+
+      keywordWhere[Op.or] = queryWords.map(word => ({
+        name: {
+          [Op.like]: `%${word}%`
+        }
+      }));
+
+    }
+
+    const itemSubCategoryWhere = {};
+    if (category) itemSubCategoryWhere.category_id = category;
+    if (sub_category) itemSubCategoryWhere.subcategory_id = sub_category;
+    if (item_category_id) itemSubCategoryWhere.item_category_id = item_category_id;
+    if (item_subcategory_id) itemSubCategoryWhere.id = item_subcategory_id;
+
+    const keywords = await ProductKeyword.findAll({
+      where: keywordWhere,
+      limit: 200,
+      attributes: ['id', 'name', 'item_subcategory_id'],
+      include: [
+        {
+          model: ItemSubCategory,
+          as: 'ItemSubCategory',
+          required: Object.keys(itemSubCategoryWhere).length > 0,
+          where: Object.keys(itemSubCategoryWhere).length > 0 ? itemSubCategoryWhere : undefined,
+          attributes: ['id', 'name', 'item_category_id', 'category_id', 'subcategory_id'],
+          include: [
+            { model: Categories, as: 'Categories', required: false, attributes: ['id', 'name'] },
+            { model: SubCategories, as: 'SubCategories', required: false, attributes: ['id', 'name'] },
+            { model: ItemCategory, as: 'ItemCategory', required: false, attributes: ['id', 'name'] }
+          ]
+        }
+      ]
+    });
+
+    const scored = keywords.map((keyword) => {
+      const normalizedKeyword = normalizeTextForSuggest(keyword.name);
+      const keywordWords = tokenizeForSuggest(keyword.name);
+      const keywordOrderTokens = tokenizeForOrder(keyword.name);
+      const { matchedQueryWords, matchedKeywordWords } = getSuggestWordMatchStats(queryWords, keywordWords);
+      const matchedQueryWordCount = matchedQueryWords.length;
+      const matchedKeywordWordCount = matchedKeywordWords.length;
+
+      const phrasePrefixMatch = normalizedQuery.length >= 2 && normalizedKeyword.startsWith(normalizedQuery);
+      const phraseIncludesMatch = normalizedQuery.length >= 2 && normalizedKeyword.includes(normalizedQuery);
+      const leadingPrefixTokenScore = getLeadingPrefixTokenScore(queryOrderTokens, keywordOrderTokens);
+
+      const keywordCoverage = keywordWords.length ? matchedKeywordWordCount / keywordWords.length : 0;
+      const queryCoverage = queryWords.length ? matchedQueryWordCount / queryWords.length : 0;
+      const matchScore =
+        matchedQueryWordCount * 100 +
+        matchedKeywordWordCount * 50 +
+        leadingPrefixTokenScore * 20 -
+        (keywordWords.length - matchedKeywordWordCount) * 10; const exactMatch = normalizedKeyword === normalizedQuery;
+      let confidenceScore =
+        (queryCoverage * 0.9) +
+        (keywordCoverage * 0.1);
+
+      if (exactMatch)
+        confidenceScore = 1;
+
+      confidenceScore = Number(confidenceScore.toFixed(3));
+
+      const isConfidentMatch = exactMatch || (matchedKeywordWordCount >= 2 && matchedQueryWordCount >= 2);
+
+      return {
+        id: keyword.id,
+        user_id: null,
+        title: keyword.name,
+        category: keyword.ItemSubCategory?.category_id || null,
+        category_name: keyword.ItemSubCategory?.Categories?.name || '',
+        sub_category: keyword.ItemSubCategory?.subcategory_id || null,
+        sub_category_name: keyword.ItemSubCategory?.SubCategories?.name || '',
+        item_category_id: keyword.ItemSubCategory?.item_category_id || null,
+        item_category_name: keyword.ItemSubCategory?.ItemCategory?.name || '',
+        item_subcategory_id: keyword.item_subcategory_id,
+        item_subcategory_name: keyword.ItemSubCategory?.name || '',
+        item_id: null,
+        item_name: '',
+        match_score: matchScore,
+        confidence_score: confidenceScore,
+        exact_match: exactMatch,
+        phrase_prefix_match: phrasePrefixMatch,
+        phrase_includes_match: phraseIncludesMatch,
+        leading_prefix_token_score: leadingPrefixTokenScore,
+        matched_words: matchedKeywordWords,
+        matched_query_words: matchedQueryWords,
+        matched_query_word_count: matchedQueryWordCount,
+        matched_keyword_word_count: matchedKeywordWordCount,
+        query_word_count: queryWords.length,
+        keyword_word_count: keywordWords.length,
+        full_query_match: queryWords.length > 0 && matchedQueryWordCount === queryWords.length,
+        is_confident_match: isConfidentMatch,
+      };
+    });
+
+    scored.sort((a, b) => {
+      const aAllWords = a.matched_query_word_count === queryWords.length;
+      const bAllWords = b.matched_query_word_count === queryWords.length;
+
+      if (aAllWords !== bAllWords)
+        return aAllWords ? -1 : 1;
+
+      const aPhrase =
+        normalizeTextForSuggest(a.title).includes(normalizedQuery);
+
+      const bPhrase =
+        normalizeTextForSuggest(b.title).includes(normalizedQuery);
+
+      if (aPhrase !== bPhrase)
+        return aPhrase ? -1 : 1;
+      if (a.exact_match !== b.exact_match) return a.exact_match ? -1 : 1;
+      if (a.leading_prefix_token_score !== b.leading_prefix_token_score) {
+        return b.leading_prefix_token_score - a.leading_prefix_token_score;
+      }
+      if (a.phrase_prefix_match !== b.phrase_prefix_match) return a.phrase_prefix_match ? -1 : 1;
+      if (a.phrase_includes_match !== b.phrase_includes_match) return a.phrase_includes_match ? -1 : 1;
+      if (a.match_score !== b.match_score) return b.match_score - a.match_score;
+      if (a.confidence_score !== b.confidence_score) return b.confidence_score - a.confidence_score;
+      return a.title.length - b.title.length;
+    });
+
+    const suggestions = scored.slice(0, 6);
+    const bestConfidentMatch = suggestions.find((s) => s.is_confident_match) || null;
+
+    const autoClassification = bestConfidentMatch
+      ? {
+        matched: true,
+        reason: bestConfidentMatch.exact_match ? 'exact_match' : 'best_score_match',
+        best_match: bestConfidentMatch,
+      }
+      : {
+        matched: false,
+        reason: suggestions.length ? 'low_confidence' : 'no_keyword_match',
+        bucket: 'Others / Uncategorized',
+      };
+
+    const alternatives = suggestions.filter((s) => !bestConfidentMatch || s.id !== bestConfidentMatch.id);
+
+    res.json({
+      success: true,
+      normalized_query: normalizedQuery,
+      tokens: queryWords,
+      data: suggestions,
+      auto_classification: autoClassification,
+      alternatives,
+    });
+  } catch (err) {
+    console.error('Error in suggestProducts:', err);
+    res.status(500).json({ success: false, message: 'Server error', data: [] });
+  }
+};
+
+exports.getSuggestedItemSubCategories = async (req, res) => {
+  try {
+    const {
+      search,
+      category,
+      sub_category,
+      item_category_id,
+      item_subcategory_id,
+      item_id,
+      user_state,
+      company_id,
+      keyword_ids,
+      limit,
+      debug,
+    } = req.query;
+
+    const isDebug = String(debug ?? '') === '1' || String(debug ?? '').toLowerCase() === 'true';
+
+    const normalizedSearch = normalizeTextForSuggest(search || '');
+    const maxLimit = Math.min(Math.max(parseInt(limit, 8) || 8, 1), 8);
+
+    if (!normalizedSearch || normalizedSearch.length < 2) {
+      return res.json({
+        success: true,
+        matched_keyword: null,
+        matched_item_category_id: null,
+        data: [],
+      });
+    }
+
+    const keywordIdsArray = keyword_ids
+      ? parseCsv(keyword_ids)
+        .map((id) => Number(id))
+        .filter((id) => Number.isInteger(id) && id > 0)
+      : [];
+
+    let matchedKeyword = null;
+    let matchedKeywords = [];
+    const loadKeywordWithItemSubCategory = async (keywordId) => ProductKeyword.findOne({
+      where: {
+        id: keywordId,
+        status: 1,
+      },
+      include: [
+        {
+          model: ItemSubCategory,
+          as: 'ItemSubCategory',
+          required: true,
+          where: {
+            status: 1,
+            is_delete: 0,
+          },
+          attributes: ['id', 'name', 'item_category_id'],
+        },
+      ],
+    });
+
+    // Header flow priority: if keyword_ids are provided, use the same ordered keyword set
+    // so suggestions can cover all related item categories from the header result.
+    if (keywordIdsArray.length > 0) {
+      const keywordCandidates = await ProductKeyword.findAll({
+        where: {
+          id: { [Op.in]: keywordIdsArray },
+          status: 1,
+        },
+        include: [
+          {
+            model: ItemSubCategory,
+            as: 'ItemSubCategory',
+            required: true,
+            where: {
+              status: 1,
+              is_delete: 0,
+            },
+            attributes: ['id', 'name', 'item_category_id'],
+          },
+        ],
+      });
+
+      if (keywordCandidates.length > 0) {
+        const byId = new Map(keywordCandidates.map((k) => [Number(k.id), k]));
+        const ordered = keywordIdsArray.map((id) => byId.get(Number(id))).filter(Boolean);
+        matchedKeywords = ordered;
+
+        const exact = ordered.find((k) => normalizeTextForSuggest(k.name) === normalizedSearch);
+        const prefix = ordered.find((k) => normalizeTextForSuggest(k.name).startsWith(normalizedSearch));
+        matchedKeyword = exact || prefix || ordered[0] || null;
+      }
+    }
+
+    if (!matchedKeyword) {
+      const { suggestions } = await fetchWeightedProductKeywordSuggestions({
+        query: normalizedSearch,
+        category,
+        sub_category,
+        item_category_id,
+        item_subcategory_id,
+        header_strict: true,
+        only_with_products: true,
+        limit: 8,
+      });
+
+      if (Array.isArray(suggestions) && suggestions.length > 0) {
+        const bestSuggestion = suggestions[0];
+        if (bestSuggestion?.id) {
+          matchedKeyword = await loadKeywordWithItemSubCategory(bestSuggestion.id);
+          matchedKeywords = matchedKeyword ? [matchedKeyword] : [];
+        }
+      }
+    }
+
+    const matchedItemCategoryIds = Array.from(
+      new Set(
+        matchedKeywords
+          .map((k) => Number(k?.ItemSubCategory?.item_category_id))
+          .filter((id) => Number.isInteger(id) && id > 0)
+      )
+    );
+    const matchedItemCategoryId = matchedItemCategoryIds[0] || null;
+
+    if (isDebug) {
+      console.log('[suggested-item-subcategories] match trace', {
+        search,
+        keyword_ids,
+        matched_keyword_id: matchedKeyword?.id || null,
+        matched_keyword_name: matchedKeyword?.name || null,
+        matched_item_subcategory_id: matchedKeyword?.item_subcategory_id || null,
+        matched_item_category_id: matchedItemCategoryId,
+        matched_item_category_ids: matchedItemCategoryIds,
+        matched_keyword_ids: matchedKeywords.map((k) => k.id),
+      });
+    }
+
+    if (!matchedItemCategoryIds.length) {
+      return res.json({
+        success: true,
+        matched_keyword: null,
+        matched_item_category_id: null,
+        matched_item_category_ids: [],
+        matched_keywords: [],
+        data: [],
+      });
+    }
+
+    const productWhere = {
+      is_delete: 0,
+      status: 1,
+      is_approve: 1,
+      item_category_id: { [Op.in]: matchedItemCategoryIds },
+      item_subcategory_id: { [Op.ne]: null },
+    };
+
+    if (category) productWhere.category = { [Op.in]: parseCsv(category) };
+    if (sub_category) productWhere.sub_category = { [Op.in]: parseCsv(sub_category) };
+    if (item_id) productWhere.item_id = { [Op.in]: parseCsv(item_id) };
+    if (company_id) productWhere.company_id = { [Op.in]: parseCsv(company_id) };
+
+    const userWhereClause = {};
+    if (user_state) {
+      const stateIds = parseCsv(user_state);
+      if (stateIds.length > 0) {
+        userWhereClause.state = { [Op.in]: stateIds };
+      }
+    }
+
+    const rows = await Products.findAll({
+      where: productWhere,
+      attributes: [
+        'item_subcategory_id',
+        [fn('COUNT', col('Products.product_id')), 'product_count'],
+      ],
+      logging: isDebug ? (sql) => console.log('[suggested-item-subcategories][sql]', sql) : false,
+      include: [
+        {
+          model: ItemSubCategory,
+          as: 'ItemSubCategory',
+          required: true,
+          attributes: ['id', 'name', 'item_category_id', 'category_id', 'subcategory_id'],
+          include: [
+            { model: ItemCategory, as: 'ItemCategory', required: false, attributes: ['id', 'name', 'category_id', 'subcategory_id'] },
+            { model: Categories, as: 'Categories', required: false, attributes: ['id', 'name'] },
+            { model: SubCategories, as: 'SubCategories', required: false, attributes: ['id', 'name'] },
+          ],
+          where: {
+            status: 1,
+            is_delete: 0,
+            item_category_id: { [Op.in]: matchedItemCategoryIds },
+          },
+        },
+        {
+          model: Users,
+          as: 'Users',
+          required: Object.keys(userWhereClause).length > 0,
+          attributes: [],
+          where: Object.keys(userWhereClause).length > 0 ? userWhereClause : undefined,
+        },
+      ],
+      group: ['item_subcategory_id', 'ItemSubCategory.item_subcategory_id'],
+      order: [[literal('product_count'), 'DESC'], [col('ItemSubCategory.name'), 'ASC']],
+      limit: maxLimit,
+      subQuery: false,
+    });
+
+    const data = rows
+      .map((row) => {
+        const raw = row.toJSON();
+        const sub = raw.ItemSubCategory;
+        const subId = Number(raw.item_subcategory_id);
+
+        if (!sub || !Number.isInteger(subId) || subId <= 0) return null;
+
+        return {
+          id: subId,
+          name: sub.name,
+          category_id: sub.category_id || sub.ItemCategory?.category_id || null,
+          category_name: sub.Categories?.name || '',
+          subcategory_id: sub.subcategory_id || sub.ItemCategory?.subcategory_id || null,
+          subcategory_name: sub.SubCategories?.name || '',
+          item_category_id: sub.item_category_id,
+          item_category_name: sub.ItemCategory?.name || '',
+          product_count: Number(raw.product_count) || 0,
+        };
+      })
+      .filter(Boolean);
+
+    if (isDebug) {
+      console.log('[suggested-item-subcategories] output trace', {
+        matched_item_category_id: matchedItemCategoryId,
+        matched_item_category_ids: matchedItemCategoryIds,
+        total_suggestions: data.length,
+        suggestion_ids: data.map((d) => d.id),
+      });
+    }
+
+    return res.json({
+      success: true,
+      matched_keyword: matchedKeyword
+        ? {
+          id: matchedKeyword.id,
+          name: matchedKeyword.name,
+          item_subcategory_id: matchedKeyword.item_subcategory_id,
+        }
+        : null,
+      matched_item_category_id: matchedItemCategoryId,
+      matched_item_category_ids: matchedItemCategoryIds,
+      matched_keywords: matchedKeywords.map((k) => ({
+        id: k.id,
+        name: k.name,
+        item_subcategory_id: k.item_subcategory_id,
+        item_category_id: k.ItemSubCategory?.item_category_id || null,
+      })),
+      data,
+    });
+  } catch (err) {
+    console.error('Error in getSuggestedItemSubCategories:', err);
+    return res.status(500).json({
+      success: false,
+      message: 'Server error',
+      data: [],
+    });
+  }
+};
+
+const { Op, fn, col, literal, Sequelize } = require('sequelize');
+const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
+const Products = require('../models/Products');
+const ProductKeyword = require('../models/ProductKeyword');
+const Categories = require('../models/Categories');
+const SubCategories = require('../models/SubCategories');
+const UploadImage = require('../models/UploadImage');
+const Users = require('../models/Users');
+const CompanyInfo = require('../models/CompanyInfo');
+const Countries = require('../models/Countries');
+const States = require('../models/States');
+const ReviewRating = require('../models/ReviewRating');
+const CoreActivity = require('../models/CoreActivity');
+const Activity = require('../models/Activity');
+const SellerCategory = require('../models/SellerCategory');
+const ItemCategory = require('../models/ItemCategory');
+const ItemSubCategory = require('../models/ItemSubCategory');
+const Items = require('../models/Items');
+const getMulterUpload = require('../utils/upload');
+const sequelize = require('../config/database');
+const { sendMail, getSiteConfig } = require('../helpers/mailHelper');
+const BuyerSourcingInterests = require('../models/BuyerSourcingInterests');
+const Cities = require('../models/Cities');
+const HomeSettings = require('../models/HomeSettings');
+const parseCsv = (str) => str.split(',').map(s => s.trim()).filter(Boolean);
+const parseCsv2 = (value) => value.split(',').map(item => item.trim());
+
+async function createUniqueProductSlug(title) {
+  if (!title) return '';
+  const baseSlug = title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+  let uniqueSlug = baseSlug;
+  let counter = 1;
+  while (await Products.findOne({ where: { slug: uniqueSlug } })) {
+    uniqueSlug = `${baseSlug}-${counter}`;
+    counter++;
+  }
+  return uniqueSlug;
+}
+
+exports.allProduct = async (req, res) => {
+  try {
+    const { company_id } = req.query;
+
+    if (!company_id) {
+      return res.status(400).json({ success: false, message: 'Company ID is required', data: [] });
+    }
+
+    if (isNaN(company_id) || parseInt(company_id) <= 0) {
+      return res.status(422).json({ success: false, message: 'Company ID must be a valid positive number', data: [] });
+    }
+
+    const products = await Products.findAll({ where: { company_id: parseInt(company_id) }, attributes: ['id', 'title', 'description'] });
+
+
+    /*if (!products || products.length === 0) {
+      return res.status(404).json({ success: false, message: 'No products found for the given company', data: [] });
+    }
+
+    console.log('Products fetched:', products);
+    res.status(200).json({ success: true, message: 'Products fetched successfully', data: products });*/
+    res.status(200).json({
+      success: true,
+      message: products.length ? 'Products fetched successfully' : 'No products found',
+      data: products
+    });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ success: false, message: 'Server error while fetching products', data: [] });
+  }
+};
+
+exports.createProducts = async (req, res) => {
+  const upload = getMulterUpload('products');
+  upload.array('files', 10)(req, res, async (err) => { // allow up to 10 files
+    if (err) return res.status(500).json({ error: err.message });
+
+    try {
+      let {
+        user_id, title, code, article_number, category, sub_category,
+        item_category_id, item_subcategory_id, item_id, keyword_id,
+        is_gold, is_featured, is_recommended, best_product, status,
+        application, short_description, description, slug,
+        core_activity, activity, segment, product_service
+      } = req.body;
+
+      // Inline clean for all values
+      [
+        user_id, category, sub_category, item_category_id,
+        item_subcategory_id, item_id, keyword_id, application, core_activity,
+        activity, segment, product_service
+      ] = [
+        user_id, category, sub_category, item_category_id,
+        item_subcategory_id, item_id, keyword_id, application, core_activity,
+        activity, segment, product_service
+      ].map(v =>
+        Array.isArray(v)
+          ? v.map(x => String(x).trim().replace(/^,/, '')).filter(Boolean)
+          : v != null
+            ? String(v).trim().replace(/^,/, '')
+            : v
+      );
+      /*if (!user_id || !title || !category || !status || !short_description || !req.files || req.files.length === 0) {
+        return res.status(400).json({ message: 'All fields (user_id, title, category, short_description, files) are required' });
+      }*/
+      const uploadImages = await Promise.all(req.files.map(async (file) => {
+        return await UploadImage.create({
+          file: `upload/products/${file.filename}`,
+        });
+      }));
+
+      const fileIds = uploadImages.map(image => image.id).join(',');
+      const user = await Users.findOne({ where: { id: user_id } });
+
+      // detect whether this is the company's first product
+
+      const existingCount = await Products.count({ where: { company_id: user.company_id } });
+      const isFirstProduct = existingCount === 0;
+      const products = await Products.create({
+        user_id,
+        title,
+        code,
+        article_number,
+        category,
+        sub_category,
+        is_gold,
+        is_featured,
+        is_recommended,
+        best_product,
+        status,
+        application,
+        short_description,
+        description,
+        slug: await createUniqueProductSlug(title),
+        core_activity: core_activity || 0,
+        activity: activity || 0,
+        segment: segment || 0,
+        product_service: product_service || 0,
+        file_id: uploadImages[0].id,
+        file_ids: fileIds,
+        item_category_id,
+        item_subcategory_id,
+        item_id,
+        keyword_id,
+        company_id: user.company_id,
+      });
+
+      // A seller becomes complete as soon as at least one product is saved.
+      // Keep this independent from email delivery: a mail/template failure must
+      // not leave a seller in the "Not Completed" list after their product was
+      // successfully created.
+      const wasIncompleteSeller = user && user.is_delete === 0 && user.is_complete === 0;
+      if (user && user.is_delete === 0) {
+        const updateObj = {};
+        if (user.is_product === 0) updateObj.is_product = 1;
+        if (user.is_complete === 0) updateObj.is_complete = 1;
+        if (Object.keys(updateObj).length > 0) {
+          await user.update(updateObj);
+        }
+      }
+
+      try {
+        const Emails = require('../models/Emails');
+        const siteConfig = await getSiteConfig();
+        const company = await CompanyInfo.findByPk(user.company_id);
+        const categories = await Categories.findByPk(category, { attributes: ['name'] });
+        const subCategories = await SubCategories.findByPk(sub_category, { attributes: ['name'] });
+        // Always send user template (37) and admin template (36)
+        const userTpl = await Emails.findByPk(37);
+        if (userTpl) {
+          let userMsg = userTpl.message ? userTpl.message.toString('utf8') : '';
+          const userFullName = (user.fname || user.lname) ? `${user.fname || ''} ${user.lname || ''}`.trim() : (user.email || '');
+
+
+          userMsg = userMsg
+            .replace(/{{\s*SELLER_FNAME\s*}}/gi, userFullName)
+            .replace(/{{\s*COMPANY_NAME\s*}}/gi, (company?.organization_name) || '')
+            .replace(/{{\s*PRODUCT_NAME\s*}}/gi, title || '')
+            .replace(/{{\s*CATEGORY\s*}}/gi, categories?.name || '')
+            .replace(/{{\s*SUB_CATEGORY\s*}}/gi, subCategories?.name || '')
+            .replace(/{{\s*CODE\s*}}/gi, code || '')
+            .replace(/{{\s*ARTICLE_NUMBER\s*}}/gi, article_number || '')
+            .replace(/{{\s*DESCRIPTION\s*}}/gi, description || '')
+            .replace(/{{\s*SHORT_DESCRIPTION\s*}}/gi, short_description || '');
+          await sendMail({ to: user.email, subject: userTpl.subject || 'Your product was added', message: userMsg });
+        }
+
+        const adminTpl = await Emails.findByPk(36);
+        if (adminTpl) {
+          let adminMsg = adminTpl.message ? adminTpl.message.toString('utf8') : '';
+          const userFullName = (user.fname || user.lname) ? `${user.fname || ''} ${user.lname || ''}`.trim() : (user.email || '');
+
+          adminMsg = adminMsg
+            .replace(/{{\s*ADMIN_NAME\s*}}/gi, 'Admin')
+            .replace(/{{\s*USER_NAME\s*}}/gi, userFullName)
+            .replace(/{{\s*COMPANY_NAME\s*}}/gi, (company?.organization_name) || '')
+            .replace(/{{\s*PRODUCT_NAME\s*}}/gi, title || '')
+            .replace(/{{\s*CATEGORY\s*}}/gi, categories?.name || '')
+            .replace(/{{\s*CODE\s*}}/gi, code || '')
+            .replace(/{{\s*ARTICLE_NUMBER\s*}}/gi, article_number || '')
+            .replace(/{{\s*SUB_CATEGORY\s*}}/gi, subCategories?.name || '')
+            .replace(/{{\s*DESCRIPTION\s*}}/gi, description || '')
+            .replace(/{{\s*USER_EMAIL\s*}}/gi, user.email || '');
+          await sendMail({ to: siteConfig['site_email'], subject: adminTpl.subject || 'New company product added', message: adminMsg });
+        }
+
+        // For the first product, send template 65 to the company user and
+        // template 102 to the admin.
+
+
+        if (existingCount === 0 && wasIncompleteSeller) {
+          // Send template 65 to company user
+          const userLastTpl = await Emails.findByPk(65);
+          if (userLastTpl) {
+            let userMsg2 = userLastTpl.message ? userLastTpl.message.toString('utf8') : '';
+            const userFullName = (user.fname || user.lname) ? `${user.fname || ''} ${user.lname || ''}`.trim() : (user.email || '');
+
+
+            userMsg2 = userMsg2
+              .replace(/{{\s*USER_NAME\s*}}/gi, userFullName)
+              .replace(/{{\s*COMPANY_NAME\s*}}/gi, (company?.organization_name) || '');
+            try {
+              await sendMail({ to: user.email, subject: userLastTpl.subject || 'Product processed', message: userMsg2 });
+            } catch (e) {
+              console.error('Error sending template 65 to user:', e);
+            }
+          }
+
+          // Send template 102 to admin
+          const adminTpl102 = await Emails.findByPk(102);
+          if (adminTpl102) {
+            let adminMsg102 = adminTpl102.message ? adminTpl102.message.toString('utf8') : '';
+            const userFullName = (user.fname || user.lname) ? `${user.fname || ''} ${user.lname || ''}`.trim() : (user.email || '');
+
+
+            adminMsg102 = adminMsg102
+              .replace(/{{\s*ADMIN_NAME\s*}}/gi, 'Admin')
+              .replace(/{{\s*USER_FNAME\s*}}/gi, user.fname)
+              .replace(/{{\s*USER_LNAME\s*}}/gi, user.lname)
+              .replace(/{{\s*USER_MOBILE\s*}}/gi, user.mobile || '')
+              .replace(/{{\s*COMPANY_NAME\s*}}/gi, (company?.organization_name) || '')
+              .replace(/{{\s*PRODUCT_TITLE\s*}}/gi, title || '')
+              .replace(/{{\s*USER_TYPE\s*}}/gi, user.is_seller === 1 ? 'Seller' : 'Buyer')
+              .replace(/{{\s*USER_EMAIL\s*}}/gi, user.email || '');
+            try {
+              await sendMail({ to: siteConfig['site_email'], subject: adminTpl102.subject || 'Second product added', message: adminMsg102 });
+            } catch (e) {
+              console.error('Error sending template 102 to admin:', e);
+            }
+          }
+        }
+
+
+
+      } catch (mailErr) {
+        console.error('Error sending product emails:', mailErr);
+      }
+
+
+
+      res.status(201).json({ message: 'Product created', products });
+
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+};
+
+exports.getAllProductsold = async (req, res) => {
+  try {
+    const limit = req.query.limit ? parseInt(req.query.limit) : null;
+    const page = req.query.page ? parseInt(req.query.page) : null;
+    const offset = limit && page ? (page - 1) * limit : null;
+    const { user_state, sort_by, title, category, sub_category, company_id, is_delete, status, is_approve,
+      item_category_id, item_subcategory_id, item_id } = req.query;
+    let order = [['id', 'ASC']];
+    if (sort_by === 'newest') order = [['created_at', 'DESC']];
+    else if (sort_by === 'a_to_z') order = [['title', 'ASC']];
+    else if (sort_by === 'z_to_a') order = [['title', 'DESC']];
+    const productWhereClause = {};
+    if (title) productWhereClause.title = { [Op.iLike]: `%${title}%` };
+    if (category) {
+      const categoryArray = parseCsv(category);
+      productWhereClause.category = { [Op.in]: categoryArray };
+    }
+    if (sub_category) {
+      const subCategoryArray = parseCsv(sub_category);
+      productWhereClause.sub_category = { [Op.in]: subCategoryArray };
+    }
+    if (company_id) {
+      const companyArray = parseCsv(company_id);
+      productWhereClause.company_id = { [Op.in]: companyArray };
+    }
+    if (item_category_id) {
+      const arr = parseCsv(item_category_id);
+      productWhereClause.item_category_id = { [Op.in]: arr };
+    }
+    if (item_subcategory_id) {
+      const arr = parseCsv(item_subcategory_id);
+      productWhereClause.item_subcategory_id = { [Op.in]: arr };
+    }
+    if (item_id) {
+      const arr = parseCsv(item_id);
+      productWhereClause.item_id = { [Op.in]: arr };
+    }
+    if (is_delete) {
+      productWhereClause.is_delete = is_delete;
+    }
+    if (status) {
+      productWhereClause.status = status;
+    }
+    if (is_approve) {
+      productWhereClause.is_approve = is_approve;
+    }
+    let userWhereClause = {};
+    if (user_state) {
+      const stateIds = parseCsv(user_state);
+      userWhereClause.state = { [Op.in]: stateIds };
+    }
+    const { count, rows } = await Products.findAndCountAll({
+      where: productWhereClause,
+      order,
+      ...(limit && offset !== null ? { limit, offset } : {}),
+      include: [
+        { model: Categories, as: 'Categories', attributes: ['id', 'name'] },
+        { model: SubCategories, as: 'SubCategories', attributes: ['id', 'name'] },
+        { model: ItemCategory, as: 'ItemCategory', attributes: ['id', 'name'] },
+        { model: ItemSubCategory, as: 'ItemSubCategory', attributes: ['id', 'name'] },
+        { model: Items, as: 'Items', attributes: ['id', 'name'] },
+        { model: CompanyInfo, as: 'company_info', attributes: ['id', 'organization_name'] },
+        { model: UploadImage, as: 'file', attributes: ['file'] },
+        {
+          model: Users,
+          as: 'Users',
+          attributes: ['id', 'fname', 'lname', 'state'],
+          where: Object.keys(userWhereClause).length ? userWhereClause : undefined,
+          include: [{ model: States, as: 'state_data', attributes: ['id', 'name'] }]
+        }
+      ]
+    });
+    const modifiedProducts = rows.map(product => {
+      const productsData = product.toJSON();
+      productsData.getStatus = productsData.status === 1 ? 'Public' : 'Draft';
+      productsData.category_name = productsData.Categories?.name || null;
+      productsData.sub_category_name = productsData.SubCategories?.name || null;
+      productsData.item_category_name = productsData.ItemCategory?.name || null;
+      productsData.item_subcategory_name = productsData.ItemSubCategory?.name || null;
+      productsData.item_name = productsData.Items?.name || null;
+      productsData.color_name = null;
+      productsData.company_name = productsData.company_info?.organization_name || null;
+      productsData.file_name = productsData.file?.file || null;
+      productsData.state_name = productsData.Users?.state_data?.name || null;
+      productsData.user_full_name = productsData.Users ? `${productsData.Users.fname} ${productsData.Users.lname}` : null;
+      delete productsData.Categories;
+      delete productsData.SubCategories;
+      delete productsData.ItemCategory;
+      delete productsData.ItemSubCategory;
+      delete productsData.Items;
+      delete productsData.Color;
+      delete productsData.company_info;
+      delete productsData.file;
+      delete productsData.Users;
+      return productsData;
+    });
+    res.json({
+      total: count,
+      products: modifiedProducts
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getAllProducts = async (req, res) => {
+  try {
+    const isDebug = String(req.query.debug ?? '') === '1' || String(req.query.debug ?? '').toLowerCase() === 'true';
+    const limit = req.query.limit ? parseInt(req.query.limit) : null;
+    const page = req.query.page ? parseInt(req.query.page) : null;
+    const offset = limit && page ? (page - 1) * limit : null;
+    const { user_state, sort_by, title, category, sub_category, company_id, is_delete, status, is_approve,
+      item_category_id, item_subcategory_id, item_id, search, keyword_ids, is_front } = req.query;
+    let order = [['id', 'ASC']];
+    if (sort_by === 'newest') order = [['created_at', 'DESC']];
+    else if (sort_by === 'a_to_z') order = [['title', 'ASC']];
+    else if (sort_by === 'z_to_a') order = [['title', 'DESC']];
+    const productWhereClause = {};
+    if (title) productWhereClause.title = { [Op.iLike]: `%${title}%` };
+    if (category) {
+      const categoryArray = parseCsv(category);
+      productWhereClause.category = { [Op.in]: categoryArray };
+    }
+    if (sub_category) {
+      const subCategoryArray = parseCsv(sub_category);
+      productWhereClause.sub_category = { [Op.in]: subCategoryArray };
+    }
+    if (company_id) {
+      const companyArray = parseCsv(company_id);
+      productWhereClause.company_id = { [Op.in]: companyArray };
+    }
+    if (item_category_id) {
+      const arr = parseCsv(item_category_id);
+      productWhereClause.item_category_id = { [Op.in]: arr };
+    }
+    if (item_subcategory_id) {
+      const arr = parseCsv(item_subcategory_id);
+      productWhereClause.item_subcategory_id = { [Op.in]: arr };
+    }
+    if (item_id) {
+      const arr = parseCsv(item_id);
+      productWhereClause.item_id = { [Op.in]: arr };
+    }
+    const keywordIdsArray = keyword_ids
+      ? parseCsv(keyword_ids)
+        .map((id) => Number(id))
+        .filter((id) => Number.isInteger(id) && id > 0)
+      : [];
+
+    if (keywordIdsArray.length > 0 && !search) {
+      productWhereClause.keyword_id = { [Op.in]: keywordIdsArray };
+    }
+    if (is_delete) {
+      productWhereClause.is_delete = is_delete;
+    }
+    if (status) {
+      productWhereClause.status = status;
+    }
+    if (is_approve) {
+      productWhereClause.is_approve = is_approve;
+    }
+
+    // General search filter
+    if (search) {
+      const searchOrConditions = [
+        {
+          title: {
+            [Op.like]: `%${search}%`
+          }
+        }
+      ];
+
+      if (keywordIdsArray.length > 0) {
+        searchOrConditions.push({
+          keyword_id: {
+            [Op.in]: keywordIdsArray,
+          },
+        });
+      }
+
+      productWhereClause[Op.or] = searchOrConditions;
+
+      if (!sort_by) {
+        const safeSearch = String(search)
+          .replace(/\\/g, '\\\\')
+          .replace(/'/g, "''");
+        const escapedPrefixSearch = `'${safeSearch}%'`;
+        const escapedContainsSearch = `'%${safeSearch}%'`;
+        const keywordRelevanceClause = keywordIdsArray.length > 0
+          ? ` WHEN keyword_id IN (${keywordIdsArray.join(',')}) THEN 2`
+          : '';
+
+        order = [
+          [
+            literal(
+              `CASE WHEN title LIKE ${escapedPrefixSearch} THEN 0 WHEN title LIKE ${escapedContainsSearch} THEN 1${keywordRelevanceClause} ELSE 3 END`
+            ),
+            'ASC',
+          ],
+          ['title', 'ASC'],
+          ['id', 'DESC'],
+        ];
+      }
+    }
+
+    let userWhereClause = {};
+    if (user_state) {
+      const stateIds = parseCsv(user_state);
+      userWhereClause.state = { [Op.in]: stateIds };
+    }
+    if (is_front) {
+      userWhereClause.is_approve = 1;
+      userWhereClause.is_delete = 0;
+      userWhereClause.status = 1;
+    }
+    const { count, rows } = await Products.findAndCountAll({
+      where: productWhereClause,
+      order,
+      ...(limit && offset !== null ? { limit, offset } : {}),
+      logging: isDebug ? (sql) => console.log('[getAllProducts][sql]', sql) : false,
+      include: [
+        { model: Categories, as: 'Categories', attributes: ['id', 'name'] },
+        { model: SubCategories, as: 'SubCategories', attributes: ['id', 'name'] },
+        { model: ItemCategory, as: 'ItemCategory', attributes: ['id', 'name'] },
+        { model: ItemSubCategory, as: 'ItemSubCategory', attributes: ['id', 'name'] },
+        { model: Items, as: 'Items', attributes: ['id', 'name'] },
+        { model: CompanyInfo, as: 'company_info', attributes: ['id', 'organization_name'] },
+        { model: UploadImage, as: 'file', attributes: ['file'] },
+        {
+          model: Users,
+          as: 'Users',
+          attributes: ['id', 'fname', 'lname', 'state'],
+          where: Object.keys(userWhereClause).length ? userWhereClause : undefined,
+          include: [{ model: States, as: 'state_data', attributes: ['id', 'name'] }]
+        }
+      ]
+    });
+
+    if (isDebug) {
+      console.log('[getAllProducts][request_query]', req.query);
+      console.log('[getAllProducts][result_summary]', {
+        total: count,
+        returned: rows.length,
+        product_ids: rows.map((row) => row.id),
+      });
+    }
+
+    const modifiedProducts = rows.map(product => {
+      const productsData = product.toJSON();
+      productsData.getStatus = productsData.status === 1 ? 'Public' : 'Draft';
+      productsData.category_name = productsData.Categories?.name || null;
+      productsData.sub_category_name = productsData.SubCategories?.name || null;
+      productsData.item_category_name = productsData.ItemCategory?.name || null;
+      productsData.item_subcategory_name = productsData.ItemSubCategory?.name || null;
+      productsData.item_name = productsData.Items?.name || null;
+      productsData.color_name = null;
+      productsData.company_name = productsData.company_info?.organization_name || null;
+      productsData.file_name = productsData.file?.file || null;
+      productsData.state_name = productsData.Users?.state_data?.name || null;
+      productsData.user_full_name = productsData.Users ? `${productsData.Users.fname} ${productsData.Users.lname}` : null;
+      delete productsData.Categories;
+      delete productsData.SubCategories;
+      delete productsData.ItemCategory;
+      delete productsData.ItemSubCategory;
+      delete productsData.Items;
+      delete productsData.Color;
+      delete productsData.company_info;
+      delete productsData.file;
+      delete productsData.Users;
+      return productsData;
+    });
+    res.json({
+      total: count,
+      products: modifiedProducts
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getProductsById = async (req, res) => {
+  try {
+    const identifier = req.params.id;
+
+    // Check if ID or slug
+    const isNumeric = /^\d+$/.test(identifier);
+
+    // Fetch product
+    const product = await Products.findOne({
+      where: isNumeric ? { id: identifier } : { slug: identifier },
+      include: [
+        { model: UploadImage, as: 'file', attributes: ['file'] } // main image
+      ]
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const productData = product.toJSON();
+
+    // Remove 'file' from output
+    delete productData.file;
+
+    // Parse multiple images
+    const fileIds = productData.file_ids
+      ? productData.file_ids.split(',').map(id => id.trim())
+      : [];
+
+    let images = [];
+    if (fileIds.length) {
+      const uploadedImages = await UploadImage.findAll({
+        where: { id: { [Op.in]: fileIds } },
+        attributes: ['id', 'file']
+      });
+
+      // Keep same order as file_ids
+      const imageMap = uploadedImages.reduce((acc, img) => {
+        acc[img.id] = img;
+        return acc;
+      }, {});
+
+      images = fileIds
+        .map(id => imageMap[id])
+        .filter(Boolean)
+        .map(img => ({ id: img.id, file: img.file }));
+    }
+
+    res.json({
+      ...productData,
+      file_name: productData.file_id ? images.find(img => img.id === productData.file_id)?.file || null : null,
+      images
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getProductsDetail = async (req, res) => {
+  try {
+    const identifier = req.params.id;
+
+    // Check if identifier is a number (ID) or a string (slug)
+    const isNumeric = /^\d+$/.test(identifier);
+
+    // Fetch product by ID or Slug
+    const product = await Products.findOne({
+      where: isNumeric ? { id: identifier } : { slug: identifier },
+      include: [
+        { model: Categories, as: 'Categories', attributes: ['name'] },
+        { model: SubCategories, as: 'SubCategories', attributes: ['name'] },
+        { model: ItemCategory, as: 'ItemCategory', attributes: ['name'] },
+        { model: ItemSubCategory, as: 'ItemSubCategory', attributes: ['name'] },
+        {
+          model: CompanyInfo,
+          as: 'company_info',
+          attributes: [
+            'id',
+            'organization_name',
+            'company_logo',
+            'brief_company',
+            'company_location',
+            'activity',
+            'core_activity',
+            'organization_slug',
+            'company_website'
+          ],
+          include: [
+            { model: UploadImage, as: 'companyLogo', attributes: ['file'] },
+            { model: Activity, as: 'Activity', attributes: ['name'] },
+            { model: CoreActivity, as: 'CoreActivity', attributes: ['name'] },
+          ]
+        },
+        { model: UploadImage, as: 'file', attributes: ['file'] }
+      ]
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const productData = product.toJSON();
+
+    // Calculate average rating
+    const avgRating = await ReviewRating.findOne({
+      where: { product_id: productData.id },
+      attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating']],
+      raw: true
+    });
+
+    const averageRating = avgRating.averageRating ? Number(avgRating.averageRating) : 0;
+
+    // Count reviews
+    const reviewsCount = await ReviewRating.count({ where: { product_id: productData.id } });
+
+    // Fetch associated images
+    const fileIds = productData.file_ids ? productData.file_ids.split(',') : [];
+    const associatedImages = await UploadImage.findAll({
+      where: { id: { [Op.in]: fileIds } },
+      attributes: ['id', 'file'],
+    });
+
+    // Similar products - matched by item subcategory (fallback to category if item_subcategory_id is null)
+    const similarWhere = {
+      is_approve: 1,
+      status: 1,
+      id: { [Op.ne]: productData.id }
+    };
+    if (productData.item_subcategory_id) {
+      similarWhere.item_subcategory_id = productData.item_subcategory_id;
+    } else {
+      similarWhere.category = productData.category;
+    }
+
+    const similarProducts = await Products.findAll({
+      where: similarWhere,
+      attributes: ['id', 'title', 'file_ids', 'slug'],
+      include: [{ model: UploadImage, as: 'file', attributes: ['file'] }]
+    });
+
+    const formattedSimilarProducts = similarProducts.map(p => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      file_name: p.file?.file || null,
+    }));
+
+    // Recommended companies (simplified)
+    const allCompanies = await CompanyInfo.findAll({
+      where: { id: { [Op.ne]: productData.company_info?.id } },
+      attributes: ['id', 'organization_name', 'organization_slug', 'company_website'],
+      include: [{ model: UploadImage, as: 'companyLogo', attributes: ['file'] }]
+    });
+
+    const recommendedCompanies = allCompanies
+      .map((c) => ({
+        id: c.id,
+        organization_name: c.organization_name,
+        organization_slug: c.organization_slug,
+        company_logo_file: c.companyLogo?.file || null,
+        company_website: c.company_website || null
+      }))
+      .filter((c) => Boolean(c.company_logo_file));
+
+    // Build response
+    const response = {
+      id: productData.id,
+      company_id: productData.company_id,
+      title: productData.title,
+      file_name: productData.file?.file || null,
+      images: associatedImages.map(img => ({ id: img.id, file: img.file })),
+      averageRating,
+      reviews_count: reviewsCount,
+      category_name: productData.Categories?.name || null,
+      sub_category_name: productData.SubCategories?.name || null,
+      item_category_name: productData.ItemCategory?.name || null,
+      item_subcategory_name: productData.ItemSubCategory?.name || null,
+      short_description: productData.short_description || null,
+      company_slug: productData.company_info?.organization_slug || null,
+      company_logo: productData.company_info?.companyLogo?.file || null,
+      company_location: productData.company_info?.company_location || null,
+      created_at: productData.created_at,
+      core_activity_name: productData.company_info?.CoreActivity?.name || null,
+      description: productData.description || null,
+      company_name: productData.company_info?.organization_name || null,
+      activity_name: productData.company_info?.Activity?.name || null,
+      brief_company: productData.company_info?.brief_company || null,
+      organizations_product_description: productData.description || null,
+      similar_products: formattedSimilarProducts
+    };
+
+    res.json(response);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getProductsCount = async (req, res) => {
+  try {
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+    const now = new Date();
+
+    const [total, statusPublic, statusDraft, addedThisMonth] = await Promise.all([
+      Products.count({ where: { is_delete: 0 } }),
+      Products.count({ where: { is_delete: 0, is_approve: 1 } }),
+      Products.count({ where: { is_delete: 0, is_approve: 0 } }),
+      Products.count({
+        where: {
+          created_at: {
+            [Op.between]: [startOfMonth, now],
+          },
+        },
+      }),
+    ]);
+
+    res.json({
+      total,
+      statusPublic,
+      statusDraft,
+      addedThisMonth,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.updateProducts = async (req, res) => {
+  try {
+    const {
+      user_id,
+      title,
+      code,
+      article_number,
+      category,
+      sub_category,
+      is_gold,
+      is_featured,
+      is_recommended,
+      best_product,
+      status,
+      application,
+      short_description,
+      description,
+      item_category_id,
+      item_subcategory_id,
+      item_id,
+      keyword_id,
+    } = req.body;
+
+    const product = await Products.findByPk(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    let slug = product.slug;
+    if (title && title !== product.title) {
+      slug = await createUniqueProductSlug(title);
+    }
+
+    await product.update({
+      user_id,
+      title,
+      slug,
+      code,
+      article_number,
+      category,
+      sub_category,
+      is_gold,
+      is_featured,
+      is_recommended,
+      best_product,
+      status,
+      application,
+      short_description,
+      description,
+      item_category_id,
+      item_subcategory_id,
+      item_id,
+      keyword_id,
+    });
+
+    res.status(200).json({
+      message: "Product updated successfully",
+      product,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.appendProductImages = async (req, res) => {
+  const upload = getMulterUpload("products");
+  upload.array("files", 10)(req, res, async (err) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    try {
+      const product = await Products.findByPk(req.params.id);
+      if (!product) return res.status(404).json({ message: "Product not found" });
+
+      let fileIds = product.file_ids ? product.file_ids.split(",") : [];
+
+      const newFileIds = await Promise.all(
+        req.files.map(async (file) => {
+          const newImage = await UploadImage.create({
+            file: `upload/products/${file.filename}`,
+          });
+          return newImage.id.toString();
+        })
+      );
+      fileIds = [...fileIds, ...newFileIds];
+      let finalFileId = product.file_id;
+      if (!finalFileId && fileIds.length > 0) {
+        finalFileId = fileIds[0];
+      }
+      await product.update({
+        file_id: finalFileId,
+        file_ids: fileIds.join(","),
+      });
+      res.status(200).json({ message: "Images added successfully", product });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+};
+
+exports.removeProductImage = async (req, res) => {
+  try {
+    const { id, imageId } = req.params;
+    const product = await Products.findByPk(id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    let fileIds = product.file_ids ? product.file_ids.split(",") : [];
+    if (!fileIds.includes(imageId.toString())) {
+      return res.status(404).json({ error: "Image not found in this product" });
+    }
+    fileIds = fileIds.filter(fid => fid !== imageId.toString());
+    let newFileId = product.file_id?.toString();
+    if (newFileId === imageId.toString()) {
+      newFileId = fileIds.length > 0 ? fileIds[0] : null;
+    }
+    const imageToDelete = await UploadImage.findByPk(imageId);
+    if (imageToDelete && imageToDelete.file) {
+      const filePath = path.join(__dirname, `../${imageToDelete.file}`);
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+      await imageToDelete.destroy();
+    }
+    await product.update({
+      file_id: newFileId,
+      file_ids: fileIds.join(","),
+    });
+    res.json({ success: true, message: "Image removed successfully" });
+  } catch (err) {
+    console.error("Error removing image:", err);
+    res.status(500).json({ error: "Failed to remove image" });
+  }
+};
+
+exports.deleteProducts = async (req, res) => {
+  try {
+    const product = await Products.findByPk(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    if (product.file_ids) {
+      const fileIds = product.file_ids.split(',');
+      for (const fileId of fileIds) {
+        const uploadImage = await UploadImage.findByPk(fileId);
+        if (uploadImage) {
+          const oldImagePath = path.resolve(uploadImage.file);
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath);
+          }
+          await uploadImage.destroy();
+        }
+      }
+    }
+    await product.destroy();
+    res.json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.updateProductsStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (status !== 0 && status !== 1) {
+      return res.status(400).json({ message: 'Invalid status. Use 1 (Active) or 0 (Deactive).' });
+    }
+    const products = await Products.findByPk(req.params.id);
+    if (!products) return res.status(404).json({ message: 'Product not found' });
+    products.status = status;
+    await products.save();
+    // Product publish email flow moved to `updateAccountStatus` (send when is_approve === 1)
+    res.json({ message: 'Status updated', products });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.deleteSelectedProducts = async (req, res) => {
+  try {
+    const { ids } = req.body;
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ message: 'Please provide an array of IDs to update.' });
+    }
+    const parsedIds = ids.map(id => parseInt(id, 10));
+    const products = await Products.findAll({
+      where: {
+        id: {
+          [Op.in]: parsedIds,
+        },
+        is_delete: 0
+      }
+    });
+    if (products.length === 0) {
+      return res.status(404).json({ message: 'No product found with the given IDs.' });
+    }
+    await Products.update(
+      { is_delete: 1 },
+      {
+        where: {
+          id: {
+            [Op.in]: parsedIds,
+          }
+        }
+      }
+    );
+    res.json({ message: `${products.length} product marked as deleted.` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+exports.getAllCompanyInfo = async (req, res) => {
+  try {
+    const limit = req.query.limit ? parseInt(req.query.limit) : null;
+    const page = req.query.page ? parseInt(req.query.page) : null;
+    const offset = limit && page ? (page - 1) * limit : null;
+
+    const {
+      user_state,
+      sort_by,
+      title,
+      core_activity,
+      activity,
+      item_category,
+      item_subcategory,
+      category,
+      sub_category,
+      is_delete,
+      is_seller,
+      is_trading,
+      interest_sub_categories
+    } = req.query;
+
+
+
+    // ✅ Sorting
+    let order = [['id', 'ASC']];
+    if (sort_by === 'newest') order = [['created_at', 'DESC']];
+    else if (sort_by === 'a_to_z') order = [['organization_name', 'ASC']];
+    else if (sort_by === 'z_to_a') order = [['organization_name', 'DESC']];
+
+    // ✅ Base where clause
+    const whereClause = {};
+    if (typeof is_delete !== 'undefined') whereClause.is_delete = parseInt(is_delete);
+    if (title) whereClause.organization_name = { [Op.like]: `%${title}%` };
+
+    // ✅ Category/Subcategory filter through Products table
+    if (category || sub_category) {
+      const catIds = category ? parseCsv(category).map(x => parseInt(x)).filter(x => !isNaN(x)) : [];
+      const subIds = sub_category ? parseCsv(sub_category).map(x => parseInt(x)).filter(x => !isNaN(x)) : [];
+
+      const productConditions = [];
+
+      if (catIds.length) {
+        productConditions.push(`(${catIds.map(id => `FIND_IN_SET(${id}, p.category) > 0`).join(' OR ')})`);
+      }
+
+      if (subIds.length) {
+        productConditions.push(`(${subIds.map(id => `FIND_IN_SET(${id}, p.sub_category) > 0`).join(' OR ')})`);
+      }
+
+      if (productConditions.length) {
+        whereClause[Op.and] = whereClause[Op.and] || [];
+        whereClause[Op.and].push(
+          literal(`
+      EXISTS (
+        SELECT 1
+        FROM products p
+        WHERE p.company_id = CompanyInfo.company_id
+        AND p.is_delete = 0
+        AND ${productConditions.join(' AND ')}
+      )
+    `)
+        );
+      }
+    }
+    const coreWhere = [];
+    if (core_activity || activity) {
+      if (core_activity) coreWhere.push(`CompanyInfo.core_activity = ${core_activity}`);
+      if (activity) coreWhere.push(`CompanyInfo.activity = ${activity}`);
+    }
+
+    // ✅ User filters
+    let userFilters = [`u.is_delete = 0`, `u.status = 1`, `u.is_approve = 1`];
+    // Remove u.is_approve = 1 if is_approve=2 in query
+    if (req.query.is_approve == 2) {
+      userFilters = userFilters.filter(f => f !== 'u.is_approve = 1');
+    }
+    if (user_state) {
+      const stateIds = parseCsv(user_state).map(x => parseInt(x)).filter(x => !isNaN(x));
+      if (stateIds.length) userFilters.push(`u.state IN (${stateIds.join(',')})`);
+    }
+    if (typeof is_seller !== 'undefined') userFilters.push(`u.is_seller = ${parseInt(is_seller)}`);
+    if (typeof is_trading !== 'undefined') userFilters.push(`u.is_trading = ${parseInt(is_trading)}`);
+
+    let interestSubCatIds = [];
+    if (interest_sub_categories) {
+      interestSubCatIds = parseCsv(interest_sub_categories)
+        .map(x => parseInt(x))
+        .filter(x => !isNaN(x));
+    }
+    const interestConditions = [];
+
+    if (item_category != null) {
+      interestConditions.push(`bi.item_category_id = ${Number(item_category)}`);
+    }
+
+    let ItemSubCatIds = [];
+
+    if (item_subcategory) {
+      ItemSubCatIds = parseCsv(item_subcategory)
+        .map(x => parseInt(x))
+        .filter(x => !isNaN(x));
+    }
+
+    if (ItemSubCatIds?.length) {
+      interestConditions.push(
+        `bi.item_subcategory_id IN (${ItemSubCatIds.map(Number).join(',')})`
+      );
+    }
+
+    if (interestConditions.length) {
+      whereClause[Op.and] = whereClause[Op.and] || [];
+      whereClause[Op.and].push(
+        literal(`
+      EXISTS (
+        SELECT 1
+        FROM users u2
+        JOIN buyer_sourcing_interests bi ON bi.user_id = u2.user_id
+        WHERE u2.company_id = CompanyInfo.company_id
+          AND ${interestConditions.join(' AND ')}
+          AND u2.status = 1
+          AND u2.is_approve = 1
+          AND u2.is_seller = 0
+          AND u2.is_delete = 0
+          AND CompanyInfo.is_delete = 0
+      )
+    `)
+      );
+    }
+
+
+
+    whereClause[Op.and] = whereClause[Op.and] || [];
+    whereClause[Op.and].push(
+      literal(`EXISTS (SELECT 1 FROM users u WHERE u.company_id = CompanyInfo.company_id AND ${userFilters.join(' AND ')})`)
+    );
+    if (coreWhere.length) {
+      whereClause[Op.and].push(
+        Sequelize.literal(coreWhere.join(' AND '))
+      );
+    }
+
+    // ✅ Total count
+    const total = await CompanyInfo.count({ where: whereClause });
+
+    // ✅ Fetch company list
+    const companies = await CompanyInfo.findAll({
+      where: whereClause,
+      order,
+      ...(limit && offset !== null ? { limit, offset } : {}),
+      include: [
+        { model: UploadImage, as: 'companyLogo', attributes: ['file'] },
+        { model: CoreActivity, as: 'CoreActivity', attributes: ['name'] },
+        { model: Activity, as: 'Activity', attributes: ['name'] }
+      ]
+    });
+
+    const companyIds = companies.map(c => c.id);
+
+    // ✅ Product counts
+    const productCounts = await Products.findAll({
+      attributes: ['company_id', [fn('COUNT', col('product_id')), 'count']],
+      where: { company_id: { [Op.in]: companyIds }, is_delete: 0, is_approve: 1, status: 1 },
+      include: [{
+        model: Users,
+        as: 'Users',
+        attributes: [],
+        required: true,
+        where: { status: 1, is_approve: 1, is_delete: 0 },
+      }],
+      group: ['company_id'],
+      raw: true
+    });
+
+    const countMap = {};
+    productCounts.forEach(item => (countMap[item.company_id] = parseInt(item.count)));
+
+    // ✅ Product list
+    const allProducts = await Products.findAll({
+      where: { company_id: { [Op.in]: companyIds }, is_delete: 0, is_approve: 1, status: 1 },
+      attributes: ['id', 'title', 'slug', 'company_id'],
+      limit: 10,
+      raw: true
+    });
+
+    const productMap = {};
+
+    await Promise.all(
+      companyIds.map(async (cid) => {
+        const products = await Products.findAll({
+          where: {
+            company_id: cid,
+            is_delete: 0,
+            is_approve: 1,
+            status: 1
+          },
+          attributes: ['id', 'title', 'slug'],
+          order: [['id', 'DESC']],
+          limit: 10,
+          raw: true
+        });
+
+        productMap[cid] = products;
+      })
+    );
+
+
+
+
+    // ✅ Fetch users (single user per company)
+    const users = await Users.findAll({
+      where: { company_id: { [Op.in]: companyIds }, is_delete: 0, status: 1, is_approve: 1 },
+      order: [['id', 'ASC']], // to pick first user if multiple exist
+      raw: true
+    });
+
+    const companyUsersMap = {};
+    users.forEach(u => {
+      if (!companyUsersMap[u.company_id]) companyUsersMap[u.company_id] = u;
+    });
+
+    const parseIdValues = (value) => {
+      if (value === null || value === undefined || value === '') return [];
+      return String(value)
+        .split(',')
+        .map(v => parseInt(v.trim(), 10))
+        .filter(v => !isNaN(v));
+    };
+
+    // ✅ Build category/subcategory mapping from Products table using user_id
+    const productCategoryRows = await Products.findAll({
+      where: {
+        user_id: { [Op.in]: users.map(u => u.id) },
+        is_delete: 0
+      },
+      attributes: ['user_id', 'category', 'sub_category'],
+      raw: true
+    });
+
+    const userProductCategoryMap = {};
+    productCategoryRows.forEach(row => {
+      if (!userProductCategoryMap[row.user_id]) {
+        userProductCategoryMap[row.user_id] = {
+          categoryIds: new Set(),
+          subCategoryIds: new Set()
+        };
+      }
+
+      parseIdValues(row.category).forEach(id => userProductCategoryMap[row.user_id].categoryIds.add(id));
+      parseIdValues(row.sub_category).forEach(id => userProductCategoryMap[row.user_id].subCategoryIds.add(id));
+    });
+
+    // ✅ Gather unique category & subcategory IDs
+    const allCategoryIds = new Set();
+    const allSubCategoryIds = new Set();
+
+    Object.values(userProductCategoryMap).forEach(row => {
+      row.categoryIds.forEach(id => allCategoryIds.add(id));
+      row.subCategoryIds.forEach(id => allSubCategoryIds.add(id));
+    });
+
+    // ✅ Fetch category/subcategory names
+    const [categoriesList, subCategoriesList] = await Promise.all([
+      Categories.findAll({
+        where: { id: [...allCategoryIds] },
+        attributes: ['id', 'name'],
+        raw: true
+      }),
+      SubCategories.findAll({
+        where: { id: [...allSubCategoryIds] },
+        attributes: ['id', 'name'],
+        raw: true
+      })
+    ]);
+
+    const categoryMap = Object.fromEntries(categoriesList.map(c => [c.id, c.name]));
+    const subCategoryMap = Object.fromEntries(subCategoriesList.map(s => [s.id, s.name]));
+
+
+    // item type
+    const buyerItemCates = await BuyerSourcingInterests.findAll({
+      attributes: ['user_id', 'item_category_id', 'item_subcategory_id'],
+      raw: true
+    });
+
+    const userBuyerMap = {};
+    buyerItemCates.forEach(sc => {
+      if (!userBuyerMap[sc.user_id]) userBuyerMap[sc.user_id] = [];
+      userBuyerMap[sc.user_id].push(sc);
+    });
+
+    const allItemCategoryIds = new Set();
+    const allItemSubCategoryIds = new Set();
+
+    buyerItemCates.forEach(sc => {
+      if (sc.item_category_id) allItemCategoryIds.add(sc.item_category_id);
+      if (sc.item_subcategory_id) allItemSubCategoryIds.add(sc.item_subcategory_id);
+    });
+
+    // ✅ Fetch category/subcategory names
+    const [itemCategoriesList, itemsubCategoriesList] = await Promise.all([
+      ItemCategory.findAll({
+        where: { id: [...allItemCategoryIds] },
+        attributes: ['id', 'name'],
+        raw: true
+      }),
+      ItemSubCategory.findAll({
+        where: { id: [...allItemSubCategoryIds] },
+        attributes: ['id', 'name'],
+        raw: true
+      })
+    ]);
+
+    const itemCategoryMap = Object.fromEntries(itemCategoriesList.map(c => [c.id, c.name]));
+    const itemSubCategoryMap = Object.fromEntries(itemsubCategoriesList.map(s => [s.id, s.name]));
+
+
+
+
+
+
+    // ✅ Final data formatting
+    const modified = companies.map(c => {
+      const cd = c.toJSON();
+      const file = cd.companyLogo?.file || null;
+      const coreActivityName = cd.CoreActivity?.name || null;
+      const activityName = cd.Activity?.name || null;
+
+      const companyUser = companyUsersMap[cd.id] || null;
+      const userIds = companyUser ? [companyUser.id] : [];
+
+      const catSet = new Set();
+      const subSet = new Set();
+
+      userIds.forEach(uid => {
+        const entries = userProductCategoryMap[uid];
+        if (!entries) return;
+
+        entries.categoryIds.forEach(id => catSet.add(id));
+        entries.subCategoryIds.forEach(id => subSet.add(id));
+      });
+
+
+      const itemCatSet = new Set();
+      const itemSubSet = new Set();
+
+      userIds.forEach(uid => {
+        const itementries = userBuyerMap[uid] || [];
+        itementries.forEach(e => {
+          if (e.item_category_id) itemCatSet.add(e.item_category_id);
+          if (e.item_subcategory_id) itemSubSet.add(e.item_subcategory_id);
+        });
+      });
+
+
+
+      const categoryNames = [...catSet].map(id => categoryMap[id]).filter(Boolean).join(', ');
+      const subCategoryNames = [...subSet].map(id => subCategoryMap[id]).filter(Boolean).join(', ');
+
+      const itemCategoryNames = [...itemCatSet].map(id => itemCategoryMap[id]).filter(Boolean).join(', ');
+      const itemSubCategoryNames = [...itemSubSet].map(id => itemSubCategoryMap[id]).filter(Boolean).join(', ');
+
+      delete cd.companyLogo;
+      delete cd.CoreActivity;
+      delete cd.Activity;
+
+      return {
+        ...cd,
+        company_logo_file: file,
+        core_activity_name: coreActivityName,
+        activity_name: activityName,
+        product_count: countMap[cd.id] || 0,
+        category_name: categoryNames,
+        sub_category_name: subCategoryNames,
+        item_category_name: itemCategoryNames,
+        item_subcategory_name: itemSubCategoryNames,
+        products: productMap[cd.id] || [],
+        user: companyUser // ✅ single user info
+      };
+    });
+
+    // ✅ Final response
+    res.json({
+      total,
+      companies: modified
+    });
+
+  } catch (err) {
+    console.error('getAllCompanyInfo error:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getCompanyInfoById = async (req, res) => {
+  try {
+    const identifier = req.params.id;
+
+    const isNumeric = /^\d+$/.test(identifier);
+
+    const company = await CompanyInfo.findOne({
+      where: isNumeric ? { id: identifier } : { organization_slug: identifier },
+      include: [
+        { model: CoreActivity, as: 'CoreActivity', attributes: ['name'] },
+        { model: Activity, as: 'Activity', attributes: ['name'] },
+        { model: UploadImage, as: 'companyLogo', attributes: ['file'] },
+      ]
+    });
+
+    if (!company) {
+      return res.status(404).json({ message: 'Company not found' });
+    }
+
+    const data = company.toJSON();
+    data.company_logo_file = data.companyLogo?.file || null;
+
+    const user = await Users.findOne({
+      where: {
+        company_id: company.id,
+        is_delete: 0,
+        status: 1,
+        is_approve: 1
+      },
+      attributes: ['id', 'address', 'zipcode', 'is_seller'],
+      include: [
+        { model: Countries, as: 'country_data', attributes: ['name'] },
+        { model: States, as: 'state_data', attributes: ['name'] },
+        { model: Cities, as: 'city_data', attributes: ['name'] }
+      ],
+      order: [['id', 'ASC']]
+    });
+
+    let categoryNames = [];
+    let subCategoryNames = [];
+    let productList = []; // FIXED scope issue
+
+    const parseIdValues = (value) => {
+      if (!value) return [];
+      return String(value)
+        .split(',')
+        .map(v => parseInt(v.trim(), 10))
+        .filter(v => !isNaN(v));
+    };
+
+    const productRows = await Products.findAll({
+      where: { company_id: company.id, is_delete: 0 },
+      attributes: ['category', 'sub_category'],
+      raw: true
+    });
+
+    const categoryIds = [...new Set(
+      productRows.flatMap(row => parseIdValues(row.category))
+    )];
+
+    const subCategoryIds = [...new Set(
+      productRows.flatMap(row => parseIdValues(row.sub_category))
+    )];
+
+    if (categoryIds.length) {
+      const categories = await Categories.findAll({
+        where: { id: categoryIds },
+        attributes: ['name'],
+        raw: true
+      });
+
+      categoryNames = categories.map(c => c.name);
+    }
+
+    if (subCategoryIds.length) {
+      const subCategories = await SubCategories.findAll({
+        where: { id: subCategoryIds },
+        attributes: ['name'],
+        raw: true
+      });
+
+      subCategoryNames = subCategories.map(sc => sc.name);
+    }
+
+    if (user) {
+      const products = await Products.findAll({
+        where: {
+          user_id: user.id,
+          is_delete: 0,
+          status: 1,
+          is_approve: 1
+        },
+        attributes: ['id', 'title', 'slug'],
+        include: [
+          { model: UploadImage, as: 'file', attributes: ['file'] }
+        ]
+      });
+
+      productList = products.map(product => {
+        const p = product.toJSON();
+        return {
+          id: p.id,
+          slug: p.slug,
+          title: p.title,
+          image: p.file?.file || null
+        };
+      });
+    }
+
+    const allowedCategories = new Set();
+
+    if (user) {
+      const sellerCats = await SellerCategory.findAll({
+        where: { user_id: user.id },
+        attributes: ['category_id'],
+        raw: true
+      });
+
+      sellerCats.forEach(sc => {
+        if (sc.category_id) {
+          allowedCategories.add(String(sc.category_id));
+        }
+      });
+    }
+
+    const allCompanies = await CompanyInfo.findAll({
+      where: {
+        id: { [Op.ne]: company.id }
+      },
+      attributes: [
+        'id',
+        'organization_name',
+        'organization_slug',
+      ],
+      include: [
+        {
+          model: UploadImage,
+          as: 'companyLogo',
+          attributes: ['file']
+        }
+      ]
+    });
+
+    // FIXED filter logic
+    const recommendedCompanies = allCompanies.filter(c => {
+      if (!c.category_sell) return false;
+
+      const companyCats = String(c.category_sell)
+        .split(',')
+        .map(id => id.trim());
+
+      return companyCats.some(cat =>
+        allowedCategories.has(cat)
+      );
+    });
+
+    for (const comp of recommendedCompanies) {
+      // FIXED lookup
+      const usercon = await Users.findOne({
+        where: { company_id: comp.id },
+        attributes: ['state', 'city']
+      });
+
+      let stateName = null;
+      let cityName = null;
+
+      if (usercon?.state) {
+        const state = await States.findOne({
+          where: { id: usercon.state },
+          attributes: ['name']
+        });
+
+        stateName = state?.name || null;
+      }
+
+      if (usercon?.city) {
+        const city = await Cities.findOne({
+          where: { id: usercon.city },
+          attributes: ['name']
+        });
+
+        cityName = city?.name || null;
+      }
+
+      comp.dataValues.state_name = stateName;
+      comp.dataValues.city_name = cityName;
+    }
+
+    const response = {
+      id: data.id,
+      organization_name: data.organization_name,
+      brief_company: data.brief_company,
+      company_logo_file: data.company_logo_file,
+      company_location: data.company_location,
+      company_website: data.company_website,
+      organizations_product_description:
+        data.organizations_product_description,
+      user_category: data.user_category,
+
+      address: user?.address || null,
+      zipcode: user?.zipcode || null,
+      is_seller: user?.is_seller || 0,
+      country_name: user?.country_data?.name || null,
+      state_name: user?.state_data?.name || null,
+      city_name: user?.city_data?.name || null,
+
+      coreactivity_name: data.CoreActivity?.name || null,
+      activity_name: data.Activity?.name || null,
+
+      category_name: categoryNames.join(', '),
+      sub_category_name: subCategoryNames.join(', '),
+
+      products: productList,
+
+      recommended_companies: recommendedCompanies.map(c => ({
+        id: c.id,
+        organization_slug: c.organization_slug,
+        organization_name: c.organization_name,
+        company_logo_file: c.companyLogo?.file || null,
+        state_name: c.dataValues.state_name,
+        city_name: c.dataValues.city_name
+      }))
+    };
+
+    res.json(response);
+
+  } catch (err) {
+    console.error("Error fetching company info:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getAllProductsServerSide = async (req, res) => {
+  try {
+    const {
+      page = 1,
+      limit = 10,
+      search = '',
+      sortBy = 'id',
+      sort = 'DESC',
+      user_id,
+      dateRange = '',
+      startDate,
+      endDate,
+      category,
+      sub_category,
+      item_category_id,
+      item_subcategory_id,
+      item_id,
+      company,
+      product_status,
+      is_approve
+    } = req.query;
+    const validColumns = ['id', 'title', 'article_number', 'created_at', 'updated_at', 'category_name', 'subcategory_name', 'company_name', 'company_slug'];
+    const viewType = req.query.viewType || '';
+    const sortDirection = (sort === 'DESC' || sort === 'ASC') ? sort : 'ASC';
+    const offset = (parseInt(page) - 1) * parseInt(limit);
+    const limitValue = parseInt(limit);
+    let order = [];
+    if (sortBy === 'category_name') {
+      order = [[{ model: Categories, as: 'Categories' }, 'name', sortDirection]];
+    } else if (sortBy === 'subcategory_name') {
+      order = [[{ model: SubCategories, as: 'SubCategories' }, 'name', sortDirection]];
+    } else if (sortBy === 'company_name') {
+      order = [[{ model: CompanyInfo, as: 'company_info' }, 'organization_name', sortDirection]];
+    } else if (validColumns.includes(sortBy)) {
+      order = [[sortBy, sortDirection]];
+    } else {
+      order = [['id', 'DESC']];
+    }
+    const baseWhere = { is_delete: 0 };
+    if (user_id !== undefined && user_id !== "") {
+      baseWhere.user_id = user_id;
+    }
+    if (is_approve !== undefined && is_approve !== "") {
+      baseWhere.is_approve = is_approve;
+    }
+    if (req.query.getDeleted === 'true') {
+      baseWhere.is_delete = 1;
+    }
+    let dateCondition = null;
+    if (dateRange) {
+      const range = dateRange.toString().toLowerCase().replace(/\s+/g, '');
+      const today = moment().startOf('day');
+      const now = moment();
+      if (range === 'today') {
+        dateCondition = {
+          [Op.gte]: today.toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'yesterday') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(1, 'day').startOf('day').toDate(),
+          [Op.lte]: moment().subtract(1, 'day').endOf('day').toDate(),
+        };
+      } else if (range === 'last7days') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(6, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'last30days') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(29, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'thismonth') {
+        dateCondition = {
+          [Op.gte]: moment().startOf('month').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'lastmonth') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(1, 'month').startOf('month').toDate(),
+          [Op.lte]: moment().subtract(1, 'month').endOf('month').toDate(),
+        };
+      } else if (range === 'customrange' && startDate && endDate) {
+        dateCondition = {
+          [Op.gte]: moment(startDate).startOf('day').toDate(),
+          [Op.lte]: moment(endDate).endOf('day').toDate(),
+        };
+      } else if (!isNaN(range)) {
+        const days = parseInt(range);
+        dateCondition = {
+          [Op.gte]: moment().subtract(days - 1, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      }
+    }
+    if (dateCondition) {
+      baseWhere.created_at = dateCondition;
+    }
+    if (category) {
+      baseWhere.category = category;
+    }
+    if (sub_category) {
+      baseWhere.sub_category = sub_category;
+    }
+    if (item_category_id) {
+      baseWhere.item_category_id = item_category_id;
+    }
+    if (item_subcategory_id) {
+      baseWhere.item_subcategory_id = item_subcategory_id;
+    }
+    if (item_id) {
+      baseWhere.item_id = item_id;
+    }
+    if (company) {
+      baseWhere.company_id = company;
+    }
+    if (product_status) {
+      baseWhere.status = product_status;
+    }
+    const totalRecords = await Products.count({
+      where: { ...baseWhere },
+    });
+    if (search) {
+      if (viewType === 'products') {
+        baseWhere[Op.or] = [
+          { title: { [Op.like]: `%${search}%` } },
+          { '$Categories.name$': { [Op.like]: `%${search}%` } },
+        ];
+      } else {
+        baseWhere[Op.or] = [
+          { title: { [Op.like]: `%${search}%` } },
+          { article_number: { [Op.like]: `%${search}%` } },
+          { '$Categories.name$': { [Op.like]: `%${search}%` } },
+          { '$SubCategories.name$': { [Op.like]: `%${search}%` } },
+          { '$company_info.organization_name$': { [Op.like]: `%${search}%` } },
+        ];
+      }
+    }
+    const { count: filteredRecords, rows } = await Products.findAndCountAll({
+      where: baseWhere,
+      order,
+      limit: limitValue,
+      offset,
+      include: [
+        { model: Categories, attributes: ['name'], as: 'Categories' },
+        { model: SubCategories, attributes: ['name'], as: 'SubCategories' },
+        { model: ItemCategory, attributes: ['name'], as: 'ItemCategory' },
+        { model: ItemSubCategory, attributes: ['name'], as: 'ItemSubCategory' },
+        { model: Items, attributes: ['name'], as: 'Items' },
+        { model: ProductKeyword, attributes: ['name'], as: 'Keyword' },
+        { model: CompanyInfo, attributes: ['organization_name', 'organization_slug'], as: 'company_info' },
+        { model: UploadImage, attributes: ['file'], as: 'file' },
+      ],
+    });
+    const mappedRows = rows.map(row => ({
+      id: row.id,
+      title: row.title,
+      slug: row.slug,
+      code: row.code,
+      article_number: row.article_number,
+      category: row.category,
+      category_name: row.Categories ? row.Categories.name : null,
+      sub_category: row.sub_category,
+      subcategory_name: row.SubCategories ? row.SubCategories.name : null,
+      item_category_id: row.item_category_id,
+      item_category_name: row.ItemCategory ? row.ItemCategory.name : null,
+      item_subcategory_id: row.item_subcategory_id,
+      item_subcategory_name: row.ItemSubCategory ? row.ItemSubCategory.name : null,
+      item_id: row.item_id,
+      item_name: row.Items ? row.Items.name : null,
+      keyword_id: row.keyword_id,
+      keyword_name: row.Keyword ? row.Keyword.name : null,
+      color_name: null,
+      company_id: row.company_id,
+      company_name: row.company_info ? row.company_info.organization_name : null,
+      company_slug: row.company_info ? row.company_info.organization_slug : null,
+      file_id: row.file_id,
+      file_name: row.file ? row.file.file : null,
+      status: row.status,
+      getStatus: row.status === 1 ? 'Public' : 'Draft',
+      is_approve: row.is_approve,
+      is_delete: row.is_delete,
+      created_at: row.created_at,
+      updated_at: row.updated_at,
+    }));
+    res.json({
+      data: mappedRows,
+      totalRecords,
+      filteredRecords,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.companyReview = async (req, res) => {
+  try {
+
+    const { company_id, product_id = null, user_id, rating, review } = req.body;
+
+    if (!review || review.trim() === "") {
+      return res.status(400).json({ success: 0, message: "Review is required." });
+    }
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ success: 0, message: "Rating must be between 1 and 5." });
+    }
+
+    const obj = await ReviewRating.create({
+      company_id,
+      product_id,
+      user_id,
+      rating,
+      review,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
+
+    return res.json({
+      success: 1,
+      message: "Review submitted successfully.",
+      id: obj.id,
+    });
+  } catch (error) {
+    console.error("Error submitting company review:", error);
+    return res.status(500).json({
+      success: 0,
+      message: "Server error while submitting review.",
+    });
+  }
+};
+
+exports.updateProductsDeleteStatus = async (req, res) => {
+  try {
+    const { is_delete } = req.body;
+    if (is_delete !== 0 && is_delete !== 1) {
+      return res.status(400).json({ message: 'Invalid delete status. Use 1 (Active) or 0 (Deactive).' });
+    }
+    const openEnquiries = await Products.findByPk(req.params.id);
+    if (!openEnquiries) return res.status(404).json({ message: 'Products not found' });
+    openEnquiries.is_delete = is_delete;
+    await openEnquiries.save();
+    res.json({ message: 'Products is removed', openEnquiries });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+/*exports.getItemHierarchy = async (req, res) => {
+  try {
+    const itemId = req.params.item_id;
+    const product = await Products.findOne({
+      where: { item_id: itemId },
+      include: [
+        { model: Categories, as: 'Categories', attributes: ['id', 'name'] },
+        { model: SubCategories, as: 'SubCategories', attributes: ['id', 'name'] },
+        { model: ItemCategory, as: 'ItemCategory', attributes: ['id', 'name'] },
+        { model: ItemSubCategory, as: 'ItemSubCategory', attributes: ['id', 'name'] },
+        { model: Items, as: 'Items', attributes: ['id', 'name'] },
+      ]
+    });
+    const singleItem = await ItemSubCategory.findOne({
+      where: { id: itemId }
+    });
+
+
+    res.json({
+      category_id: product?.category_id ?? singleItem?.category_id ?? '',
+      sub_category_id: product?.sub_category_id ?? singleItem?.subcategory_id ?? '',
+      item_category_id: product?.item_category_id ?? singleItem?.item_category_id ?? '',
+      item_subcategory_id: product?.item_subcategory_id ?? singleItem?.id ?? '',
+      // item_id: product?.item_id ?? singleItem?.item_id ?? '',
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};*/
+exports.getItemHierarchy = async (req, res) => {
+  try {
+    const { type, item_id } = req.params;
+
+    switch (type) {
+      case 'category': {
+        const c = await Categories.findByPk(item_id);
+        if (!c) break;
+
+        return res.json({
+          category_id: c.id,
+          sub_category_id: '',
+          item_category_id: '',
+          item_subcategory_id: '',
+          item_id: ''
+        });
+      }
+
+      case 'subcategory': {
+        const sc = await SubCategories.findByPk(item_id);
+        if (!sc) break;
+
+        return res.json({
+          category_id: sc.category_id,
+          sub_category_id: sc.id,
+          item_category_id: '',
+          item_subcategory_id: '',
+          item_id: ''
+        });
+      }
+
+      case 'item_category': {
+        const ic = await ItemCategory.findByPk(item_id);
+        if (!ic) break;
+
+        return res.json({
+          category_id: ic.category_id,
+          sub_category_id: ic.subcategory_id,
+          item_category_id: ic.id,
+          item_subcategory_id: '',
+          item_id: ''
+        });
+      }
+
+      case 'item_subcategory': {
+        const isc = await ItemSubCategory.findByPk(item_id);
+        if (!isc) break;
+
+        return res.json({
+          category_id: isc.category_id,
+          sub_category_id: isc.subcategory_id,
+          item_category_id: isc.item_category_id,
+          item_subcategory_id: isc.id,
+          item_id: ''
+        });
+      }
+
+      case 'item': {
+        const item = await Items.findByPk(item_id);
+        if (!item) break;
+
+        return res.json({
+          category_id: item.category_id,
+          sub_category_id: item.subcategory_id,
+          item_category_id: item.item_category_id,
+          item_subcategory_id: item.item_subcategory_id,
+          item_id: item.id
+        });
+      }
+    }
+
+    return res.status(404).json({ message: 'Invalid type or not found' });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getFilteredCompanies = async (req, res) => {
+  try {
+    const {
+      organization_name,
+      company_location,
+      contact_person,
+      brief_company,
+      company_phone,
+      company_website,
+      company_email,
+      core_activity,
+      activity,
+      dateRange = '',
+      startDate,
+      endDate
+    } = req.query;
+
+    // Base where condition
+    const where = {
+      is_delete: 0,
+    };
+
+    if (organization_name) where.organization_name = { [Op.like]: `%${organization_name}%` };
+    if (company_location) where.company_location = { [Op.like]: `%${company_location}%` };
+    if (contact_person) where.contact_person = { [Op.like]: `%${contact_person}%` };
+    if (brief_company) where.brief_company = { [Op.like]: `%${brief_company}%` };
+    if (company_phone) where.company_phone = { [Op.like]: `%${company_phone}%` };
+    if (company_website) where.company_website = { [Op.like]: `%${company_website}%` };
+    if (company_email) where.company_email = { [Op.like]: `%${company_email}%` };
+    if (core_activity) where.core_activity = core_activity;
+    if (activity) where.activity = activity;
+
+    // Date filter
+    let dateCondition = null;
+    if (dateRange) {
+      const range = dateRange.toString().toLowerCase().replace(/\s+/g, '');
+      const today = moment().startOf('day');
+      const now = moment();
+      if (range === 'today') {
+        dateCondition = {
+          [Op.gte]: today.toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'yesterday') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(1, 'day').startOf('day').toDate(),
+          [Op.lte]: moment().subtract(1, 'day').endOf('day').toDate(),
+        };
+      } else if (range === 'last7days') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(6, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'last30days') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(29, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'thismonth') {
+        dateCondition = {
+          [Op.gte]: moment().startOf('month').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'lastmonth') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(1, 'month').startOf('month').toDate(),
+          [Op.lte]: moment().subtract(1, 'month').endOf('month').toDate(),
+        };
+      } else if (range === 'customrange' && startDate && endDate) {
+        dateCondition = {
+          [Op.gte]: moment(startDate).startOf('day').toDate(),
+          [Op.lte]: moment(endDate).endOf('day').toDate(),
+        };
+      } else if (!isNaN(range)) {
+        const days = parseInt(range);
+        dateCondition = {
+          [Op.gte]: moment().subtract(days - 1, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      }
+    }
+    if (dateCondition) {
+      where.created_at = dateCondition;
+    }
+
+    // Fetch companies with associations
+    const companies = await CompanyInfo.findAll({
+      where,
+      include: [
+        { model: CoreActivity, as: 'CoreActivity', attributes: ['name'] },
+        { model: Activity, as: 'Activity', attributes: ['name'] },
+      ]
+    });
+
+    // Map the results
+    const data = companies.map(company => {
+      const s = company.toJSON();
+
+      return {
+        id: s.id,
+        organization_name: s.organization_name,
+        company_location: s.company_location,
+        contact_person: s.contact_person,
+        brief_company: s.brief_company,
+        coreactivity_name: s.CoreActivity?.name || 'NA',
+        activity_name: s.Activity?.name || 'NA',
+        created_at: s.created_at
+      };
+    });
+
+    res.json(data);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getFilteredProducts = async (req, res) => {
+  try {
+    const {
+      title,
+      user_id,
+      category,
+      sub_category,
+      company_id,
+      code,
+      article_number,
+      product_service,
+      is_gold,
+      is_featured,
+      is_recommended,
+      best_product,
+      dateRange = '',
+      startDate,
+      endDate
+    } = req.query;
+
+    // Base where condition
+    const where = {
+      is_delete: 0,
+    };
+
+    if (title) where.title = { [Op.like]: `%${title}%` };
+    if (user_id) where.user_id = user_id;
+    if (category) where.category = category;
+    if (sub_category) where.sub_category = sub_category;
+    if (company_id) where.company_id = company_id;
+    if (code) where.code = { [Op.like]: `%${code}%` };
+    if (article_number) where.article_number = { [Op.like]: `%${article_number}%` };
+    if (product_service) where.product_service = product_service;
+    if (is_gold) where.is_gold = is_gold;
+    if (is_featured) where.is_featured = is_featured;
+    if (is_recommended) where.is_recommended = is_recommended;
+    if (best_product) where.best_product = best_product;
+
+    // Date filter
+    let dateCondition = null;
+    if (dateRange) {
+      const range = dateRange.toString().toLowerCase().replace(/\s+/g, '');
+      const today = moment().startOf('day');
+      const now = moment();
+      if (range === 'today') {
+        dateCondition = {
+          [Op.gte]: today.toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'yesterday') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(1, 'day').startOf('day').toDate(),
+          [Op.lte]: moment().subtract(1, 'day').endOf('day').toDate(),
+        };
+      } else if (range === 'last7days') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(6, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'last30days') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(29, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'thismonth') {
+        dateCondition = {
+          [Op.gte]: moment().startOf('month').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      } else if (range === 'lastmonth') {
+        dateCondition = {
+          [Op.gte]: moment().subtract(1, 'month').startOf('month').toDate(),
+          [Op.lte]: moment().subtract(1, 'month').endOf('month').toDate(),
+        };
+      } else if (range === 'customrange' && startDate && endDate) {
+        dateCondition = {
+          [Op.gte]: moment(startDate).startOf('day').toDate(),
+          [Op.lte]: moment(endDate).endOf('day').toDate(),
+        };
+      } else if (!isNaN(range)) {
+        const days = parseInt(range);
+        dateCondition = {
+          [Op.gte]: moment().subtract(days - 1, 'days').startOf('day').toDate(),
+          [Op.lte]: now.toDate(),
+        };
+      }
+    }
+    if (dateCondition) {
+      where.created_at = dateCondition;
+    }
+
+    // Fetch companies with associations
+    const companies = await Products.findAll({
+      where,
+      include: [
+        { model: Users, as: 'Users', attributes: ['fname', 'lname'] },
+        { model: Categories, as: 'Categories', attributes: ['name'] },
+        { model: SubCategories, as: 'SubCategories', attributes: ['name'] },
+        { model: CompanyInfo, as: 'company_info', attributes: ['organization_name'] },
+      ]
+    });
+
+    // Map the results
+    const data = companies.map(company => {
+      const s = company.toJSON();
+
+      return {
+        id: s.id,
+        title: s.title,
+        user_name: s.Users ? `${s.Users.fname} ${s.Users.lname}` : 'NA',
+        category_name: s.Categories?.name || 'NA',
+        subcategory_name: s.SubCategories?.name || 'NA',
+        company_name: s.company_info?.organization_name || 'NA',
+        code: s.code,
+        article_number: s.article_number,
+        product_service: '',
+        product_service_name: '',
+        is_gold: s.is_gold == 1 ? 'Yes' : 'No',
+        is_featured: s.is_featured == 1 ? 'Yes' : 'No',
+        is_recommended: s.is_recommended == 1 ? 'Yes' : 'No',
+        best_product: s.best_product == 1 ? 'Yes' : 'No',
+        created_at: s.created_at
+      };
+    });
+
+    res.json(data);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.updateAccountStatus = async (req, res) => {
+  try {
+    const { is_approve } = req.body;
+    if (is_approve !== 0 && is_approve !== 1) {
+      return res.status(400).json({ message: 'Invalid is_approve. Use 1 (Active) or 0 (Deactive).' });
+    }
+    const products = await Products.findByPk(req.params.id);
+    if (!products) return res.status(404).json({ message: 'Product not found' });
+    products.is_approve = is_approve;
+    if (is_approve === 1) {
+      products.approved_at = new Date();
+    } else {
+      products.approved_at = null;
+    }
+    await products.save();
+
+    // Send product approval email (template 103) when product is approved (is_approve === 1)
+    if (is_approve === 1) {
+      try {
+        const Emails = require('../models/Emails');
+        const template = await Emails.findByPk(103);
+        let msgStr = template && template.message ? template.message.toString('utf8') : '';
+        if (!msgStr) msgStr = 'Your product has been approved and is now public.';
+
+        const user = await Users.findByPk(products.user_id);
+        let companyName = '';
+        try {
+          const company = await CompanyInfo.findByPk(products.company_id);
+          companyName = company?.organization_name || '';
+        } catch (e) { /* ignore */ }
+
+        const userFullName = user ? `${user.fname || ''} ${user.lname || ''}`.trim() : '';
+
+        msgStr = msgStr
+          .replace(/{{\s*SELLER_NAME\s*}}/gi, userFullName || '')
+          .replace(/{{\s*PRODUCT_TITLE\s*}}/gi, products.title || '');
+
+        try {
+          if (user && user.email) {
+            await sendMail({ to: user.email, subject: template?.subject || 'Product approved', message: msgStr });
+          }
+        } catch (mailErr) {
+          console.error('Error sending product approval email (template 103):', mailErr);
+        }
+      } catch (e) {
+        console.error('Product approval email flow error:', e);
+      }
+    }
+
+    res.json({ message: 'Product approved', products });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.productKeywordUpdate = async (req, res) => {
+  try {
+    const products = await Products.findAll({
+      where: {
+        is_delete: 0,
+        item_subcategory_id: { [Op.not]: null },
+        title: { [Op.ne]: null }
+      },
+      attributes: ['id', 'title', 'item_subcategory_id']
+    });
+
+    let created = 0;
+    let updated = 0;
+    let skipped = 0;
+
+    for (const p of products) {
+      const keywordName = String(p.title || '').trim();
+      if (!keywordName || !p.item_subcategory_id) {
+        skipped += 1;
+        continue;
+      }
+
+      const existing = await ProductKeyword.findOne({
+        where: {
+          name: keywordName,
+          item_subcategory_id: p.item_subcategory_id
+        }
+      });
+
+      if (existing) {
+        if (existing.status !== 1) {
+          existing.status = 1;
+          await existing.save();
+          updated += 1;
+        } else {
+          skipped += 1;
+        }
+      } else {
+        await ProductKeyword.create({
+          name: keywordName,
+          item_subcategory_id: p.item_subcategory_id,
+          status: 1
+        });
+        created += 1;
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: 'Product keywords sync completed',
+      totals: {
+        scanned: products.length,
+        created,
+        updated,
+        skipped
+      }
+    });
+  } catch (err) {
+    console.error('Error in productKeywordUpdate:', err);
+    return res.status(500).json({ success: false, message: 'Server error', error: err.message });
+  }
+};
+
+const DEFAULT_INTERVAL_MS = 2 * 24 * 60 * 60 * 1000;
+
+async function getHomeSettingValue(metaKey, defaultValue = '') {
+  const setting = await HomeSettings.findOne({ where: { meta_key: metaKey } });
+  return setting ? setting.meta_value : defaultValue;
+}
+
+async function setHomeSettingValue(metaKey, value, section = 'home') {
+  const [setting] = await HomeSettings.findOrCreate({
+    where: { meta_key: metaKey },
+    defaults: { page: 'home', section, meta_value: String(value) }
+  });
+  setting.meta_value = String(value);
+  await setting.save();
+}
+
+function buildProductWhereClause() {
+  return { is_delete: 0, status: 1, is_approve: 1 };
+}
+
+function formatProductRow(row) {
+  const data = row.toJSON();
+  data.category_name = data.Categories?.name || null;
+  data.file_name = data.file?.file || null;
+  data.company_name = data.company_info?.organization_name || null;
+  data.state_name = data.Users?.state_data?.name || null;
+  data.user_full_name = data.Users ? `${data.Users.fname} ${data.Users.lname}` : null;
+  delete data.Categories;
+  delete data.SubCategories;
+  delete data.ItemCategory;
+  delete data.ItemSubCategory;
+  delete data.Items;
+  delete data.Color;
+  delete data.company_info;
+  delete data.file;
+  delete data.Users;
+  return data;
+}
+
+async function fetchApprovedProducts(where, order, limit, offset) {
+  const query = {
+    where,
+    order,
+    distinct: true,
+    include: [
+      { model: Categories, as: 'Categories', attributes: ['id', 'name'] },
+      { model: SubCategories, as: 'SubCategories', attributes: ['id', 'name'] },
+      { model: ItemCategory, as: 'ItemCategory', attributes: ['id', 'name'] },
+      { model: ItemSubCategory, as: 'ItemSubCategory', attributes: ['id', 'name'] },
+      { model: Items, as: 'Items', attributes: ['id', 'name'] },
+      { model: CompanyInfo, as: 'company_info', attributes: ['id', 'organization_name'] },
+      { model: UploadImage, as: 'file', attributes: ['file'] },
+      {
+        model: Users,
+        as: 'Users',
+        attributes: ['id', 'fname', 'lname', 'state'],
+        where: {
+          is_approve: 1,
+          is_delete: 0,
+          status: 1
+        },
+        include: [
+          {
+            model: States,
+            as: 'state_data',
+            attributes: ['id', 'name']
+          }
+        ]
+      }
+    ]
+  };
+
+  if (limit) query.limit = limit;
+  if (offset !== undefined && offset !== null) {
+    query.offset = offset;
+  }
+
+  const { rows, count } = await Products.findAndCountAll(query);
+
+  return {
+    products: rows.map(formatProductRow),
+    count: typeof count === 'number' ? count : count.length
+  };
+}
+
+exports.getLatestHomeProducts = async (req, res) => {
+  try {
+    const PRODUCT_LIMIT = 6;
+
+    const lastCheckStr = await getHomeSettingValue(
+      'latest_products_last_check',
+      ''
+    );
+
+    const offsetStr = await getHomeSettingValue(
+      'latest_products_offset',
+      '0'
+    );
+
+    const intervalStr = await getHomeSettingValue(
+      'latest_products_interval_ms',
+      String(DEFAULT_INTERVAL_MS)
+    );
+
+    const lastCheck = lastCheckStr
+      ? new Date(lastCheckStr)
+      : null;
+
+    const currentOffset = parseInt(offsetStr, 10) || 0;
+
+    const intervalMs =
+      parseInt(intervalStr, 10) || DEFAULT_INTERVAL_MS;
+
+    const now = new Date();
+
+    const shouldRefresh =
+      !lastCheck ||
+      (now.getTime() - lastCheck.getTime() >= intervalMs);
+
+    const baseWhere = buildProductWhereClause();
+
+    if (shouldRefresh) {
+
+      // =========================
+      // STEP 1: NEW PRODUCTS
+      // =========================
+
+      const newProductsWhere = lastCheck
+        ? {
+            ...baseWhere,
+            approved_at: {
+              [Op.gt]: lastCheck
+            }
+          }
+        : baseWhere;
+
+      const { products: newProducts } =
+        await fetchApprovedProducts(
+          newProductsWhere,
+          [['approved_at', 'DESC']],
+          lastCheck ? PRODUCT_LIMIT : null,
+          undefined
+        );
+
+      // =========================
+      // STEP 2: 6 OR MORE NEW
+      // =========================
+
+      if (newProducts.length >= PRODUCT_LIMIT) {
+        const display = newProducts.slice(0, PRODUCT_LIMIT);
+
+        await setHomeSettingValue(
+          'latest_products_last_check',
+          now.toISOString()
+        );
+
+        await setHomeSettingValue(
+          'latest_products_offset',
+          '0'
+        );
+
+        return res.json({
+          products: display,
+          refreshed: true,
+          has_more: true
+        });
+      }
+
+      // =========================
+      // STEP 3: 1-5 NEW PRODUCTS
+      // =========================
+
+      if (newProducts.length > 0) {
+  const remaining = PRODUCT_LIMIT - newProducts.length;
+
+  const {
+    count: totalProducts
+  } = await fetchApprovedProducts(
+    baseWhere,
+    [['approved_at', 'DESC']],
+    1,
+    0
+  );
+
+  const safeOffset = totalProducts
+    ? currentOffset % totalProducts
+    : 0;
+
+  const {
+    products: oldProducts
+  } = await fetchApprovedProducts(
+    baseWhere,
+    [['approved_at', 'DESC']],
+    remaining,
+    safeOffset
+  );
+
+  const display = [
+    ...newProducts,
+    ...oldProducts
+  ];
+
+  const newOffset = totalProducts
+    ? (safeOffset + oldProducts.length) % totalProducts
+    : 0;
+
+  await setHomeSettingValue(
+    'latest_products_last_check',
+    now.toISOString()
+  );
+
+  await setHomeSettingValue(
+    'latest_products_offset',
+    String(newOffset)
+  );
+
+  return res.json({
+    products: display,
+    refreshed: true,
+    has_more: oldProducts.length >= remaining
+  });
+}
+
+
+      // =========================
+      // STEP 4: NO NEW PRODUCTS
+      // =========================
+
+      const {
+        products: oldProducts,
+        count: totalProducts
+      } = await fetchApprovedProducts(
+        baseWhere,
+        [['approved_at', 'DESC']],
+        PRODUCT_LIMIT,
+        currentOffset
+      );
+
+      // Wrap-around
+      const safeOffset = totalProducts
+        ? currentOffset % totalProducts
+        : 0;
+
+      let finalOldProducts = oldProducts;
+
+      // Offset total count se bahar chala gaya
+      if (currentOffset !== safeOffset) {
+        const result = await fetchApprovedProducts(
+          baseWhere,
+          [['approved_at', 'DESC']],
+          PRODUCT_LIMIT,
+          safeOffset
+        );
+
+        finalOldProducts = result.products;
+      }
+
+      const newOffset = totalProducts
+        ? (safeOffset + finalOldProducts.length) % totalProducts
+        : 0;
+
+      await setHomeSettingValue(
+        'latest_products_last_check',
+        now.toISOString()
+      );
+
+      await setHomeSettingValue(
+        'latest_products_offset',
+        String(newOffset)
+      );
+
+      return res.json({
+        products: finalOldProducts,
+        refreshed: true,
+        has_more: finalOldProducts.length >= PRODUCT_LIMIT
+      });
+    }
+
+    // =========================
+    // STEP 5: CACHE
+    // =========================
+
+    const {
+  products: cachedProducts,
+  count: totalProducts
+} = await fetchApprovedProducts(
+  baseWhere,
+  [['approved_at', 'DESC']],
+  PRODUCT_LIMIT,
+  currentOffset
+);
+
+const safeOffset = totalProducts
+  ? currentOffset % totalProducts
+  : 0;
+
+let finalProducts = cachedProducts;
+
+if (currentOffset !== safeOffset) {
+  const result = await fetchApprovedProducts(
+    baseWhere,
+    [['approved_at', 'DESC']],
+    PRODUCT_LIMIT,
+    safeOffset
+  );
+
+  finalProducts = result.products;
+}
+
+return res.json({
+  products: finalProducts,
+  refreshed: false,
+  has_more: true
+});
+
+
+  } catch (err) {
+    console.error(
+      'Error in getLatestHomeProducts:',
+      err
+    );
+
+    return res.status(500).json({
+      error: err.message
+    });
+  }
+};

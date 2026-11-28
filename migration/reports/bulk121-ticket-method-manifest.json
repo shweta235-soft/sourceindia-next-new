@@ -1,0 +1,35 @@
+{
+  "batch": "BULK121",
+  "date": "2026-11-27",
+  "original_module": "legacy/sourceindia-express/routes/ticketRoutes.js",
+  "native_read_changes": [
+    "GET /v2/api/tickets/",
+    "GET /v2/api/tickets/server-side",
+    "GET /v2/api/tickets/:id",
+    "GET /v2/api/tickets/:ticket_id/next",
+    "GET /v2/api/tickets/id/:id/next",
+    "GET /admin/api/local/tickets/legacy-grid"
+  ],
+  "read_unchanged": [
+    "GET /v2/api/tickets/count",
+    "GET /v2/api/tickets/support-ticket/track/:number"
+  ],
+  "guarded_legacy_write_exports": [
+    "POST /v2/api/tickets/",
+    "POST /v2/api/tickets/send-otp",
+    "POST /v2/api/tickets/verify-otp",
+    "POST /v2/api/tickets/store-ticket",
+    "POST /v2/api/tickets/track-ticket",
+    "POST /v2/api/tickets/store-support-ticket-reply",
+    "PUT /v2/api/tickets/:id",
+    "PATCH /v2/api/tickets/:id/status",
+    "DELETE /v2/api/tickets/:id"
+  ],
+  "write_status": "disabled by default; original Express compatibility bridge only under isolated QA opt-in; production always disabled",
+  "source_mock_tests_pass": 21,
+  "combined_regression_tests_pass": 94,
+  "live_mysql_response_parity_verified": false,
+  "full_production_build_verified": false,
+  "original_express_controller_modified": false,
+  "database_modified": false
+}
