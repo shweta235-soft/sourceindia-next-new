@@ -29,7 +29,8 @@ test('BULK138: no unsafe production write enablement',()=>{
  assert.match(main,/env.NODE_ENV==='production'/);
  assert.match(main,/SOURCEINDIA_BANNERS_QA_DB_NAME/);
  assert.match(main,/timingSafeEqual/);
- assert.match(main,/Destructive banner and image deletion is not enabled/);
+ assert.match(main,/export async function bannerDelete\(/);
+ assert.match(main,/return deleteQaBanner\(req,id\)/);
 });
 test('BULK138: response shapes preserve original banner keys',()=>{
  for(const name of ['file_name','getStatus','totalRecords','filteredRecords','Home Banner not found'])assert.ok(main.includes(name),name);

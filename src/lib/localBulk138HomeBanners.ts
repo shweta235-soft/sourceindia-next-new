@@ -6,6 +6,7 @@ import type {NextRequest} from 'next/server';
 import type {RowDataPacket,ResultSetHeader,PoolConnection} from 'mysql2/promise';
 import {timingSafeEqual} from 'node:crypto';
 import {localAccountDatabase} from '@/lib/localAccountDatabase';
+import {createQaBanner,updateQaBanner,deleteQaBanner} from '@/lib/localBulk139BannerWrites';
 
 const json=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Cache-Control':'no-store'}});
 const failure=()=>json({error:'Local database unavailable'},503);
@@ -71,9 +72,9 @@ export async function bannerServerSide(req:NextRequest){
   return json({data:rows.map(r=>{const fields:Record<string,unknown>={...rowPublic(r)};delete fields.uuid;return fields;}),totalRecords:totals[0]?.total??0,filteredRecords:filtered[0]?.total??0});
  }catch{return failure();}
 }
-export async function bannerPost(req:NextRequest){const denied=bannerQaGate(req);if(denied)return denied;return json({message:'Image upload creation requires dedicated isolated-QA upload parity implementation.'},501);}
-export async function bannerPut(req:NextRequest,_id:string){const denied=bannerQaGate(req);if(denied)return denied;return json({message:'Image upload update requires dedicated isolated-QA upload parity implementation.'},501);}
-export async function bannerDelete(req:NextRequest,_id:string){const denied=bannerQaGate(req);if(denied)return denied;return json({message:'Destructive banner and image deletion is not enabled until file and DB parity can be verified.'},501);}
+export async function bannerPost(req:NextRequest){const denied=bannerQaGate(req);if(denied)return denied;return createQaBanner(req);}
+export async function bannerPut(req:NextRequest,id:string){const denied=bannerQaGate(req);if(denied)return denied;return updateQaBanner(req,id);}
+export async function bannerDelete(req:NextRequest,id:string){const denied=bannerQaGate(req);if(denied)return denied;return deleteQaBanner(req,id);}
 export async function bannerDeleteSelected(req:NextRequest){
  const denied=bannerQaGate(req);if(denied)return denied;const body=await requestData(req),ids=body?.ids;
  if(!Array.isArray(ids)||!ids.length||ids.length>500)return json({message:'Please provide an array of IDs to update.'},400);
